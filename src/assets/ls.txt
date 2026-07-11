@@ -1,8 +1,0 @@
-README.md
-cocos-project.json
-jest.config.cjs
-package.json
-src
-test
-tsconfig.json
-tsconfig.test.json

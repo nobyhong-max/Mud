@@ -1,4 +1,5 @@
-import { SaveData, SaveManager } from "../src/core/SaveManager";
+import { SaveManager } from "../src/core/SaveManager";
+import type { SaveData } from "../src/core/SaveManager";
 
 function createSaveData(): SaveData {
   return {

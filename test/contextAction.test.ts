@@ -1,5 +1,5 @@
 import { Crafting } from "../src/core/Crafting";
-import { Interactable } from "../src/entities/Interactable";
+import { ContextAction, Interactable } from "../src/entities/Interactable";
 import { Player } from "../src/player/Player";
 
 class TestInteractable extends Interactable {
@@ -17,7 +17,7 @@ class TestInteractable extends Interactable {
     this.text = text;
   }
 
-  public getContextAction(): { label: string; handler: () => Promise<string> } {
+  public getContextAction(): ContextAction {
     return {
       label: "检查",
       handler: async () => this.text,

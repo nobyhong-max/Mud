@@ -3,6 +3,7 @@ import { InputManager } from "../src/core/InputManager";
 describe("InputManager", () => {
   const logicalWidth = 360;
   const logicalHeight = 200;
+  const managers: InputManager[] = [];
 
   function createCanvas(): HTMLDivElement {
     const canvas = document.createElement("div");
@@ -36,12 +37,17 @@ describe("InputManager", () => {
   }
 
   afterEach(() => {
+    for (const manager of managers) {
+      manager.destroy();
+    }
+    managers.length = 0;
     jest.useRealTimers();
     document.body.innerHTML = "";
   });
 
   it("triggers tap callback with logical coordinates", () => {
     const manager = new InputManager(logicalWidth, logicalHeight);
+    managers.push(manager);
     const canvas = createCanvas();
     manager.init(canvas);
 
@@ -58,6 +64,7 @@ describe("InputManager", () => {
   it("triggers long press callback after threshold", () => {
     jest.useFakeTimers();
     const manager = new InputManager(logicalWidth, logicalHeight);
+    managers.push(manager);
     const canvas = createCanvas();
     manager.init(canvas);
 
@@ -76,6 +83,7 @@ describe("InputManager", () => {
 
   it("triggers drag start/move/end callbacks", () => {
     const manager = new InputManager(logicalWidth, logicalHeight);
+    managers.push(manager);
     const canvas = createCanvas();
     manager.init(canvas);
 

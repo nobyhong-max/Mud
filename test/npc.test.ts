@@ -13,6 +13,7 @@ describe("Npc dialogue", () => {
     });
 
     const action = npc.getContextAction();
+    expect(action.label).toBe("与阿土交谈");
     await expect(action.handler()).resolves.toBe("阿土：第一句");
     await expect(action.handler()).resolves.toBe("阿土：第二句");
     await expect(action.handler()).resolves.toBe("阿土：第三句");
@@ -30,6 +31,7 @@ describe("Npc dialogue", () => {
     });
 
     const action = npc.getContextAction();
+    expect(action.label).toBe("与村民交谈");
     await expect(action.handler()).resolves.toBe("村民：你好");
     await expect(action.handler()).resolves.toBe("村民：你好");
   });

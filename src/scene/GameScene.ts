@@ -1,6 +1,7 @@
 import {
   _decorator,
   assetManager,
+  Button,
   Camera,
   Color,
   Component,
@@ -14,12 +15,43 @@ import {
   UITransform,
   Vec3,
   game,
+  Widget,
 } from "cc";
 import { PixelCamera } from "../camera/PixelCamera";
 import { InputManager } from "../core/InputManager";
 import { Player } from "../player/Player";
+import { Interactable, InteractableType } from "../entities/Interactable";
+import { ContextActionButton } from "../ui/ContextActionButton";
+import { InventoryPanel } from "../ui/InventoryPanel";
 
 const { ccclass } = _decorator;
+
+class DemoInteractable extends Interactable {
+  private readonly actionLabel: string;
+  private readonly actionHandler: () => Promise<string>;
+
+  constructor(params: {
+    id: string;
+    type: InteractableType;
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    actionLabel: string;
+    actionHandler: () => Promise<string>;
+  }) {
+    super(params);
+    this.actionLabel = params.actionLabel;
+    this.actionHandler = params.actionHandler;
+  }
+
+  public getContextAction(): { label: string; handler: () => Promise<string> } {
+    return {
+      label: this.actionLabel,
+      handler: this.actionHandler,
+    };
+  }
+}
 
 @ccclass("GameScene")
 export class GameScene extends Component {
@@ -41,7 +73,11 @@ export class GameScene extends Component {
     hp: 100,
     stamina: 100,
     level: 1,
-    inventory: [],
+    inventory: [
+      { id: "mud", name: "泥", type: "material", qty: 1 },
+      { id: "water", name: "水", type: "material", qty: 1 },
+      { id: "rusty-dagger", name: "旧匕首", type: "equipment", qty: 1 },
+    ],
   });
 
   private pixelCamera: PixelCamera | null = null;
@@ -49,6 +85,13 @@ export class GameScene extends Component {
   private playerSprite: Sprite | null = null;
   private playerFrames: SpriteFrame[] = [];
   private staminaLabel: Label | null = null;
+  private actionBubbleNode: Node | null = null;
+  private actionBubbleLabel: Label | null = null;
+  private actionBubbleRemainSeconds = 0;
+  private contextActionButton: ContextActionButton | null = null;
+  private inventoryPanel: InventoryPanel | null = null;
+  private interactables: Interactable[] = [];
+  private currentContextTargetId: string | null = null;
 
   private animationClock = 0;
   private currentAnimationFrame = 0;
@@ -62,6 +105,10 @@ export class GameScene extends Component {
     this.initCamera();
     this.createHud();
     this.createPlayerNode();
+    this.createDemoInteractables();
+    this.createContextActionButton();
+    this.createInventoryPanel();
+    this.createInventoryToggleButton();
     this.bindInput();
 
     this.bootstrapVisuals().catch((error: unknown) => {
@@ -76,6 +123,8 @@ export class GameScene extends Component {
   update(deltaTime: number): void {
     this.player.update(deltaTime);
     this.syncPlayerNodePosition();
+    this.updateActionBubble(deltaTime);
+    this.updateContextActionTarget();
     this.updateStaminaHud();
     this.updateRunAnimation(deltaTime);
   }
@@ -127,6 +176,26 @@ export class GameScene extends Component {
 
     this.staminaLabel = label;
     this.node.addChild(hudNode);
+
+    const bubbleNode = new Node("ActionBubble");
+    const bubbleTransform = bubbleNode.addComponent(UITransform);
+    bubbleTransform.setContentSize(300, 36);
+    const bubbleSprite = bubbleNode.addComponent(Sprite);
+    bubbleSprite.color = new Color(10, 10, 10, 220);
+    bubbleNode.setPosition(new Vec3(this.player.x, this.player.y + 56, 9));
+    bubbleNode.active = false;
+
+    const bubbleLabelNode = new Node("ActionBubbleText");
+    const bubbleLabel = bubbleLabelNode.addComponent(Label);
+    bubbleLabel.fontSize = 16;
+    bubbleLabel.lineHeight = 18;
+    bubbleLabel.color = new Color(255, 250, 210);
+    bubbleLabel.string = "";
+    bubbleNode.addChild(bubbleLabelNode);
+
+    this.actionBubbleNode = bubbleNode;
+    this.actionBubbleLabel = bubbleLabel;
+    this.node.addChild(bubbleNode);
   }
 
   private createPlayerNode(): void {
@@ -144,6 +213,128 @@ export class GameScene extends Component {
 
     this.playerNode = playerNode;
     this.playerSprite = sprite;
+  }
+
+  private createDemoInteractables(): void {
+    const chest = new DemoInteractable({
+      id: "chest-1",
+      type: "container",
+      x: 120,
+      y: 32,
+      width: 32,
+      height: 26,
+      actionLabel: "打开宝箱",
+      actionHandler: async () => {
+        const addResult = this.player.addItem({
+          id: "mud",
+          name: "泥",
+          type: "material",
+          qty: 1,
+        });
+        this.inventoryPanel?.refresh();
+        return addResult.success ? "你打开宝箱，获得了 泥 x1。" : "宝箱里有材料，但背包已经满了。";
+      },
+    });
+
+    const npc = new DemoInteractable({
+      id: "npc-mentor",
+      type: "npc",
+      x: -110,
+      y: 40,
+      width: 30,
+      height: 44,
+      actionLabel: "与村民交谈",
+      actionHandler: async () => "村民说：把泥和水放在一起，也许会有惊喜。",
+    });
+
+    this.interactables = [chest, npc];
+    this.createInteractableMarker(chest, new Color(186, 137, 81), "箱");
+    this.createInteractableMarker(npc, new Color(90, 110, 200), "NPC");
+  }
+
+  private createInteractableMarker(
+    interactable: Interactable,
+    color: Color,
+    markerText: string
+  ): void {
+    const markerNode = new Node(`Interactable_${interactable.id}`);
+    const transform = markerNode.addComponent(UITransform);
+    transform.setContentSize(interactable.width, interactable.height);
+    const sprite = markerNode.addComponent(Sprite);
+    sprite.color = color;
+    markerNode.setPosition(new Vec3(interactable.x, interactable.y, 1));
+
+    const labelNode = new Node("Label");
+    const label = labelNode.addComponent(Label);
+    label.fontSize = 14;
+    label.lineHeight = 15;
+    label.color = Color.WHITE;
+    label.string = markerText;
+    markerNode.addChild(labelNode);
+
+    this.node.addChild(markerNode);
+  }
+
+  private createContextActionButton(): void {
+    const node = new Node("ContextActionButton");
+    const contextButton = node.addComponent(ContextActionButton);
+    node.on(
+      ContextActionButton.EVENT_ACTION_RESULT,
+      (message: string) => {
+        this.showActionBubble(message);
+      },
+      this
+    );
+    this.contextActionButton = contextButton;
+    this.node.addChild(node);
+  }
+
+  private createInventoryPanel(): void {
+    const panelNode = new Node("InventoryPanel");
+    panelNode.setPosition(new Vec3(PixelCamera.LOGICAL_WIDTH * 0.5 - 120, 0, 12));
+    const panel = panelNode.addComponent(InventoryPanel);
+    panel.bindPlayer(this.player);
+    panelNode.on(
+      InventoryPanel.EVENT_MESSAGE,
+      (message: string) => {
+        this.showActionBubble(message);
+      },
+      this
+    );
+
+    this.inventoryPanel = panel;
+    this.node.addChild(panelNode);
+    this.inventoryPanel.refresh();
+  }
+
+  private createInventoryToggleButton(): void {
+    const buttonNode = new Node("InventoryToggleButton");
+    const transform = buttonNode.addComponent(UITransform);
+    transform.setContentSize(90, 42);
+    const sprite = buttonNode.addComponent(Sprite);
+    sprite.color = new Color(42, 89, 122, 230);
+
+    const widget = buttonNode.addComponent(Widget);
+    widget.isAlignTop = true;
+    widget.isAlignRight = true;
+    widget.top = 12;
+    widget.right = 16;
+    widget.alignMode = Widget.AlignMode.ON_WINDOW_RESIZE;
+
+    buttonNode.addComponent(Button);
+    buttonNode.on(Button.EventType.CLICK, () => {
+      this.inventoryPanel?.toggle();
+    });
+
+    const labelNode = new Node("Label");
+    const label = labelNode.addComponent(Label);
+    label.fontSize = 18;
+    label.lineHeight = 19;
+    label.color = Color.WHITE;
+    label.string = "背包";
+    buttonNode.addChild(labelNode);
+
+    this.node.addChild(buttonNode);
   }
 
   private bindInput(): void {
@@ -170,6 +361,7 @@ export class GameScene extends Component {
 
   private drawTileFloor(tileFrame: SpriteFrame | null): void {
     const floorRoot = new Node("Floor");
+    floorRoot.setPosition(new Vec3(0, 0, -3));
     this.node.addChild(floorRoot);
 
     const cols = Math.ceil(PixelCamera.LOGICAL_WIDTH / GameScene.TILE_SIZE);
@@ -196,7 +388,7 @@ export class GameScene extends Component {
           new Vec3(
             startX + col * GameScene.TILE_SIZE,
             startY + row * GameScene.TILE_SIZE,
-            0
+            -2
           )
         );
         floorRoot.addChild(tileNode);
@@ -216,6 +408,60 @@ export class GameScene extends Component {
       return;
     }
     this.staminaLabel.string = `Stamina: ${Math.round(this.player.stamina)}`;
+  }
+
+  private updateActionBubble(deltaTime: number): void {
+    if (!this.actionBubbleNode) {
+      return;
+    }
+
+    if (this.actionBubbleNode.active) {
+      this.actionBubbleNode.setPosition(new Vec3(this.player.x, this.player.y + 56, 9));
+      this.actionBubbleRemainSeconds -= deltaTime;
+      if (this.actionBubbleRemainSeconds <= 0) {
+        this.actionBubbleNode.active = false;
+      }
+    }
+  }
+
+  private updateContextActionTarget(): void {
+    const nearest = this.findNearestInteractable(66);
+    const nearestId = nearest?.id ?? null;
+    if (nearestId === this.currentContextTargetId) {
+      return;
+    }
+
+    this.currentContextTargetId = nearestId;
+    this.contextActionButton?.setContext(nearest);
+  }
+
+  private findNearestInteractable(maxDistance: number): Interactable | null {
+    let closest: Interactable | null = null;
+    let closestDistance = Number.POSITIVE_INFINITY;
+
+    for (const target of this.interactables) {
+      const dx = this.player.x - target.x;
+      const dy = this.player.y - target.y;
+      const distance = Math.hypot(dx, dy);
+      if (distance > maxDistance || distance >= closestDistance) {
+        continue;
+      }
+      closest = target;
+      closestDistance = distance;
+    }
+
+    return closest;
+  }
+
+  private showActionBubble(message: string): void {
+    if (!this.actionBubbleLabel || !this.actionBubbleNode) {
+      return;
+    }
+
+    this.actionBubbleLabel.string = message;
+    this.actionBubbleNode.active = true;
+    this.actionBubbleRemainSeconds = 2.2;
+    this.actionBubbleNode.setPosition(new Vec3(this.player.x, this.player.y + 56, 9));
   }
 
   private updateRunAnimation(deltaTime: number): void {

@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "source": "yolo-placeholder",
+  "threshold": 0.5,
+  "note": "示例：未来 YOLO 模块应按此结构输出。本文件可在页面里「导入识别 JSON」。",
+  "detections": [
+    { "label": "S3", "confidence": 0.96, "location": "hand" },
+    { "label": "H3", "confidence": 0.94, "location": "hand" },
+    { "label": "C4", "confidence": 0.91, "location": "hand" },
+    { "label": "♠6", "confidence": 0.9, "location": "hand" },
+    { "label": "小王", "confidence": 0.99, "location": "hand" },
+    { "label": "D3", "confidence": 0.88, "location": "played" },
+    { "label": "C3", "confidence": 0.87, "location": "played" },
+    { "label": "H10", "confidence": 0.22, "location": "hand" }
+  ]
+}

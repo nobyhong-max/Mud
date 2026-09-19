@@ -111,7 +111,7 @@ def score_play(state: CardState, play: Play, last: Play | None, legal: list[Play
 
 def recommend(state: CardState, top_n: int = 3) -> tuple[Play | None, list[ScoredPlay], bool]:
     last = None
-    if state.last_play_ids:
+    if state.last_play_ids and state.last_player != "me":
         from weile_ddz.cards import cards_by_ids
         from weile_ddz.rules import classify
 

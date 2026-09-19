@@ -75,6 +75,12 @@ class StateScorerTest(unittest.TestCase):
         self.assertTrue(any(item.play.type == "pair" and item.play.rank == 6 for item in top))
         self.assertLessEqual(len(top), 3)
         self.assertTrue(all(0 <= item.score <= 100 for item in top))
+        pair6 = next(item for item in top if item.play.type == "pair" and item.play.rank == 6)
+        state.play_from_hand([card.id for card in pair6.play.cards])
+        last2, top2, following2 = recommend(state, top_n=3)
+        self.assertFalse(following2)
+        self.assertIsNone(last2)
+        self.assertGreaterEqual(len(top2), 1)
 
     def test_undo_and_seen(self):
         state = CardState()

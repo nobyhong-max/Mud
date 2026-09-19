@@ -151,8 +151,12 @@ def main() -> None:
         if state.last_play_ids:
             last_cards = cards_by_ids(state.last_play_ids)
             ok, play, msg = is_valid_play(last_cards)
-            st.write(format_cards(last_cards))
-            st.caption(msg if ok else f"上家牌不合法：{msg}")
+            who = "我" if state.last_player == "me" else "上家"
+            st.write(f"{who}：{format_cards(last_cards)}")
+            if state.last_player == "me":
+                st.caption("上一手是我出的。推荐按领出，等你手动记下别人是否压牌。")
+            else:
+                st.caption(msg if ok else f"上家牌不合法：{msg}")
         else:
             st.caption("空着表示轮到领出。")
 

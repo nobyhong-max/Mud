@@ -24,6 +24,7 @@ class Role(str, Enum):
 class Snapshot:
     bucket: dict[str, str]
     last_play_ids: list[str]
+    last_player: str
     role: str
     call_score: int
     my_double: bool
@@ -35,6 +36,7 @@ class Snapshot:
 class CardState:
     bucket: dict[str, str] = field(default_factory=lambda: {card_id: Bucket.UNKNOWN.value for card_id in ALL_IDS})
     last_play_ids: list[str] = field(default_factory=list)
+    last_player: str = ""  # "" | me | opp
     role: str = Role.FARMER.value
     call_score: int = 1
     my_double: bool = False
@@ -46,6 +48,7 @@ class CardState:
             Snapshot(
                 bucket=dict(self.bucket),
                 last_play_ids=list(self.last_play_ids),
+                last_player=self.last_player,
                 role=self.role,
                 call_score=self.call_score,
                 my_double=self.my_double,
@@ -59,6 +62,7 @@ class CardState:
     def reset(self) -> None:
         self.bucket = {card_id: Bucket.UNKNOWN.value for card_id in ALL_IDS}
         self.last_play_ids = []
+        self.last_player = ""
         self.role = Role.FARMER.value
         self.call_score = 1
         self.my_double = False
@@ -71,6 +75,7 @@ class CardState:
         snap = self._undo.pop()
         self.bucket = snap.bucket
         self.last_play_ids = snap.last_play_ids
+        self.last_player = snap.last_player
         self.role = snap.role
         self.call_score = snap.call_score
         self.my_double = snap.my_double
@@ -101,6 +106,7 @@ class CardState:
             self.bucket[card_id] = Bucket.SEEN.value
         if as_last_play:
             self.last_play_ids = list(card_ids)
+            self.last_player = "opp"
 
     def play_from_hand(self, card_ids: list[str]) -> None:
         self._push_undo("从手牌打出")
@@ -109,10 +115,12 @@ class CardState:
                 raise ValueError(f"{card_id} 不在手牌里")
             self.bucket[card_id] = Bucket.SEEN.value
         self.last_play_ids = list(card_ids)
+        self.last_player = "me"
 
     def set_last_play(self, card_ids: list[str]) -> None:
         self._push_undo("设置上家牌")
         self.last_play_ids = list(card_ids)
+        self.last_player = "opp"
         for card_id in card_ids:
             if self.bucket[card_id] == Bucket.IN_HAND.value:
                 continue
@@ -121,6 +129,7 @@ class CardState:
     def clear_last_play(self) -> None:
         self._push_undo("清空上家牌")
         self.last_play_ids = []
+        self.last_player = ""
 
     def cards(self, bucket: Bucket) -> list[Card]:
         return sort_cards([card for card in DECK if self.bucket[card.id] == bucket.value])
@@ -175,6 +184,7 @@ def load_example() -> CardState:
     for card_id in seen:
         state.bucket[card_id] = Bucket.SEEN.value
     state.last_play_ids = ["H_5", "C_5"]
+    state.last_player = "opp"
     state.call_score = 2
     return state
 

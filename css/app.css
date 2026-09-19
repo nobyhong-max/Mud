@@ -26,7 +26,7 @@ body {
     radial-gradient(1200px 600px at 20% -10%, rgba(227, 179, 76, 0.08), transparent 50%),
     linear-gradient(180deg, #10261d 0%, #0a1813 100%);
   color: var(--paper);
-  font-family: "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  font-family: "Noto Sans SC", "WenQuanYi Micro Hei", "Droid Sans Fallback", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
 }
 
 button,
@@ -156,8 +156,9 @@ input[type="text"] {
 }
 
 .mode-btn[data-active="true"] {
-  outline: 2px solid var(--gold);
-  background: #3a5c2e;
+  background: linear-gradient(180deg, #e3b34c, #c4922d);
+  color: #24180a;
+  font-weight: 700;
 }
 
 .hint {
@@ -230,7 +231,7 @@ input[type="text"] {
   appearance: none;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 10px;
-  min-height: 44px;
+  min-height: 48px;
   padding: 4px 2px;
   display: flex;
   flex-direction: column;
@@ -251,6 +252,11 @@ input[type="text"] {
 }
 
 .card.red {
+  color: #c0392b;
+}
+
+.card.red .suit,
+.card.red .pt {
   color: #c0392b;
 }
 

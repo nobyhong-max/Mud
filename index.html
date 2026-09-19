@@ -4,6 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>微乐斗地主 · 本地记牌与出牌参考</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;600;700;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="./css/app.css" />
   </head>
   <body>
@@ -139,6 +142,7 @@
           <div class="row">
             <button class="btn" id="btn-yolo" type="button" disabled>摄像头识别（待接入）</button>
             <button class="btn" id="btn-import-json" type="button">导入识别 JSON</button>
+            <button class="btn ghost" id="btn-import-example" type="button">载入示例 JSON</button>
             <input id="file-json" type="file" accept="application/json" hidden />
           </div>
           <p class="hint" id="vision-msg"></p>

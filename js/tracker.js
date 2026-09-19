@@ -60,6 +60,12 @@ export class GameState {
     if (!this.autoRemain) return;
     const unknown = this.cardsIn(BUCKET.UNKNOWN).length;
     const start = this.startingOppCounts();
+    const setup = this.myHand().length < this.expectedMyStartCount() && this.history.length === 0;
+    if (setup) {
+      this.prevRemain = start.prev;
+      this.nextRemain = start.next;
+      return;
+    }
     const playedPrev = this.playedBy(PLAYER.PREV).length;
     const playedNext = this.playedBy(PLAYER.NEXT).length;
     const attributed = playedPrev + playedNext;
@@ -173,13 +179,18 @@ export class GameState {
   integrity() {
     const s = this.summary();
     const issues = [];
+    const hints = [];
     if (s.hand + s.played + s.unknown !== 54) {
       issues.push("三组张数之和必须是 54");
     }
-    if (this.prevRemain + this.nextRemain !== s.unknown) {
+    const setup = s.hand < this.expectedMyStartCount() && this.history.length === 0;
+    if (this.prevRemain + this.nextRemain !== s.unknown && !setup) {
       issues.push(`上家+下家剩余 (${this.prevRemain}+${this.nextRemain}) 应等于未知 ${s.unknown}`);
     }
-    return { ok: issues.length === 0, issues, ...s };
+    if (setup) {
+      hints.push("待录入手牌（农民 17 / 地主 20）");
+    }
+    return { ok: issues.length === 0, issues, hints, ...s };
   }
 
   setRole(role) {

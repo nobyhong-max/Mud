@@ -60,7 +60,7 @@ function renderPills() {
     <span class="pill">手牌 <b>${s.hand}</b> / 开局 ${state.expectedMyStartCount()}</span>
     <span class="pill">已出 <b>${s.played}</b></span>
     <span class="pill">未知 <b>${s.unknown}</b></span>
-    <span class="pill">${integ.ok ? '<span class="ok">记牌闭合 54</span>' : `<span class="err">${integ.issues[0]}</span>`}</span>
+    <span class="pill">${integ.ok ? (integ.hints?.[0] ? `<span class="warn">${integ.hints[0]}</span>` : '<span class="ok">记牌闭合 54</span>') : `<span class="err">${integ.issues[0]}</span>`}</span>
   `;
 }
 
@@ -323,6 +323,18 @@ function bind() {
       await recognizeImage(null);
     } catch (err) {
       $("vision-msg").innerHTML = `<span class="warn">${err.message}</span>`;
+    }
+  };
+  $("btn-import-example").onclick = async () => {
+    try {
+      const payload = await (await fetch("./vision/example-detections.json")).json();
+      pushUndo();
+      const result = ingestVisionPayload(state, payload);
+      $("vision-msg").innerHTML = `<span class="ok">${result.message}</span>`;
+      lastSuggest = null;
+      render();
+    } catch (err) {
+      $("vision-msg").innerHTML = `<span class="err">${err.message}</span>`;
     }
   };
   $("btn-import-json").onclick = () => $("file-json").click();

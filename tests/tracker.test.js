@@ -8,7 +8,10 @@ test("初始全部未知，三组之和 54", () => {
   assert.equal(s.unknownCards().length, 54);
   assert.equal(s.myHand().length, 0);
   assert.deepEqual(s.summary(), { hand: 0, played: 0, unknown: 54, total: 54 });
-  assert.ok(s.integrity().ok || s.integrity().issues.length <= 1);
+  assert.equal(s.integrity().ok, true);
+  assert.ok(s.integrity().hints.length >= 1);
+  assert.equal(s.prevRemain, 17);
+  assert.equal(s.nextRemain, 20);
 });
 
 test("录入手牌与已出后状态互斥", () => {

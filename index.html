@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>微乐斗地主 · 本地记牌与出牌参考</title>
+    <meta name="description" content="微乐经典无癞子斗地主本地记牌与出牌参考，仅供学习模拟。" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;600;700;900&display=swap" rel="stylesheet" />
@@ -13,7 +14,7 @@
     <div class="app">
       <header class="topbar">
         <div class="brand">
-          <h1>微乐斗地主 · 本地记牌 & 出牌参考</h1>
+          <h1>微乐斗地主 · 本地记牌与出牌参考</h1>
           <p>
             <span class="badge">仅学习模拟</span>
             经典无癞子规则 · 不对接游戏客户端 · 不读内存 · 不挂钩进程 · 不自动点击
@@ -101,19 +102,19 @@
           </div>
           <div class="board" id="board"></div>
 
-          <h2 style="margin-top: 14px">剩余点分布（超几何参考）</h2>
+          <h2 style="margin-top: 14px">剩余点数分布（概率估算）</h2>
           <div style="overflow: auto">
             <table class="dist" id="dist">
               <thead>
                 <tr>
-                  <th>点</th>
-                  <th>我</th>
+                  <th>点数</th>
+                  <th>我方</th>
                   <th>已出</th>
                   <th>未知</th>
-                  <th>下家≥1</th>
-                  <th>下家对</th>
-                  <th>下家炸</th>
-                  <th>上家≥1</th>
+                  <th>下家有</th>
+                  <th>下家对子</th>
+                  <th>下家炸弹</th>
+                  <th>上家有</th>
                 </tr>
               </thead>
               <tbody></tbody>
@@ -132,17 +133,16 @@
           </p>
           <div class="suggest-list" id="suggest"></div>
 
-          <h2 style="margin-top: 16px">YOLO 预留接口</h2>
+          <h2 style="margin-top: 16px">图像识别（预留）</h2>
           <p class="hint">
-            本版只支持手动录入。未来识别模块请输出
+            本版只支持手动录入。以后接入识别后，可导入与
             <code>vision/example-detections.json</code>
-            同结构，再点导入。页面也暴露
-            <code>window.__WEILE_VISION_BRIDGE__</code>。
+            相同结构的识别结果。页面也预留了识别桥接接口。
           </p>
           <div class="row">
             <button class="btn" id="btn-yolo" type="button" disabled>摄像头识别（待接入）</button>
-            <button class="btn" id="btn-import-json" type="button">导入识别 JSON</button>
-            <button class="btn ghost" id="btn-import-example" type="button">载入示例 JSON</button>
+            <button class="btn" id="btn-import-json" type="button">导入识别结果</button>
+            <button class="btn ghost" id="btn-import-example" type="button">载入示例识别结果</button>
             <input id="file-json" type="file" accept="application/json" hidden />
           </div>
           <p class="hint" id="vision-msg"></p>

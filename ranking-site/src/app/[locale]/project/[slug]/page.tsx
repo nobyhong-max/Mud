@@ -4,8 +4,15 @@ import { Badge } from "@/components/ui/badge";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import { projectTagline } from "@/lib/display";
-import { getProjectBySlug } from "@/lib/projects";
+import { getAllProjects, getProjectBySlug } from "@/lib/projects";
 import { formatNumber, formatUsd } from "@/lib/utils";
+
+export function generateStaticParams() {
+  const slugs = getAllProjects().map((p) => p.slug);
+  return slugs.flatMap((slug) =>
+    ["zh", "en"].map((locale) => ({ locale, slug })),
+  );
+}
 
 export default async function ProjectPage({
   params,

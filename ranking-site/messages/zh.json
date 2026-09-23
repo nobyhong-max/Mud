@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "siteName": "独造榜",
+    "siteSubtitle": "IndieAI Pulse",
+    "description": "多维度 AI 独造项目即时排行榜"
+  },
+  "nav": {
+    "home": "首页",
+    "rankings": "榜单",
+    "about": "关于",
+    "methodology": "方法论"
+  },
+  "boards": {
+    "revenue": "最赚钱",
+    "buzz": "最火",
+    "growth": "增长最快",
+    "oss-stars": "开源 Star",
+    "maker-love": "好评榜",
+    "vibe-coding": "Vibe Coding",
+    "ai-media": "图像 / 视频 / 音频",
+    "ai-agents": "Agent / 自动化",
+    "local-ai": "本地 / 隐私",
+    "cn-indie": "中文独造",
+    "micro-saas": "微 SaaS"
+  },
+  "boardDesc": {
+    "revenue": "按 MRR / 收入代理值排序",
+    "buzz": "综合热度分（PH、GitHub、报道）",
+    "growth": "环比 MRR 或 30 日 Star 增速",
+    "oss-stars": "GitHub Star 数",
+    "maker-love": "社区评分与编辑分",
+    "segment": "细分领域内默认按热度排序"
+  },
+  "home": {
+    "heroTitle": "多维度 AI 独造项目即时榜",
+    "heroSubtitle": "收入、热度、增长、开源 Star — 带来源与时间戳",
+    "searchPlaceholder": "搜索项目、标签、创始人…",
+    "searchButton": "搜索",
+    "topTen": "Top 10",
+    "viewAll": "查看完整榜单",
+    "lastRefreshed": "数据快照日期",
+    "segments": "细分领域"
+  },
+  "rankings": {
+    "title": "排行榜",
+    "results": "{count} 个项目",
+    "empty": "没有符合筛选条件的项目"
+  },
+  "filters": {
+    "title": "筛选",
+    "region": "地区",
+    "regionAll": "全部",
+    "openSource": "仅开源",
+    "bootstrapped": "仅 bootstrapped",
+    "clear": "清除筛选",
+    "tags": "标签"
+  },
+  "project": {
+    "back": "返回榜单",
+    "links": "链接",
+    "website": "官网",
+    "github": "GitHub",
+    "productHunt": "Product Hunt",
+    "metrics": "指标",
+    "sources": "来源说明",
+    "confidence": "置信度",
+    "tags": "标签",
+    "team": "团队规模",
+    "funding": "融资阶段",
+    "region": "地区",
+    "editorial": "编辑点评",
+    "notFound": "未找到该项目"
+  },
+  "metric": {
+    "mrr": "MRR",
+    "buzz": "热度",
+    "growth": "增长",
+    "stars": "Stars",
+    "rating": "评分",
+    "trendUp": "较上期 ▲{pct}%",
+    "trendDown": "较上期 ▼{pct}%"
+  },
+  "badges": {
+    "openSource": "开源",
+    "bootstrapped": "Bootstrapped",
+    "verified": "Verified"
+  },
+  "confidence": {
+    "verified": "已验证",
+    "reported": "公开报道",
+    "estimated": "估算"
+  },
+  "about": {
+    "title": "关于独造榜",
+    "p1": "独造榜追踪 AI 相关的个人、小团队与 bootstrapped 项目，提供可引用的多维度排名快照。",
+    "p2": "排名仅供参考，不构成投资建议。商标与数据归各自所有者。",
+    "disclaimer": "免责声明"
+  },
+  "methodology": {
+    "title": "方法论与数据来源",
+    "intro": "各榜单指标定义、更新频率与置信度分级见下表。MVP 阶段以种子数据与公开来源为主；GitHub 自动抓取为可选增强。",
+    "live": "Live",
+    "fresh": "今日更新",
+    "snapshot": "来源快照",
+    "boardsTitle": "榜单定义"
+  },
+  "theme": {
+    "light": "浅色",
+    "dark": "深色",
+    "toggle": "切换主题"
+  },
+  "lang": {
+    "zh": "中文",
+    "en": "English",
+    "switch": "语言"
+  },
+  "footer": {
+    "tagline": "排名仅供参考 · 数据带来源链接",
+    "methodology": "方法论",
+    "about": "关于"
+  }
+}

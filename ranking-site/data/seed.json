@@ -1,0 +1,660 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-09-23",
+  "projects": [
+    {
+      "slug": "photo-ai",
+      "name": "Photo AI",
+      "tagline": "AI 虚拟摄影棚，上传自拍生成专业照片",
+      "tags": [
+        "ai-media",
+        "micro-saas",
+        "bootstrapped"
+      ],
+      "region": "Global",
+      "website_url": "https://photoai.com",
+      "founder_x_handle": "levelsio",
+      "team_size_max": 2,
+      "funding": "bootstrapped",
+      "is_open_source": false,
+      "scores": {
+        "mrr_usd": 132000,
+        "buzz_score": 920,
+        "growth_mom_pct": 8,
+        "github_stars": null,
+        "maker_rating": 4.6
+      },
+      "score_sources": {
+        "mrr_usd": "Indie Hackers / 创始人公开 build in public（2025-11 区间报道）",
+        "buzz_score": "PH launch 历史 + X 受众 estimated"
+      },
+      "confidence": {
+        "mrr_usd": "reported",
+        "buzz_score": "estimated"
+      }
+    },
+    {
+      "slug": "interior-ai",
+      "name": "Interior AI",
+      "tagline": "AI 室内设计与房间渲染",
+      "tags": [
+        "ai-media",
+        "bootstrapped"
+      ],
+      "region": "Global",
+      "website_url": "https://interiorai.com",
+      "founder_x_handle": "levelsio",
+      "team_size_max": 2,
+      "funding": "bootstrapped",
+      "is_open_source": false,
+      "scores": {
+        "mrr_usd": 42000,
+        "buzz_score": 650,
+        "growth_mom_pct": 5
+      },
+      "score_sources": {
+        "mrr_usd": "Portfolio 公开区间 $38–45K MRR"
+      },
+      "confidence": {
+        "mrr_usd": "reported"
+      }
+    },
+    {
+      "slug": "superx",
+      "name": "SuperX",
+      "tagline": "X/Twitter 增长：分析、AI 写作、排程",
+      "tags": [
+        "marketing",
+        "micro-saas"
+      ],
+      "region": "Global",
+      "website_url": "https://superx.so",
+      "team_size_max": 3,
+      "funding": "bootstrapped",
+      "is_open_source": false,
+      "scores": {
+        "mrr_usd": 23000,
+        "buzz_score": 580,
+        "growth_mom_pct": 25
+      },
+      "score_sources": {
+        "mrr_usd": "Startup Founder Stories / IH 2025–2026"
+      },
+      "confidence": {
+        "mrr_usd": "reported"
+      }
+    },
+    {
+      "slug": "headshotly",
+      "name": "Headshotly.ai",
+      "tagline": "10 分钟生成 60 张专业头像",
+      "tags": [
+        "ai-media",
+        "micro-saas"
+      ],
+      "region": "Global",
+      "website_url": "https://headshotly.ai",
+      "team_size_max": 1,
+      "funding": "bootstrapped",
+      "scores": {
+        "revenue_4mo_usd": 25000,
+        "buzz_score": 520,
+        "growth_mom_pct": 40
+      },
+      "score_sources": {
+        "revenue_4mo_usd": "Indie Hackers 2025-04 帖子"
+      },
+      "confidence": {
+        "revenue_4mo_usd": "reported"
+      }
+    },
+    {
+      "slug": "photog",
+      "name": "PhotoG",
+      "tagline": "电商产品场景 AI 生成",
+      "tags": [
+        "ai-media",
+        "b2b"
+      ],
+      "region": "Global",
+      "website_url": "https://photog.ai",
+      "team_size_max": 3,
+      "funding": "bootstrapped",
+      "scores": {
+        "mrr_usd": 10000,
+        "buzz_score": 410,
+        "growth_mom_pct": 35
+      },
+      "score_sources": {
+        "mrr_usd": "Indie Hackers 2025-02"
+      },
+      "confidence": {
+        "mrr_usd": "reported"
+      }
+    },
+    {
+      "slug": "rekalab",
+      "name": "REKALAB",
+      "tagline": "一句 prompt 生成 60 秒视频",
+      "tags": [
+        "ai-media",
+        "video"
+      ],
+      "region": "Global",
+      "website_url": "https://rekalab.com",
+      "team_size_max": 5,
+      "funding": "bootstrapped",
+      "scores": {
+        "mrr_usd": 8354,
+        "buzz_score": 380,
+        "growth_mom_pct": 15
+      },
+      "score_sources": {
+        "mrr_usd": "TrustMRR Stripe verified（页面快照 2026-09）"
+      },
+      "confidence": {
+        "mrr_usd": "verified"
+      }
+    },
+    {
+      "slug": "tydal",
+      "name": "Tydal",
+      "tagline": "SEO 关键词研究 + 自动发文",
+      "tags": [
+        "marketing",
+        "seo",
+        "ai-agents"
+      ],
+      "region": "US",
+      "website_url": "https://tydal.co",
+      "team_size_max": 3,
+      "funding": "bootstrapped",
+      "scores": {
+        "mrr_usd": 1996,
+        "buzz_score": 340,
+        "growth_mom_pct": 10
+      },
+      "score_sources": {
+        "mrr_usd": "TrustMRR verified"
+      },
+      "confidence": {
+        "mrr_usd": "verified"
+      }
+    },
+    {
+      "slug": "mkdirs",
+      "name": "Mkdirs",
+      "tagline": "30 分钟上线 AI 目录站 boilerplate",
+      "tags": [
+        "vibe-coding",
+        "devtools"
+      ],
+      "region": "US",
+      "website_url": "https://mkdirs.com",
+      "founder_x_handle": "fox",
+      "team_size_max": 1,
+      "funding": "bootstrapped",
+      "is_open_source": true,
+      "scores": {
+        "mrr_usd": 0,
+        "revenue_lifetime_usd": 36555,
+        "buzz_score": 450
+      },
+      "score_sources": {
+        "revenue_lifetime_usd": "TrustMRR verified"
+      },
+      "confidence": {
+        "revenue_lifetime_usd": "verified"
+      }
+    },
+    {
+      "slug": "founderpal",
+      "name": "FounderPal.ai",
+      "tagline": "独立创始人 AI 营销工具集",
+      "tags": [
+        "marketing",
+        "micro-saas"
+      ],
+      "region": "Global",
+      "website_url": "https://founderpal.ai",
+      "team_size_max": 2,
+      "funding": "bootstrapped",
+      "scores": {
+        "mrr_usd": 10000,
+        "buzz_score": 400
+      },
+      "score_sources": {
+        "mrr_usd": "案例研究 ~$10K MRR 区间"
+      },
+      "confidence": {
+        "mrr_usd": "reported"
+      }
+    },
+    {
+      "slug": "setter-ai",
+      "name": "Setter AI",
+      "tagline": "WhatsApp AI 预约/销售对话",
+      "tags": [
+        "agents",
+        "micro-saas"
+      ],
+      "region": "Global",
+      "website_url": "https://setter.ai",
+      "team_size_max": 3,
+      "funding": "bootstrapped",
+      "scores": {
+        "mrr_usd": 10000,
+        "buzz_score": 370
+      },
+      "score_sources": {
+        "mrr_usd": "Indie Hackers 创始人故事"
+      },
+      "confidence": {
+        "mrr_usd": "reported"
+      }
+    },
+    {
+      "slug": "coverlettergpt",
+      "name": "CoverLetterGPT",
+      "tagline": "根据 JD 生成求职信",
+      "tags": [
+        "micro-saas",
+        "devtools"
+      ],
+      "region": "Global",
+      "website_url": "https://coverlettergpt.com",
+      "github_url": "https://github.com/wasp-lang/open-saas",
+      "team_size_max": 1,
+      "is_open_source": true,
+      "scores": {
+        "mrr_usd": 550,
+        "buzz_score": 280,
+        "github_stars": 8000
+      },
+      "score_sources": {
+        "mrr_usd": "OpenSaaS 博客 2024-12"
+      },
+      "confidence": {
+        "mrr_usd": "reported"
+      }
+    },
+    {
+      "slug": "summarify",
+      "name": "Summarify.me",
+      "tagline": "多格式文件/链接 AI 摘要",
+      "tags": [
+        "micro-saas",
+        "productivity"
+      ],
+      "region": "Global",
+      "website_url": "https://summarify.me",
+      "team_size_max": 2,
+      "scores": {
+        "mrr_usd": 220,
+        "buzz_score": 220
+      },
+      "score_sources": {
+        "mrr_usd": "Indie Hackers 2024-06"
+      },
+      "confidence": {
+        "mrr_usd": "reported"
+      }
+    },
+    {
+      "slug": "handit-ai",
+      "name": "Handit.ai",
+      "tagline": "开源 agent 自评估与 prompt 迭代",
+      "tags": [
+        "ai-agents",
+        "devtools",
+        "open-source"
+      ],
+      "region": "Global",
+      "website_url": "https://handit.ai",
+      "github_url": "https://github.com/handit-ai/handit",
+      "product_hunt_url": "https://www.producthunt.com/products/handit-ai",
+      "scores": {
+        "buzz_score": 720,
+        "github_stars": 1200,
+        "ph_upvotes": 301
+      },
+      "score_sources": {
+        "ph_upvotes": "Product Hunt launch 2025"
+      },
+      "confidence": {
+        "ph_upvotes": "reported"
+      }
+    },
+    {
+      "slug": "giselle",
+      "name": "Giselle",
+      "tagline": "可视化 AI 工作流，GitHub 事件驱动",
+      "tags": [
+        "ai-agents",
+        "devtools",
+        "open-source"
+      ],
+      "region": "JP",
+      "website_url": "https://giselles.ai",
+      "product_hunt_url": "https://www.producthunt.com/products/giselle",
+      "is_open_source": true,
+      "scores": {
+        "buzz_score": 680,
+        "github_stars": 2500
+      },
+      "confidence": {
+        "buzz_score": "estimated"
+      }
+    },
+    {
+      "slug": "nativemind",
+      "name": "NativeMind",
+      "tagline": "浏览器内本地 Ollama 助手",
+      "tags": [
+        "local-ai",
+        "open-source"
+      ],
+      "region": "Global",
+      "website_url": "https://nativemind.app",
+      "product_hunt_url": "https://www.producthunt.com/products/nativemind",
+      "is_open_source": true,
+      "scores": {
+        "buzz_score": 640,
+        "ph_upvotes": 280
+      },
+      "confidence": {
+        "ph_upvotes": "estimated"
+      }
+    },
+    {
+      "slug": "jaaz",
+      "name": "Jaaz",
+      "tagline": "开源多模态 Magic Canvas 创意 Agent",
+      "tags": [
+        "ai-media",
+        "open-source"
+      ],
+      "region": "Global",
+      "website_url": "https://jaaz.app",
+      "github_url": "https://github.com/11cafe/jaaz",
+      "product_hunt_url": "https://www.producthunt.com/products/jaaz",
+      "scores": {
+        "buzz_score": 700,
+        "github_stars": 5000,
+        "ph_day_rank": 2
+      },
+      "confidence": {
+        "github_stars": "estimated"
+      }
+    },
+    {
+      "slug": "openai-agents-sdk",
+      "name": "OpenAI Agents SDK",
+      "tagline": "Python 多 agent 工作流框架",
+      "tags": [
+        "ai-agents",
+        "devtools",
+        "open-source"
+      ],
+      "region": "US",
+      "github_url": "https://github.com/openai/openai-agents-python",
+      "website_url": "https://openai.github.io/openai-agents-python/",
+      "funding": "enterprise",
+      "team_size_max": 500,
+      "is_open_source": true,
+      "scores": {
+        "github_stars": 29000,
+        "stars_delta_30d_pct": 12,
+        "buzz_score": 850
+      },
+      "score_sources": {
+        "github_stars": "GitHub API 公开（2025–2026 区间）"
+      },
+      "confidence": {
+        "github_stars": "reported"
+      },
+      "editorial_note": "大厂开源 infra；默认在「个人优先」视图可隐藏"
+    },
+    {
+      "slug": "ruflo",
+      "name": "Ruflo",
+      "tagline": "Claude Code / Codex agent meta-harness",
+      "tags": [
+        "devtools",
+        "ai-agents",
+        "open-source"
+      ],
+      "region": "Global",
+      "github_url": "https://github.com/ruvnet/ruflo",
+      "website_url": "https://github.com/ruvnet/ruflo",
+      "team_size_max": 5,
+      "is_open_source": true,
+      "scores": {
+        "github_stars": 69000,
+        "stars_delta_30d_pct": 18,
+        "buzz_score": 780
+      },
+      "confidence": {
+        "github_stars": "reported"
+      }
+    },
+    {
+      "slug": "autoagent",
+      "name": "AutoAgent",
+      "tagline": "零代码自然语言构建 LLM Agent",
+      "tags": [
+        "ai-agents",
+        "open-source"
+      ],
+      "region": "Global",
+      "github_url": "https://github.com/HKUDS/AutoAgent",
+      "website_url": "https://arxiv.org/abs/2502.05957",
+      "scores": {
+        "github_stars": 9753,
+        "buzz_score": 620
+      },
+      "confidence": {
+        "github_stars": "reported"
+      }
+    },
+    {
+      "slug": "evoagentx",
+      "name": "EvoAgentX",
+      "tagline": "自进化 agent 工作流框架",
+      "tags": [
+        "ai-agents",
+        "open-source"
+      ],
+      "region": "Global",
+      "github_url": "https://github.com/EvoAgentX/EvoAgentX",
+      "website_url": "https://evoagentx.github.io/EvoAgentX/",
+      "scores": {
+        "github_stars": 3291,
+        "growth_mom_pct": 22,
+        "buzz_score": 500
+      },
+      "confidence": {
+        "github_stars": "reported"
+      }
+    },
+    {
+      "slug": "magicpath",
+      "name": "MagicPath",
+      "tagline": "AI 生成可上线 UI 组件",
+      "tags": [
+        "vibe-coding",
+        "design"
+      ],
+      "region": "US",
+      "website_url": "https://magicpath.ai",
+      "funding": "seed",
+      "scores": {
+        "buzz_score": 660,
+        "growth_mom_pct": 30
+      },
+      "score_sources": {
+        "buzz_score": "Ben's Bites 2025 工具推荐"
+      },
+      "confidence": {
+        "buzz_score": "estimated"
+      }
+    },
+    {
+      "slug": "wei-zhi-shu",
+      "name": "胃之书",
+      "tagline": "LLM 美食记录与饮食 AI",
+      "tags": [
+        "cn-indie",
+        "mobile"
+      ],
+      "region": "CN",
+      "website_url": "https://apps.apple.com/cn/app/id6476382691",
+      "team_size_max": 1,
+      "funding": "bootstrapped",
+      "scores": {
+        "revenue_5mo_usd": 12000,
+        "buzz_score": 590,
+        "maker_rating": 4.5
+      },
+      "score_sources": {
+        "revenue_5mo_usd": "人人都是产品经理 / 小红书大赛报道"
+      },
+      "confidence": {
+        "revenue_5mo_usd": "reported"
+      }
+    },
+    {
+      "slug": "podwise",
+      "name": "Podwise",
+      "tagline": "AI 播客笔记与摘要",
+      "tags": [
+        "cn-indie",
+        "productivity"
+      ],
+      "region": "CN",
+      "team_size_max": 5,
+      "scores": {
+        "buzz_score": 560,
+        "maker_rating": 4.4
+      },
+      "score_sources": {
+        "buzz_score": "小红书首届独立开发大赛获奖"
+      },
+      "confidence": {
+        "buzz_score": "reported"
+      }
+    },
+    {
+      "slug": "qrbtf",
+      "name": "QRBTF",
+      "tagline": "AI 艺术二维码生成",
+      "tags": [
+        "cn-indie",
+        "ai-media"
+      ],
+      "region": "CN",
+      "website_url": "https://qrbtf.com",
+      "team_size_max": 3,
+      "scores": {
+        "buzz_score": 540
+      },
+      "score_sources": {
+        "buzz_score": "小红书 AI 赛道获奖项目"
+      },
+      "confidence": {
+        "buzz_score": "reported"
+      }
+    },
+    {
+      "slug": "kitten-fill-light",
+      "name": "小猫补光灯 Pro",
+      "tagline": "摄影补光小工具，付费榜登顶案例",
+      "tags": [
+        "cn-indie",
+        "mobile"
+      ],
+      "region": "CN",
+      "team_size_max": 1,
+      "scores": {
+        "buzz_score": 710,
+        "maker_rating": 4.7
+      },
+      "score_sources": {
+        "buzz_score": "苹果付费榜 Top1 / 播客与媒体报道"
+      },
+      "confidence": {
+        "buzz_score": "reported"
+      }
+    },
+    {
+      "slug": "cal-ai",
+      "name": "Cal AI",
+      "tagline": "拍照估算卡路里，青少年团队",
+      "tags": [
+        "ai-media",
+        "mobile"
+      ],
+      "region": "US",
+      "website_url": "https://cal.ai",
+      "team_size_max": 5,
+      "scores": {
+        "revenue_4mo_usd": 1000000,
+        "buzz_score": 800
+      },
+      "score_sources": {
+        "revenue_4mo_usd": "中文/英文媒体报道（扎克伯格互动）"
+      },
+      "confidence": {
+        "revenue_4mo_usd": "estimated"
+      }
+    },
+    {
+      "slug": "gamma-app",
+      "name": "Gamma",
+      "tagline": "AI 演示文稿 / 网站生成",
+      "tags": [
+        "vibe-coding",
+        "productivity"
+      ],
+      "region": "US",
+      "website_url": "https://gamma.app",
+      "funding": "series_a",
+      "team_size_max": 100,
+      "scores": {
+        "arr_usd": 50000000,
+        "buzz_score": 900
+      },
+      "score_sources": {
+        "arr_usd": "Ben's Bites Digest 2025"
+      },
+      "confidence": {
+        "arr_usd": "reported"
+      },
+      "editorial_note": "已规模化；建议默认「隐藏企业级」"
+    },
+    {
+      "slug": "bolt-new",
+      "name": "Bolt.new",
+      "tagline": "浏览器内 AI 全栈应用生成",
+      "tags": [
+        "vibe-coding",
+        "devtools"
+      ],
+      "region": "US",
+      "website_url": "https://bolt.new",
+      "funding": "seed",
+      "team_size_max": 50,
+      "scores": {
+        "arr_usd": 40000000,
+        "buzz_score": 880
+      },
+      "score_sources": {
+        "arr_usd": "NxCode / Tech 媒体报道 2025–2026"
+      },
+      "confidence": {
+        "arr_usd": "reported"
+      },
+      "editorial_note": "StackBlitz 团队产品；作 vibe-coding 标杆参考"
+    }
+  ]
+}

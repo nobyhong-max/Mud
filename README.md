@@ -41,3 +41,7 @@ npm test
 ## 仓库说明
 
 本仓库最初在 Mac Mini 上创建，供 Cursor iOS 远程操作。记牌工具是其中的本地学习页面。
+
+## 独造榜（AI 项目排行榜）
+
+独立 Next.js 子应用在 [`ranking-site/`](ranking-site/)，与根目录斗地主静态页互不干扰。见 [`ranking-site/README.md`](ranking-site/README.md)。

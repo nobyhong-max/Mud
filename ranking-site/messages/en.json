@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "siteName": "DuZao Rank",
+    "siteSubtitle": "IndieAI Pulse",
+    "description": "Multi-dimensional live rankings for AI indie projects"
+  },
+  "nav": {
+    "home": "Home",
+    "rankings": "Rankings",
+    "about": "About",
+    "methodology": "Methodology"
+  },
+  "boards": {
+    "revenue": "Top revenue",
+    "buzz": "Buzz",
+    "growth": "Fastest growth",
+    "oss-stars": "Open-source stars",
+    "maker-love": "Maker love",
+    "vibe-coding": "Vibe coding",
+    "ai-media": "Image / video / audio",
+    "ai-agents": "Agents",
+    "local-ai": "Local / privacy",
+    "cn-indie": "China indie",
+    "micro-saas": "Micro SaaS"
+  },
+  "boardDesc": {
+    "revenue": "Sorted by MRR or revenue proxy",
+    "buzz": "Composite buzz (PH, GitHub, press)",
+    "growth": "MoM MRR or 30-day star delta",
+    "oss-stars": "GitHub stargazers",
+    "maker-love": "Community and editorial ratings",
+    "segment": "Segment boards default to buzz sort"
+  },
+  "home": {
+    "heroTitle": "Live rankings for AI indie projects",
+    "heroSubtitle": "Revenue, buzz, growth, and GitHub stars — with sources and timestamps",
+    "searchPlaceholder": "Search name, tags, founders…",
+    "searchButton": "Search",
+    "topTen": "Top 10",
+    "viewAll": "View full board",
+    "lastRefreshed": "Data snapshot",
+    "segments": "Segments"
+  },
+  "rankings": {
+    "title": "Rankings",
+    "results": "{count} projects",
+    "empty": "No projects match your filters"
+  },
+  "filters": {
+    "title": "Filters",
+    "region": "Region",
+    "regionAll": "All",
+    "openSource": "Open source only",
+    "bootstrapped": "Bootstrapped only",
+    "clear": "Clear filters",
+    "tags": "Tags"
+  },
+  "project": {
+    "back": "Back to rankings",
+    "links": "Links",
+    "website": "Website",
+    "github": "GitHub",
+    "productHunt": "Product Hunt",
+    "metrics": "Metrics",
+    "sources": "Sources",
+    "confidence": "Confidence",
+    "tags": "Tags",
+    "team": "Team size (max)",
+    "funding": "Funding",
+    "region": "Region",
+    "editorial": "Editorial note",
+    "notFound": "Project not found"
+  },
+  "metric": {
+    "mrr": "MRR",
+    "buzz": "Buzz",
+    "growth": "Growth",
+    "stars": "Stars",
+    "rating": "Rating",
+    "trendUp": "▲{pct}% vs prior",
+    "trendDown": "▼{pct}% vs prior"
+  },
+  "badges": {
+    "openSource": "Open source",
+    "bootstrapped": "Bootstrapped",
+    "verified": "Verified"
+  },
+  "confidence": {
+    "verified": "Verified",
+    "reported": "Reported",
+    "estimated": "Estimated"
+  },
+  "about": {
+    "title": "About DuZao Rank",
+    "p1": "DuZao Rank tracks AI-related solo, duo, and bootstrapped projects with citable multi-board snapshots.",
+    "p2": "Rankings are informational only, not investment advice. Trademarks and data belong to their owners.",
+    "disclaimer": "Disclaimer"
+  },
+  "methodology": {
+    "title": "Methodology & data sources",
+    "intro": "Metric definitions, refresh cadence, and confidence tiers below. MVP uses seed data and public sources; GitHub auto-ingest is optional.",
+    "live": "Live",
+    "fresh": "Updated today",
+    "snapshot": "Source snapshot",
+    "boardsTitle": "Board definitions"
+  },
+  "theme": {
+    "light": "Light",
+    "dark": "Dark",
+    "toggle": "Toggle theme"
+  },
+  "lang": {
+    "zh": "中文",
+    "en": "English",
+    "switch": "Language"
+  },
+  "footer": {
+    "tagline": "Rankings are indicative · Sources linked",
+    "methodology": "Methodology",
+    "about": "About"
+  }
+}

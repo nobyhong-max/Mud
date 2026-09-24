@@ -1,11 +1,19 @@
 {
-  "name": "weile-doudizhu-coach",
-  "version": "1.0.0",
+  "name": "spiketactics-mini-fps",
+  "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "微乐经典无癞子斗地主 · 本地记牌与出牌参考（仅学习模拟）",
+  "description": "尖锋战术 · 简易浏览器 FPS 原型",
   "scripts": {
-    "test": "node --test tests/*.test.js",
-    "start": "python3 -m http.server 8765"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "vite"
+  },
+  "dependencies": {
+    "three": "^0.170.0"
+  },
+  "devDependencies": {
+    "vite": "^6.0.3"
   }
 }

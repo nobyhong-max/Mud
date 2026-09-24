@@ -121,13 +121,27 @@ let paused = false;
 let pointerLocked = false;
 let roundEnding = false;
 let animId = 0;
+const isTouch =
+  window.matchMedia("(pointer: coarse)").matches ||
+  "ontouchstart" in window ||
+  navigator.maxTouchPoints > 0;
 
 const minimapCtx = el.minimap.getContext("2d");
+const touchUI = {
+  root: document.getElementById("touch-controls"),
+  joyZone: document.getElementById("joy-zone"),
+  joyKnob: document.getElementById("joy-knob"),
+  fire: document.getElementById("btn-touch-fire"),
+  ability: document.getElementById("btn-touch-ability"),
+  reload: document.getElementById("btn-touch-reload"),
+  pause: document.getElementById("btn-touch-pause"),
+};
 
 function disposeMatch() {
   if (animId) cancelAnimationFrame(animId);
   animId = 0;
   running = false;
+  setTouchControlsVisible(false);
   if (renderer) {
     renderer.dispose();
     renderer = null;
@@ -214,8 +228,9 @@ function startMatch(rematch = false) {
   running = true;
   showCenter(`回合 ${round}`, 1.4);
   bindGameInput();
-  // Request pointer lock after click
-  el.canvas.requestPointerLock?.();
+  setTouchControlsVisible(true);
+  // Desktop: request pointer lock after click; mobile uses touch look
+  if (!isTouch) el.canvas.requestPointerLock?.();
   loop();
 }
 
@@ -279,11 +294,11 @@ document.addEventListener("keyup", (e) => {
 document.addEventListener("mousedown", (e) => {
   if (!running || paused || !player) return;
   if (e.button === 0) {
-    if (!pointerLocked) {
+    if (!isTouch && !pointerLocked) {
       el.canvas.requestPointerLock?.();
       return;
     }
-    player.wantsShoot = true;
+    if (pointerLocked || isTouch) player.wantsShoot = true;
   }
 });
 
@@ -291,15 +306,165 @@ document.addEventListener("mouseup", (e) => {
   if (e.button === 0 && player) player.wantsShoot = false;
 });
 
+function setTouchControlsVisible(on) {
+  if (!touchUI.root) return;
+  const show = on && isTouch && running;
+  touchUI.root.classList.toggle("hidden", !show);
+  touchUI.root.setAttribute("aria-hidden", show ? "false" : "true");
+}
+
+function bindTouchControls() {
+  if (!isTouch || !touchUI.root || bindTouchControls._done) return;
+  bindTouchControls._done = true;
+
+  let lookId = null;
+  let lastLook = null;
+  let joyId = null;
+  let joyOrigin = null;
+
+  const resetJoy = () => {
+    if (!player) return;
+    player.keys.KeyW = false;
+    player.keys.KeyS = false;
+    player.keys.KeyA = false;
+    player.keys.KeyD = false;
+    if (touchUI.joyKnob) {
+      touchUI.joyKnob.style.transform = "translate(0, 0)";
+    }
+  };
+
+  const applyJoy = (clientX, clientY) => {
+    if (!joyOrigin || !player) return;
+    const dx = clientX - joyOrigin.x;
+    const dy = clientY - joyOrigin.y;
+    const maxR = 40;
+    const len = Math.hypot(dx, dy) || 1;
+    const nx = (dx / len) * Math.min(len, maxR);
+    const ny = (dy / len) * Math.min(len, maxR);
+    touchUI.joyKnob.style.transform = `translate(${nx}px, ${ny}px)`;
+    const dead = 10;
+    player.keys.KeyW = ny < -dead;
+    player.keys.KeyS = ny > dead;
+    player.keys.KeyA = nx < -dead;
+    player.keys.KeyD = nx > dead;
+  };
+
+  touchUI.joyZone.addEventListener(
+    "touchstart",
+    (e) => {
+      if (!running || paused) return;
+      const t = e.changedTouches[0];
+      joyId = t.identifier;
+      joyOrigin = { x: t.clientX, y: t.clientY };
+      applyJoy(t.clientX, t.clientY);
+      e.preventDefault();
+    },
+    { passive: false }
+  );
+
+  el.canvas.addEventListener(
+    "touchstart",
+    (e) => {
+      if (!running || paused || !player) return;
+      for (const t of e.changedTouches) {
+        // Right half = look; left half handled by joy zone when over it
+        if (t.clientX > window.innerWidth * 0.42 && lookId === null) {
+          lookId = t.identifier;
+          lastLook = { x: t.clientX, y: t.clientY };
+        }
+      }
+    },
+    { passive: true }
+  );
+
+  window.addEventListener(
+    "touchmove",
+    (e) => {
+      if (!running || paused || !player) return;
+      for (const t of e.changedTouches) {
+        if (t.identifier === joyId) {
+          applyJoy(t.clientX, t.clientY);
+          e.preventDefault();
+        } else if (t.identifier === lookId && lastLook) {
+          const dx = t.clientX - lastLook.x;
+          const dy = t.clientY - lastLook.y;
+          lastLook = { x: t.clientX, y: t.clientY };
+          player.onMouseMove(dx * 1.6, dy * 1.6);
+          e.preventDefault();
+        }
+      }
+    },
+    { passive: false }
+  );
+
+  const endTouch = (e) => {
+    for (const t of e.changedTouches) {
+      if (t.identifier === joyId) {
+        joyId = null;
+        joyOrigin = null;
+        resetJoy();
+      }
+      if (t.identifier === lookId) {
+        lookId = null;
+        lastLook = null;
+      }
+    }
+  };
+  window.addEventListener("touchend", endTouch);
+  window.addEventListener("touchcancel", endTouch);
+
+  const hold = (btn, on, off) => {
+    const start = (ev) => {
+      ev.preventDefault();
+      on();
+    };
+    const stop = (ev) => {
+      ev.preventDefault();
+      off();
+    };
+    btn.addEventListener("touchstart", start, { passive: false });
+    btn.addEventListener("touchend", stop, { passive: false });
+    btn.addEventListener("touchcancel", stop, { passive: false });
+    btn.addEventListener("mousedown", start);
+    btn.addEventListener("mouseup", stop);
+    btn.addEventListener("mouseleave", stop);
+  };
+
+  hold(
+    touchUI.fire,
+    () => {
+      if (player) player.wantsShoot = true;
+    },
+    () => {
+      if (player) player.wantsShoot = false;
+    }
+  );
+  touchUI.ability.addEventListener("click", (e) => {
+    e.preventDefault();
+    tryAbility();
+  });
+  touchUI.reload.addEventListener("click", (e) => {
+    e.preventDefault();
+    player?.tryReload();
+  });
+  touchUI.pause.addEventListener("click", (e) => {
+    e.preventDefault();
+    togglePause();
+  });
+}
+
+bindTouchControls();
+
 function togglePause() {
   if (!running || roundEnding) return;
   paused = !paused;
   el.pause.classList.toggle("hidden", !paused);
   if (paused) {
     if (document.pointerLockElement) document.exitPointerLock();
+    if (player) player.wantsShoot = false;
     clock.getDelta();
   } else {
-    el.canvas.requestPointerLock?.();
+    if (!isTouch) el.canvas.requestPointerLock?.();
     clock.getDelta();
   }
 }
@@ -310,6 +475,7 @@ el.btnResume.addEventListener("click", () => {
 
 el.btnQuit.addEventListener("click", () => {
   disposeMatch();
+  setTouchControlsVisible(false);
   showScreen("menu");
 });
 
@@ -414,7 +580,7 @@ function beginNextRound() {
   player.setSpawn(mapData.spawns.player);
   enemies.forEach((e, i) => e.respawn(mapData.spawns.enemies[i].clone()));
   showCenter(`回合 ${round}`, 1.2);
-  el.canvas.requestPointerLock?.();
+  if (!isTouch) el.canvas.requestPointerLock?.();
 }
 
 function endMatch(won) {
@@ -512,7 +678,7 @@ function loop() {
   const now = performance.now() / 1000;
   player.update(dt, mapData.colliders, mapData.bounds);
 
-  if (player.wantsShoot && pointerLocked) firePlayer();
+  if (player.wantsShoot && (pointerLocked || isTouch)) firePlayer();
 
   for (const e of enemies) {
     const shot = e.update(dt, player, mapData.colliders, mapData.bounds, now);

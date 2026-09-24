@@ -2,7 +2,7 @@
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>张三的小游戏 · Pulse Strike</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -24,19 +24,26 @@
       <!-- Title / Character select -->
       <section id="screen-menu" class="screen active">
         <div class="menu-bg"></div>
-        <div class="menu-panel">
-          <p class="eyebrow">张三的小游戏</p>
-          <h1 class="brand">PULSE STRIKE</h1>
-          <p class="tagline">本地 3D 射击演示 · 无联网 · 打 AI 机器人</p>
+        <div class="menu-shell">
+          <div class="menu-scroll">
+            <div class="menu-panel">
+              <p class="eyebrow">张三的小游戏</p>
+              <h1 class="brand">PULSE STRIKE</h1>
+              <p class="tagline">本地 3D 射击演示 · 无联网 · 打 AI 机器人</p>
 
-          <h2 class="section-label">选择特工</h2>
-          <div id="char-grid" class="select-grid"></div>
+              <h2 class="section-label">选择特工</h2>
+              <div id="char-grid" class="select-grid"></div>
 
-          <h2 class="section-label">选择地图</h2>
-          <div id="map-grid" class="select-grid"></div>
+              <h2 class="section-label">选择地图</h2>
+              <div id="map-grid" class="select-grid"></div>
 
-          <button id="btn-start" class="cta" type="button" disabled>开始对局</button>
-          <p class="hint">WASD 移动 · 鼠标瞄准 · 左键射击 · R 换弹 · Q 技能 · Esc 暂停</p>
+              <p class="hint desktop-hint">WASD 移动 · 鼠标瞄准 · 左键射击 · R 换弹 · Q 技能 · Esc 暂停</p>
+              <p class="hint mobile-hint">触控：左摇杆移动 · 右半屏滑动瞄准 · 开火/技能按钮</p>
+            </div>
+          </div>
+          <div class="menu-cta-bar">
+            <button id="btn-start" class="cta" type="button" disabled>开始对局 · START</button>
+          </div>
         </div>
       </section>
 
@@ -80,6 +87,17 @@
           <h2>暂停</h2>
           <button id="btn-resume" type="button">继续</button>
           <button id="btn-quit" type="button">返回菜单</button>
+        </div>
+        <div id="touch-controls" class="hidden" aria-hidden="true">
+          <div id="joy-zone">
+            <div id="joy-base"><div id="joy-knob"></div></div>
+          </div>
+          <div id="touch-actions">
+            <button type="button" id="btn-touch-ability" class="touch-btn">Q</button>
+            <button type="button" id="btn-touch-reload" class="touch-btn">R</button>
+            <button type="button" id="btn-touch-fire" class="touch-btn fire">开火</button>
+            <button type="button" id="btn-touch-pause" class="touch-btn">‖</button>
+          </div>
         </div>
       </section>
 

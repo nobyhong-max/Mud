@@ -2,17 +2,15 @@
 
 浏览器可玩的 **Valorant 风格 3D 第一人称射击演示**：选特工、选地图、打本地 AI，先赢 3 回合。
 
-无联网、无账号；Three.js + 静态页面，方便本地或 Cloud Agent 演示。
+Three.js 静态页面（已 vendor），无需联网对战账号。
 
-## 如何运行
+## 在线试玩（公网）
 
-```bash
-npm start
-# 或
-python3 -m http.server 8765
-```
+**打开：<https://indigo-mantle-gexy.here.now/>**
 
-浏览器打开 <http://localhost:8765>（需 HTTP，不要用 `file://`）。
+无需安装、无需本地服务器。直接在浏览器打开即可。
+
+> 当前为 here.now 匿名发布，约 24 小时后过期。若需永久保留，可用 claim 链接认领站点（见 PR / `internal/shooter-public-url.md`）。
 
 ## 操作
 
@@ -43,6 +41,16 @@ python3 -m http.server 8765
 - 先赢 **3** 回合获胜；死亡则对方拿下该回合  
 - HUD：生命、弹药、技能冷却、比分、小地图  
 
+## 开发者：本地运行（可选）
+
+仅在改代码时需要：
+
+```bash
+npm start
+```
+
+然后在本机浏览器打开静态服务地址（开发用，非正式测试链接）。
+
 ## 测试
 
 ```bash
@@ -53,6 +61,6 @@ npm test
 
 ## 技术
 
-- Three.js `0.160`（CDN import map）
+- Three.js `0.160`（`vendor/three.module.js`）
 - 模块：`js/game/*`
 - 样式：`css/game.css`

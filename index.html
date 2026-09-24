@@ -3,22 +3,112 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>尖锋战术 · 简易 FPS</title>
+    <title>尖锋战术 SpikeTactics</title>
     <link rel="stylesheet" href="/src/style.css" />
   </head>
   <body>
-    <div id="overlay">
-      <h1>尖锋战术</h1>
-      <p>简易浏览器 FPS 原型</p>
-      <p class="hint">WASD 移动 · 鼠标瞄准 · 空格跳 · 左键射击 · R 换弹</p>
-      <button id="start">点击开始</button>
-    </div>
-    <div id="hud" class="hidden">
-      <div id="hp">生命 <span>100</span></div>
-      <div id="ammo">弹药 <span>30</span> / 90</div>
-      <div id="crosshair">+</div>
-    </div>
     <canvas id="c"></canvas>
+
+    <div id="crosshair" class="hidden">
+      <i class="arm h"></i><i class="arm v"></i>
+      <span id="hitmark"></span>
+    </div>
+
+    <div id="hud" class="hidden">
+      <div id="topbar">
+        <div id="scoreboard">
+          <span class="atk" id="score-atk">0</span>
+          <span class="mid">回合 <b id="round-n">1</b> · 先到 <b>5</b></span>
+          <span class="def" id="score-def">0</span>
+        </div>
+        <div id="phase">购买阶段</div>
+        <div id="timer">15</div>
+      </div>
+
+      <div id="bottom">
+        <div class="block">
+          <div class="lbl">生命 / 护甲</div>
+          <div class="bars">
+            <div class="bar hp"><i id="hp-fill"></i></div>
+            <div class="bar ar"><i id="ar-fill"></i></div>
+          </div>
+          <div><span id="hp-text">100</span> · <span id="ar-text">0</span></div>
+        </div>
+        <div class="block center">
+          <div id="ammo-text">12 <small>/ 36</small></div>
+          <div class="lbl" id="gun-name">短焰</div>
+        </div>
+        <div id="abilities">
+          <div class="ab" data-k="Q"><kbd>Q</kbd><span id="ab-q">—</span><i id="cd-q"></i></div>
+          <div class="ab" data-k="E"><kbd>E</kbd><span id="ab-e">—</span><i id="cd-e"></i></div>
+          <div class="ab" data-k="C"><kbd>C</kbd><span id="ab-c">—</span><i id="cd-c"></i></div>
+          <div class="ab ult" data-k="X"><kbd>X</kbd><span id="ab-x">—</span><i id="ult-fill"></i></div>
+        </div>
+      </div>
+
+      <div id="credits">信用点 <b id="cr-text">800</b></div>
+      <div id="obj-hint" class="hidden"></div>
+      <div id="toast"></div>
+      <div id="killfeed"></div>
+      <div id="hold-bar" class="hidden"><i id="hold-fill"></i><span id="hold-label"></span></div>
+    </div>
+
+    <!-- 选角 -->
+    <div id="menu">
+      <div class="panel">
+        <p class="brand">SPIKETACTICS</p>
+        <h1>尖锋战术</h1>
+        <p class="sub">回合制 · 爆弹器 · 特工技能 · 本地人机</p>
+
+        <div class="agents">
+          <button class="agent on" data-id="flashwind">
+            <div class="sw fw"></div>
+            <strong>闪风</strong>
+            <span>决斗 · 疾闪 / 耀光 / 踏风</span>
+          </button>
+          <button class="agent" data-id="mistveil">
+            <div class="sw mv"></div>
+            <strong>雾隐</strong>
+            <span>控场 · 雾墙 / 焰障 / 霾团</span>
+          </button>
+        </div>
+
+        <div class="sides">
+          <label><input type="radio" name="side" value="attack" checked /> 进攻方</label>
+          <label><input type="radio" name="side" value="defend" /> 防守方</label>
+        </div>
+
+        <button id="btn-play" class="primary">开始对局</button>
+        <p class="hint">
+          WASD 移动 · 鼠标瞄准 · 空格跳 · 左键射击 · R 换弹<br />
+          Q/E/C 技能 · X 大招 · F 安放/拆除/捡起 · B 打开购买 · Esc 释放鼠标
+        </p>
+      </div>
+    </div>
+
+    <!-- 购买 -->
+    <div id="buy" class="hidden">
+      <div class="panel buy-panel">
+        <h2>购买阶段 <span id="buy-timer">15</span>s</h2>
+        <p>信用点 <b id="buy-cr">800</b> · 按 B 关闭，倒计时结束自动锁定</p>
+        <div class="shop-grid" id="shop-guns"></div>
+        <div class="shop-grid" id="shop-armor"></div>
+        <button id="btn-lock" class="primary">锁定装备，准备出击</button>
+      </div>
+    </div>
+
+    <!-- 回合结算 -->
+    <div id="round-end" class="hidden">
+      <div class="panel">
+        <h2 id="re-title">回合胜利</h2>
+        <p id="re-detail"></p>
+        <button id="btn-next" class="primary">下一回合</button>
+        <button id="btn-menu" class="ghost">返回选角</button>
+      </div>
+    </div>
+
+    <div id="pause-hint" class="hidden">点击画面继续操作</div>
+
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>

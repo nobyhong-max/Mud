@@ -30,7 +30,7 @@ test("index wires menu, HUD, and three.js import map", () => {
   assert.match(html, /char-grid/);
   assert.match(html, /map-grid/);
   assert.match(html, /minimap/);
-  assert.match(html, /three@0\.160\.0/);
+  assert.match(html, /vendor\/three\.module\.js/);
   assert.match(html, /js\/game\/main\.js/);
 });
 

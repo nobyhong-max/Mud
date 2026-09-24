@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { resolveCollision } from "./maps.js";
 
-const COLORS = [0xff6b4a, 0xff8f6b, 0xe85d4c];
+const COLORS = [0xff5533, 0xff8844, 0xff3355];
 
 export class Enemy {
   constructor(spawn, index) {
@@ -11,18 +11,18 @@ export class Enemy {
     this.maxHealth = 100;
     this.alive = true;
     this.radius = 0.5;
-    this.speed = 5.5 + Math.random() * 1.5;
-    this.shootCd = 1 + Math.random();
+    this.speed = 4.2 + Math.random() * 1.2;
+    this.shootCd = 3.5 + Math.random();
     this.thinkTimer = 0;
     this.strafe = Math.random() > 0.5 ? 1 : -1;
     this.flashUntil = 0;
 
     const body = new THREE.Group();
     const torso = new THREE.Mesh(
-      new THREE.CapsuleGeometry(0.35, 0.9, 4, 8),
+      new THREE.BoxGeometry(0.7, 1.2, 0.45),
       new THREE.MeshStandardMaterial({ color: COLORS[index % COLORS.length], roughness: 0.6 })
     );
-    torso.position.y = 1.0;
+    torso.position.y = 1.05;
     torso.castShadow = true;
     const head = new THREE.Mesh(
       new THREE.SphereGeometry(0.28, 12, 12),
@@ -92,10 +92,10 @@ export class Enemy {
     this.position.y = 0;
 
     // LOS check: simple distance + not too close walls — bots can shoot if in range
-    if (!blinded && this.shootCd <= 0 && dist < 28 && dist > 2) {
-      this.shootCd = 0.55 + Math.random() * 0.55;
+    if (!blinded && this.shootCd <= 0 && dist < 26 && dist > 2.5) {
+      this.shootCd = 0.9 + Math.random() * 0.7;
       // Accuracy drops with distance / movement
-      const spread = 0.04 + dist * 0.002;
+      const spread = 0.08 + dist * 0.0035;
       const aim = player.position.clone();
       aim.y = 1.5;
       aim.x += (Math.random() - 0.5) * spread * dist;
@@ -103,7 +103,7 @@ export class Enemy {
       aim.z += (Math.random() - 0.5) * spread * dist;
       const origin = this.getAimPoint();
       const shotDir = aim.sub(origin).normalize();
-      return { origin, dir: shotDir, damage: 14 + Math.floor(Math.random() * 8), from: this };
+      return { origin, dir: shotDir, damage: 9 + Math.floor(Math.random() * 5), from: this };
     }
     return null;
   }
@@ -139,7 +139,7 @@ export class Enemy {
     this.health = this.maxHealth;
     this.alive = true;
     this.mesh.visible = true;
-    this.shootCd = 1.5;
+    this.shootCd = 3.0;
     this.flashUntil = 0;
   }
 }

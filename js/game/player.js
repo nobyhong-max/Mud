@@ -30,13 +30,14 @@ export class Player {
     this.wantsAbility = false;
     this.dashVel = null;
     this.dashTimer = 0;
+    this.spawnProtectUntil = 0;
   }
 
   setSpawn(pos) {
     this.position.copy(pos);
     this.position.y = EYE;
     this.camera.position.copy(this.position);
-    this.yaw = Math.PI; // face -Z / toward enemies typically
+    this.yaw = 0; // look down -Z toward enemy spawns
     this.pitch = 0;
     this.health = this.maxHealth;
     this.ammo = this.magSize;
@@ -46,6 +47,7 @@ export class Player {
     this.abilityCd = 0;
     this.flashUntil = 0;
     this.dashVel = null;
+    this.spawnProtectUntil = performance.now() / 1000 + 2.5;
     this.applyLook();
   }
 
@@ -131,11 +133,12 @@ export class Player {
     this.shootCooldown = 0.11;
     const origin = this.camera.position.clone();
     const dir = new THREE.Vector3(0, 0, -1).applyQuaternion(this.camera.quaternion).normalize();
-    return { origin, dir, damage: 28 };
+    return { origin, dir, damage: 34 };
   }
 
   takeDamage(amount, now) {
     if (!this.alive) return false;
+    if (now < this.spawnProtectUntil) return false;
     this.health -= amount;
     if (this.health <= 0) {
       this.health = 0;

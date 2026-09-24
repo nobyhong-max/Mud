@@ -137,13 +137,13 @@ function buildYard() {
       ],
     },
     bounds: size / 2 - 2,
-    fogColor: 0xc9b896,
-    fogNear: 28,
-    fogFar: 70,
+    fogColor: 0xd4c4a0,
+    fogNear: 40,
+    fogFar: 90,
     sunColor: 0xffe2b0,
     hemiSky: 0xffe8c8,
     hemiGround: 0x6a5840,
-    clearColor: 0x87a0b0,
+    clearColor: 0x9ab4c4,
   };
 }
 
@@ -153,48 +153,59 @@ function buildCorridors() {
   const visuals = [];
   const size = 48;
 
-  floor(size, 0x2a343c, group);
-  wallRing(size, 5, 1, 0x1e2a32, colliders, visuals);
+  floor(size, 0x3a4850, group);
+  wallRing(size, 5, 1, 0x243038, colliders, visuals);
 
-  // Cross-shaped main halls with rooms
+  // Cross-shaped halls: leave a clear north-south and east-west lane
   const walls = [
-    // North block
-    [18, 4, 2, 0, 2, -14, 0x314450],
-    // South block
-    [18, 4, 2, 0, 2, 14, 0x314450],
+    // North wing walls (gap in center for NS lane)
+    [14, 4, 2, -14, 2, -12, 0x4a6270],
+    [14, 4, 2, 14, 2, -12, 0x4a6270],
+    // South wing walls
+    [14, 4, 2, -14, 2, 12, 0x4a6270],
+    [14, 4, 2, 14, 2, 12, 0x4a6270],
     // West rooms
-    [2, 4, 12, -14, 2, 0, 0x2c3c48],
-    [2, 4, 8, -8, 2, -8, 0x354858],
-    [2, 4, 8, -8, 2, 8, 0x354858],
+    [2, 4, 10, -12, 2, -8, 0x3d5564],
+    [2, 4, 10, -12, 2, 8, 0x3d5564],
     // East rooms
-    [2, 4, 12, 14, 2, 0, 0x2c3c48],
-    [2, 4, 8, 8, 2, -8, 0x354858],
-    [2, 4, 8, 8, 2, 8, 0x354858],
-    // Mid cover
-    [4, 2, 1.2, 0, 1, 0, 0x3d5566],
-    [1.2, 2.5, 4, -4, 1.25, 4, 0x3d5566],
-    [1.2, 2.5, 4, 4, 1.25, -4, 0x3d5566],
-    // Doorway lips
-    [6, 4, 1, -11, 2, -6, 0x243038],
-    [6, 4, 1, 11, 2, 6, 0x243038],
+    [2, 4, 10, 12, 2, -8, 0x3d5564],
+    [2, 4, 10, 12, 2, 8, 0x3d5564],
+    // Mid cover islands
+    [3.5, 2, 1.4, -3, 1, 0, 0x5a7484],
+    [3.5, 2, 1.4, 3, 1, 0, 0x5a7484],
+    [1.4, 2.4, 3.5, 0, 1.2, -6, 0x5a7484],
+    [1.4, 2.4, 3.5, 0, 1.2, 6, 0x5a7484],
+    // Side crates
+    [2, 1.5, 2, -8, 0.75, 0, 0x6a8494],
+    [2, 1.5, 2, 8, 0.75, 0, 0x6a8494],
   ];
   for (const w of walls) {
     colliders.push(box(...w, visuals));
   }
 
-  // Ceiling strips (visual only)
+  // Ceiling light strips (visual only)
   for (let i = -2; i <= 2; i++) {
     const strip = new THREE.Mesh(
-      new THREE.BoxGeometry(2, 0.15, 40),
+      new THREE.BoxGeometry(1.6, 0.12, 36),
       new THREE.MeshStandardMaterial({
-        color: 0x4ec9ff,
-        emissive: 0x123848,
+        color: 0x7ad4ff,
+        emissive: 0x1a5068,
+        emissiveIntensity: 0.8,
         roughness: 0.4,
       })
     );
-    strip.position.set(i * 6, 4.7, 0);
+    strip.position.set(i * 5, 4.7, 0);
     group.add(strip);
   }
+
+  // Floor lane markings
+  const lane = new THREE.Mesh(
+    new THREE.PlaneGeometry(3.2, 40),
+    new THREE.MeshStandardMaterial({ color: 0x2ee6a6, transparent: true, opacity: 0.12 })
+  );
+  lane.rotation.x = -Math.PI / 2;
+  lane.position.y = 0.03;
+  group.add(lane);
 
   for (const m of visuals) group.add(m.mesh ?? m);
 
@@ -205,19 +216,19 @@ function buildCorridors() {
     spawns: {
       player: new THREE.Vector3(0, 1.7, 18),
       enemies: [
-        new THREE.Vector3(-12, 1.7, -10),
-        new THREE.Vector3(12, 1.7, -10),
+        new THREE.Vector3(-10, 1.7, -14),
+        new THREE.Vector3(10, 1.7, -14),
         new THREE.Vector3(0, 1.7, -16),
       ],
     },
     bounds: size / 2 - 2,
-    fogColor: 0x1a2830,
-    fogNear: 12,
-    fogFar: 48,
-    sunColor: 0xa8c8d8,
-    hemiSky: 0x6a8898,
-    hemiGround: 0x1a2228,
-    clearColor: 0x0e181e,
+    fogColor: 0x3a5060,
+    fogNear: 35,
+    fogFar: 75,
+    sunColor: 0xd0e8f8,
+    hemiSky: 0xa0c0d0,
+    hemiGround: 0x3a4850,
+    clearColor: 0x2a4050,
   };
 }
 

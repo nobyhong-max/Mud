@@ -100,6 +100,16 @@ el.charGrid.querySelector('[data-id="blitz"]')?.classList.add("selected");
 el.mapGrid.querySelector('[data-id="yard"]')?.classList.add("selected");
 refreshStart();
 
+el.btnStart.addEventListener("click", (e) => {
+  e.preventDefault();
+  if (!selectedChar) selectedChar = "blitz";
+  if (!selectedMap) selectedMap = "yard";
+  startMatch(false);
+});
+el.btnRematch.addEventListener("click", () => startMatch(false));
+el.btnMenu.addEventListener("click", () => {
+  showScreen("menu");
+});
 /** —— Runtime match state —— */
 let renderer, scene, camera, clock;
 let player, mapData, enemies, smokes;
@@ -133,11 +143,18 @@ function initRenderer() {
     canvas: el.canvas,
     antialias: true,
     powerPreference: "high-performance",
+    alpha: false,
   });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.shadowMap.enabled = true;
-  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  // Software / SwiftShader WebGL struggles with shadows — keep them off for reliability.
+  const softGL = /SwiftShader|llvmpipe|software/i.test(
+    renderer.getContext()?.getParameter?.(renderer.getContext().RENDERER) || ""
+  );
+  renderer.setPixelRatio(softGL ? 1 : Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(window.innerWidth, window.innerHeight, false);
+  renderer.shadowMap.enabled = !softGL;
+  if (!softGL) renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  el.canvas.style.width = "100%";
+  el.canvas.style.height = "100%";
 }
 
 function startMatch(rematch = false) {
@@ -161,19 +178,24 @@ function startMatch(rematch = false) {
   scene.background = new THREE.Color(mapData.clearColor);
   scene.fog = new THREE.Fog(mapData.fogColor, mapData.fogNear, mapData.fogFar);
 
-  const hemi = new THREE.HemisphereLight(mapData.hemiSky, mapData.hemiGround, 0.85);
+  const hemi = new THREE.HemisphereLight(mapData.hemiSky, mapData.hemiGround, 1.15);
   scene.add(hemi);
-  const sun = new THREE.DirectionalLight(mapData.sunColor, 1.1);
+  const ambient = new THREE.AmbientLight(0xffffff, 0.35);
+  scene.add(ambient);
+  const sun = new THREE.DirectionalLight(mapData.sunColor, 1.25);
   sun.position.set(20, 35, 12);
-  sun.castShadow = true;
-  sun.shadow.mapSize.set(1024, 1024);
-  sun.shadow.camera.near = 2;
-  sun.shadow.camera.far = 80;
-  sun.shadow.camera.left = -30;
-  sun.shadow.camera.right = 30;
-  sun.shadow.camera.top = 30;
-  sun.shadow.camera.bottom = -30;
+  if (renderer.shadowMap.enabled) {
+    sun.castShadow = true;
+    sun.shadow.mapSize.set(1024, 1024);
+    sun.shadow.camera.near = 2;
+    sun.shadow.camera.far = 80;
+    sun.shadow.camera.left = -30;
+    sun.shadow.camera.right = 30;
+    sun.shadow.camera.top = 30;
+    sun.shadow.camera.bottom = -30;
+  }
   scene.add(sun);
+  renderer.setClearColor(mapData.clearColor, 1);
 
   camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 120);
   const character = getCharacter(selectedChar);
@@ -288,12 +310,6 @@ el.btnResume.addEventListener("click", () => {
 
 el.btnQuit.addEventListener("click", () => {
   disposeMatch();
-  showScreen("menu");
-});
-
-el.btnStart.addEventListener("click", () => startMatch(false));
-el.btnRematch.addEventListener("click", () => startMatch(false));
-el.btnMenu.addEventListener("click", () => {
   showScreen("menu");
 });
 
@@ -549,3 +565,13 @@ window.__PULSE_STRIKE__ = {
     health: player?.health,
   }),
 };
+
+// ?autostart=blitz,yard  — skip menu for screenshots / demos
+const auto = new URLSearchParams(location.search).get("autostart");
+if (auto) {
+  const [c, m] = auto.split(",");
+  if (c) selectedChar = c;
+  if (m) selectedMap = m;
+  refreshStart();
+  requestAnimationFrame(() => startMatch(false));
+}

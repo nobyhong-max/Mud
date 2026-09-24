@@ -1,0 +1,29 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 100%; height: 100%; overflow: hidden; background: #0b1218; font-family: "Segoe UI", "PingFang SC", sans-serif; color: #e8eef4; }
+#c { display: block; width: 100%; height: 100%; }
+#overlay {
+  position: fixed; inset: 0; z-index: 10;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background: radial-gradient(ellipse at 40% 30%, #1a2838, #0b1218 70%);
+  gap: 10px;
+}
+#overlay h1 { font-size: 2.4rem; letter-spacing: 0.2em; color: #ff4655; }
+#overlay .hint { color: #8a9aab; font-size: 0.9rem; margin: 8px 0 16px; text-align: center; }
+#start {
+  border: none; background: #ff4655; color: #fff; font-weight: 700;
+  padding: 12px 28px; border-radius: 4px; cursor: pointer; font-size: 1rem;
+}
+#hud {
+  position: fixed; inset: 0; pointer-events: none; z-index: 5;
+}
+#hud.hidden { display: none; }
+#hp, #ammo {
+  position: absolute; bottom: 24px;
+  background: rgba(0,0,0,0.5); padding: 8px 14px; border-radius: 4px; font-weight: 700;
+}
+#hp { left: 24px; }
+#ammo { right: 24px; }
+#crosshair {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  color: #fff; font-size: 22px; text-shadow: 0 0 2px #000; opacity: 0.9;
+}

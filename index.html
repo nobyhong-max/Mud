@@ -3,157 +3,96 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>微乐斗地主 · 本地记牌与出牌参考</title>
+    <title>张三的小游戏 · Pulse Strike</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;600;700;900&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./css/app.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Rajdhani:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/game.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
+        }
+      }
+    </script>
   </head>
   <body>
-    <div class="app">
-      <header class="topbar">
-        <div class="brand">
-          <h1>微乐斗地主 · 本地记牌 & 出牌参考</h1>
-          <p>
-            <span class="badge">仅学习模拟</span>
-            经典无癞子规则 · 不对接游戏客户端 · 不读内存 · 不挂钩进程 · 不自动点击
-          </p>
+    <div id="app">
+      <!-- Title / Character select -->
+      <section id="screen-menu" class="screen active">
+        <div class="menu-bg"></div>
+        <div class="menu-panel">
+          <p class="eyebrow">张三的小游戏</p>
+          <h1 class="brand">PULSE STRIKE</h1>
+          <p class="tagline">本地 3D 射击演示 · 无联网 · 打 AI 机器人</p>
+
+          <h2 class="section-label">选择特工</h2>
+          <div id="char-grid" class="select-grid"></div>
+
+          <h2 class="section-label">选择地图</h2>
+          <div id="map-grid" class="select-grid"></div>
+
+          <button id="btn-start" class="cta" type="button" disabled>开始对局</button>
+          <p class="hint">WASD 移动 · 鼠标瞄准 · 左键射击 · R 换弹 · Q 技能 · Esc 暂停</p>
         </div>
-        <div class="row">
-          <button class="btn" id="btn-example" type="button">载入示例牌局</button>
-          <button class="btn" id="btn-undo" type="button">撤销</button>
-          <button class="btn danger" id="btn-reset" type="button">清空重来</button>
+      </section>
+
+      <!-- Match HUD overlay -->
+      <section id="screen-game" class="screen">
+        <canvas id="game-canvas"></canvas>
+        <div id="crosshair"></div>
+        <div id="hud">
+          <div class="hud-top">
+            <div class="score-box">
+              <span id="score-you">0</span>
+              <span class="vs">:</span>
+              <span id="score-enemy">0</span>
+            </div>
+            <div id="round-label">第 1 回合 · 歼灭全部敌人</div>
+          </div>
+          <div class="hud-bottom">
+            <div class="stat health">
+              <span class="label">HP</span>
+              <div class="bar"><i id="hp-fill"></i></div>
+              <span id="hp-text">100</span>
+            </div>
+            <div class="stat ammo">
+              <span id="ammo-text">30</span>
+              <span class="slash">/</span>
+              <span id="reserve-text">90</span>
+            </div>
+            <div class="stat ability">
+              <span id="ability-name">FLASH</span>
+              <div class="cd-ring" id="ability-cd"><span>Q</span></div>
+            </div>
+          </div>
+          <canvas id="minimap" width="140" height="140"></canvas>
+          <div id="obj-hint">歼灭敌方特工 · 先赢 3 回合</div>
         </div>
-      </header>
+        <div id="flash-overlay"></div>
+        <div id="damage-vignette"></div>
+        <div id="kill-feed"></div>
+        <div id="center-msg" class="hidden"></div>
+        <div id="pause-menu" class="overlay-panel hidden">
+          <h2>暂停</h2>
+          <button id="btn-resume" type="button">继续</button>
+          <button id="btn-quit" type="button">返回菜单</button>
+        </div>
+      </section>
 
-      <div class="layout">
-        <section class="panel">
-          <h2>对局与录入</h2>
-          <div class="row">
-            <label class="field">
-              我的身份
-              <select id="sel-role">
-                <option value="farmer">农民（17 张）</option>
-                <option value="landlord">地主（20 张）</option>
-              </select>
-            </label>
-            <label class="field">
-              地主位置
-              <select id="sel-landlord">
-                <option value="me">我</option>
-                <option value="prev">上家</option>
-                <option value="next" selected>下家</option>
-              </select>
-            </label>
-          </div>
-          <div class="row">
-            <label class="field">
-              上家剩余
-              <input id="inp-prev" type="number" min="0" max="20" />
-            </label>
-            <label class="field">
-              下家剩余
-              <input id="inp-next" type="number" min="0" max="20" />
-            </label>
-          </div>
-          <p class="hint" id="remain-hint"></p>
-
-          <h2>点选模式</h2>
-          <div class="row">
-            <button class="btn mode-btn" data-mode="hand" type="button">点选 → 我的手牌</button>
-            <button class="btn mode-btn" data-mode="played" type="button">点选 → 已出</button>
-            <button class="btn mode-btn" data-mode="unknown" type="button">点选 → 未知</button>
-            <button class="btn mode-btn" data-mode="select" type="button">点选 → 多选</button>
-          </div>
-          <p class="hint">点点数可把该点下一张未知牌快速记入当前模式。多选后可记为本轮出牌。</p>
-
-          <div class="row">
-            <button class="btn" id="btn-sel-to-hand" type="button">所选入手牌</button>
-            <button class="btn" id="btn-sel-to-played" type="button">所选为已出</button>
-            <button class="btn ghost" id="btn-clear-sel" type="button">取消多选</button>
-          </div>
-
-          <h2>本轮出牌校验</h2>
-          <p class="hint" id="selection-info">未选牌</p>
-          <div class="row">
-            <button class="btn" data-play="me" type="button">我出这些</button>
-            <button class="btn" data-play="prev" type="button">上家出这些</button>
-            <button class="btn" data-play="next" type="button">下家出这些</button>
-          </div>
-          <div class="row">
-            <button class="btn ghost" data-pass="me" type="button">我过</button>
-            <button class="btn ghost" data-pass="prev" type="button">上家过</button>
-            <button class="btn ghost" data-pass="next" type="button">下家过</button>
-          </div>
-          <p class="hint" id="play-msg"></p>
-
-          <h2>出牌历史</h2>
-          <div class="history" id="history"></div>
-        </section>
-
-        <section class="panel">
-          <h2>54 张记牌盘</h2>
-          <div class="status-pills" id="pills"></div>
-          <div class="legend">
-            <span><i class="dot hand"></i>我手上</span>
-            <span><i class="dot played"></i>已出过</span>
-            <span><i class="dot unknown"></i>未知（另外两家 / 曾经底牌）</span>
-          </div>
-          <div class="board" id="board"></div>
-
-          <h2 style="margin-top: 14px">剩余点分布（超几何参考）</h2>
-          <div style="overflow: auto">
-            <table class="dist" id="dist">
-              <thead>
-                <tr>
-                  <th>点</th>
-                  <th>我</th>
-                  <th>已出</th>
-                  <th>未知</th>
-                  <th>下家≥1</th>
-                  <th>下家对</th>
-                  <th>下家炸</th>
-                  <th>上家≥1</th>
-                </tr>
-              </thead>
-              <tbody></tbody>
-            </table>
-          </div>
-        </section>
-
-        <section class="panel">
-          <h2>出牌参考</h2>
-          <div class="table-play" id="table-play"></div>
-          <div class="row">
-            <button class="btn primary" id="btn-suggest" type="button">计算可出牌与参考胜率</button>
-          </div>
-          <p class="hint">
-            评分结合手牌整齐度、是否浪费炸弹/王、以及把未知牌随机分给另外两家后的简化模拟。只供学习，不是精确胜率。
-          </p>
-          <div class="suggest-list" id="suggest"></div>
-
-          <h2 style="margin-top: 16px">YOLO 预留接口</h2>
-          <p class="hint">
-            本版只支持手动录入。未来识别模块请输出
-            <code>vision/example-detections.json</code>
-            同结构，再点导入。页面也暴露
-            <code>window.__WEILE_VISION_BRIDGE__</code>。
-          </p>
-          <div class="row">
-            <button class="btn" id="btn-yolo" type="button" disabled>摄像头识别（待接入）</button>
-            <button class="btn" id="btn-import-json" type="button">导入识别 JSON</button>
-            <button class="btn ghost" id="btn-import-example" type="button">载入示例 JSON</button>
-            <input id="file-json" type="file" accept="application/json" hidden />
-          </div>
-          <p class="hint" id="vision-msg"></p>
-        </section>
-      </div>
-
-      <p class="footer-note">
-        规则按微乐经典无癞子：顺子/连对/飞机主体不能含 2 和王；王炸大于炸弹；四带二（两单或两对）不是炸弹，不能当炸弹用。
-        本工具是独立网页，不会也不应连接到微乐客户端。
-      </p>
+      <!-- Round / Match end -->
+      <section id="screen-result" class="screen">
+        <div class="menu-panel result-panel">
+          <h2 id="result-title">胜利</h2>
+          <p id="result-detail"></p>
+          <button id="btn-rematch" class="cta" type="button">再来一局</button>
+          <button id="btn-menu" type="button">返回选人</button>
+        </div>
+      </section>
     </div>
-    <script type="module" src="./js/app.js"></script>
+    <script type="module" src="./js/game/main.js"></script>
   </body>
 </html>

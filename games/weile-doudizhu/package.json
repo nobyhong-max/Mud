@@ -1,0 +1,11 @@
+{
+  "name": "weile-doudizhu-coach",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "微乐经典无癞子斗地主 · 本地记牌与出牌参考（仅学习模拟）",
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "start": "python3 -m http.server 8765"
+  }
+}

@@ -14,13 +14,13 @@
 
 **<https://jade-solace-44pa.here.now/>**
 
-页面为静态托管，与仓库根目录一致。更新代码后可在项目根目录执行：
+页面为静态托管，与仓库根目录一致。站点已绑定 here.now 账号后**长期有效**（同一 slug 不变）。
+
+更新代码后重新发布（需本机或 Agent 已保存 here.now API Key，见 [here.now 文档](https://here.now/docs)）：
 
 ```bash
 ~/.agents/skills/here-now/scripts/publish.sh . --slug jade-solace-44pa --client cursor
 ```
-
-（首次匿名发布会生成认领链接；认领后可长期保留该地址。）
 
 ## 本地打开
 

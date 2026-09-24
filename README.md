@@ -8,6 +8,20 @@
 - 不读取游戏内存、不挂钩进程、不自动点击
 - 本版手牌和已出牌都靠手动点选；YOLO 只留了 JSON 接口
 
+## 公网体验（推荐）
+
+远程、手机或 Cursor iOS 测试请用公网链接（无需本机 `localhost`）：
+
+**<https://jade-solace-44pa.here.now/>**
+
+页面为静态托管，与仓库根目录一致。站点已绑定 here.now 账号后**长期有效**（同一 slug 不变）。
+
+更新代码后重新发布（需本机或 Agent 已保存 here.now API Key，见 [here.now 文档](https://here.now/docs)）：
+
+```bash
+~/.agents/skills/here-now/scripts/publish.sh . --slug jade-solace-44pa --client cursor
+```
+
 ## 本地打开
 
 需要用静态服务器加载 ES 模块（不要直接双击 `index.html` 走 `file://`）：
@@ -18,7 +32,7 @@ npm start
 python3 -m http.server 8765
 ```
 
-浏览器打开 <http://localhost:8765>。
+浏览器打开 <http://localhost:8765>（仅本机可访问）。
 
 ## 功能
 

@@ -1,9 +1,9 @@
 {
-  "name": "valorant-fps-prototype",
+  "name": "spiketactics-mini-fps",
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "无畏契约风格浏览器 FPS 原型 —— 本地单机可玩",
+  "description": "尖锋战术 · 简易浏览器 FPS 原型",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

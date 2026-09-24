@@ -103,7 +103,7 @@ export class Game {
     this.renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
     this.renderer.shadowMap.enabled = true;
     this.controls = new PointerLockControls(this.camera, document.body);
-    this.scene.add(this.controls.getObject());
+    this.scene.add(this.playerObject());
     this.muzzle = new THREE.PointLight(0xffaa55, 0, 10);
     this.camera.add(this.muzzle);
     this.scene.add(this.camera);
@@ -124,6 +124,10 @@ export class Game {
       this.camera.updateProjectionMatrix();
       this.renderer.setSize(innerWidth, innerHeight);
     });
+  }
+
+  playerObject() {
+    return this.controls.object ?? this.controls.getObject();
   }
 
   _bindInput() {
@@ -271,7 +275,7 @@ export class Game {
     };
     this.applyAgentLabels();
     const spawn = this.playerSide === 'attack' ? this.map.attackSpawn : this.map.defendSpawn;
-    this.controls.getObject().position.copy(spawn);
+    this.playerObject().position.copy(spawn);
   }
 
   applyAgentLabels() {
@@ -473,7 +477,7 @@ export class Game {
     const dir = new THREE.Vector3();
     this.controls.getDirection(dir);
     dir.y = 0; dir.normalize();
-    const obj = this.controls.getObject();
+    const obj = this.playerObject();
     obj.position.addScaledVector(dir, dist);
     resolveCollision(obj.position, RADIUS, EYE, this.map.colliders);
   }
@@ -481,7 +485,7 @@ export class Game {
   _flash() {
     const dir = new THREE.Vector3();
     this.controls.getDirection(dir);
-    const origin = this.controls.getObject().position.clone();
+    const origin = this.playerObject().position.clone();
     for (const b of this.bots) {
       if (!b.alive) continue;
       const to = b.mesh.position.clone().add(new THREE.Vector3(0, 1.2, 0)).sub(origin);
@@ -507,7 +511,7 @@ export class Game {
     this.controls.getDirection(dir);
     dir.y = 0; dir.normalize();
     const right = new THREE.Vector3().crossVectors(dir, new THREE.Vector3(0, 1, 0)).normalize();
-    const base = this.controls.getObject().position.clone().addScaledVector(dir, 6);
+    const base = this.playerObject().position.clone().addScaledVector(dir, 6);
     base.y = 1.6;
     const g = new THREE.Group();
     g.position.copy(base);
@@ -684,7 +688,7 @@ export class Game {
         p.hasSpike = false;
         this.spike.state = 'dropped';
         this.spike.holder = null;
-        this.spike.pos.copy(this.controls.getObject().position);
+        this.spike.pos.copy(this.playerObject().position);
         this.spike.pos.y = 0.25;
         this._syncSpikeMesh();
       }
@@ -730,7 +734,7 @@ export class Game {
   // ——— Spike interactions ———
   updateSpike(dt) {
     const p = this.player;
-    const pos = this.controls.getObject().position;
+    const pos = this.playerObject().position;
 
     if (this.spike.state === 'planted') {
       this.spike.timer -= dt;
@@ -881,7 +885,7 @@ export class Game {
 
   // ——— Bots AI ———
   updateBots(dt) {
-    const playerPos = this.controls.getObject().position;
+    const playerPos = this.playerObject().position;
     for (const b of this.bots) {
       if (!b.alive) continue;
       b.blind = Math.max(0, b.blind - dt);
@@ -1091,7 +1095,7 @@ export class Game {
       }
 
       const p = this.player;
-      const obj = this.controls.getObject();
+      const obj = this.playerObject();
 
       if (p.alive && this.controls.isLocked) {
         // movement

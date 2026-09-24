@@ -76,14 +76,14 @@ export function buildMap(scene) {
   ring(scene, siteA, 0x0fdda3, 'A 包点');
   ring(scene, siteB, 0x0fdda3, 'B 包点');
 
-  scene.add(new THREE.HemisphereLight(0xb8c8d8, 0x1a1e24, 0.9));
-  const sun = new THREE.DirectionalLight(0xfff0e0, 1.0);
+  scene.add(new THREE.HemisphereLight(0xc5d4e4, 0x222830, 1.15));
+  const sun = new THREE.DirectionalLight(0xfff2e4, 1.25);
   sun.position.set(18, 42, 12);
   sun.castShadow = true;
   scene.add(sun);
-  scene.add(new THREE.AmbientLight(0x405060, 0.32));
-  scene.background = new THREE.Color(0x0c141d);
-  scene.fog = new THREE.Fog(0x0c141d, 40, 120);
+  scene.add(new THREE.AmbientLight(0x556878, 0.55));
+  scene.background = new THREE.Color(0x15202c);
+  scene.fog = new THREE.Fog(0x15202c, 55, 130);
 
   return {
     colliders,

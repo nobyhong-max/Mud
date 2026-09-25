@@ -231,7 +231,8 @@ html, body {
 
 .mobile-install { display: none; }
 
-html.mobile-ui .desktop-abilities { display: none; }
+html.mobile-ui #abilities.desktop-abilities,
+html.mobile-ui .desktop-abilities { display: none !important; }
 html.mobile-ui .mobile-install { display: block; }
 html.mobile-ui #bottom {
   bottom: auto;

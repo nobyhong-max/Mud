@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>张三的小游戏 · 合集</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./css/minesweeper.css" />
+    <style>
+      .hub-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+      .hub-list a {
+        display: block;
+        padding: 14px 16px;
+        border-radius: 10px;
+        border: 1px solid rgba(227, 179, 76, 0.25);
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--paper);
+        text-decoration: none;
+      }
+      .hub-list a:hover { border-color: var(--gold); }
+      .hub-list small { display: block; margin-top: 4px; color: #9eb5a8; font-size: 13px; }
+    </style>
+  </head>
+  <body>
+    <div class="ms-app">
+      <header class="ms-header">
+        <p class="ms-eyebrow">张三的小游戏</p>
+        <h1 class="ms-title" style="font-size: 2rem">小游戏合集</h1>
+        <p class="ms-tagline">本地网页 · 即开即玩</p>
+      </header>
+      <section class="ms-panel">
+        <ul class="hub-list">
+          <li>
+            <a href="./minesweeper.html"><strong>扫雷</strong><small>经典扫雷 · 自定义大小 · 手机插旗模式</small></a>
+          </li>
+          <li>
+            <a href="./index.html"><strong>微乐斗地主记牌</strong><small>本地记牌与出牌参考（学习用）</small></a>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </body>
+</html>

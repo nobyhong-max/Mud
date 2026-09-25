@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>张三的小游戏 · 扫雷</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;600;700;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./css/minesweeper.css" />
+  </head>
+  <body>
+    <div class="ms-app">
+      <header class="ms-header">
+        <h1 class="ms-title">扫雷</h1>
+        <p class="ms-tagline">翻开安全格，标出全部地雷</p>
+        <p class="ms-size-badge" id="size-badge">局面：9 × 9 · 10 颗雷</p>
+      </header>
+
+      <section class="ms-panel">
+        <div class="ms-row ms-difficulty-row">
+          <h2 class="ms-inline-title">难度</h2>
+          <span class="ms-preset-current" id="preset-current">当前：初级</span>
+        </div>
+        <div class="ms-row ms-preset-btns">
+          <button type="button" class="ms-btn ms-preset active" data-preset="beginner">
+            <span class="ms-preset-name">初级</span>
+            <span class="ms-preset-meta">9 × 9 · 10 雷</span>
+          </button>
+          <button type="button" class="ms-btn ms-preset" data-preset="intermediate">
+            <span class="ms-preset-name">中级</span>
+            <span class="ms-preset-meta">16 × 16 · 40 雷</span>
+          </button>
+          <button type="button" class="ms-btn ms-preset" data-preset="expert">
+            <span class="ms-preset-name">高级</span>
+            <span class="ms-preset-meta">30 × 16 · 99 雷</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="ms-panel">
+        <h2>自定义大小</h2>
+        <p class="ms-hint ms-custom-lead">例如 <strong>16 × 16，40 雷</strong> —— 宽高和雷数都可自己填。</p>
+        <div class="ms-row">
+          <label class="ms-field">
+            宽度
+            <input id="inp-width" type="number" min="5" max="40" value="16" placeholder="5–40" inputmode="numeric" />
+          </label>
+          <label class="ms-field">
+            高度
+            <input id="inp-height" type="number" min="5" max="30" value="16" placeholder="5–30" inputmode="numeric" />
+          </label>
+          <label class="ms-field">
+            地雷数
+            <input id="inp-mines" type="number" min="1" value="40" placeholder="至少 1" inputmode="numeric" />
+          </label>
+          <button type="button" class="ms-btn primary" id="btn-custom-apply">生成棋盘</button>
+        </div>
+        <p class="ms-hint error" id="custom-error" hidden></p>
+      </section>
+
+      <section class="ms-panel">
+        <div class="ms-row ms-play-hints">
+          <p class="ms-hint desktop-only" id="hint-desktop">左键翻开 · 右键插旗</p>
+          <p class="ms-hint mobile-only" id="hint-mobile">点一下翻开 · <strong>插旗模式</strong> 再点插旗</p>
+          <button type="button" class="ms-btn" id="btn-flag-mode" aria-pressed="false">插旗模式：已关闭</button>
+        </div>
+        <div class="ms-status">
+          <span class="ms-counter" aria-label="剩余雷数">🚩 <span id="mines-left">010</span></span>
+          <button type="button" class="ms-btn face-btn" id="btn-face" title="新一局">🙂</button>
+          <span class="ms-counter" aria-label="用时">⏱ <span id="timer">000</span></span>
+        </div>
+        <div class="ms-board-wrap">
+          <div class="ms-board" id="board" role="grid" aria-label="扫雷棋盘"></div>
+        </div>
+      </section>
+
+      <details class="ms-panel ms-rules">
+        <summary>玩法</summary>
+        <ol>
+          <li>数字表示周围八格有多少颗雷。</li>
+          <li>空白格会自动展开相连区域。</li>
+          <li>在疑似有雷的格子上插旗标记。</li>
+          <li>第一次点击保证不是雷。</li>
+        </ol>
+      </details>
+
+      <footer class="ms-footer">
+        <a href="./games.html">返回小游戏合集</a>
+      </footer>
+    </div>
+
+    <div class="ms-overlay hidden" id="overlay" role="dialog" aria-modal="true">
+      <div class="ms-modal">
+        <h3 id="overlay-title">恭喜通关！</h3>
+        <p id="overlay-msg">再点笑脸开新局</p>
+        <button type="button" class="ms-btn primary" id="btn-overlay-ok">知道了</button>
+      </div>
+    </div>
+
+    <script type="module" src="./js/minesweeper.js"></script>
+  </body>
+</html>

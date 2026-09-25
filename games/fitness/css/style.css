@@ -39,9 +39,17 @@ body {
 
 .top-bar {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
+  gap: 8px;
   margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.top-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
 .logo {
@@ -49,6 +57,17 @@ body {
   font-size: 1.15rem;
   color: var(--accent);
   letter-spacing: 0.02em;
+}
+
+.tagline {
+  font-size: 0.7rem;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.chip-gold {
+  background: linear-gradient(135deg, #fff8e7, #ffe9b8);
+  color: #8a5a00;
 }
 
 .top-stats {
@@ -117,6 +136,143 @@ body {
 
 .stat-value {
   font-size: 0.95rem;
+}
+
+.player-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.pstat {
+  background: var(--bg);
+  border-radius: 10px;
+  padding: 8px 6px;
+  font-size: 0.72rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.pstat strong {
+  color: var(--accent-dark);
+  font-size: 0.85rem;
+}
+
+.nav-row {
+  display: flex;
+  gap: 10px;
+}
+
+.btn.compact {
+  padding: 12px 16px;
+  font-size: 0.95rem;
+}
+
+.shop-header {
+  background: var(--surface);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+}
+
+.shop-header h2 {
+  margin: 0 0 8px;
+}
+
+.shop-balance {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.shop-hint {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.upgrade-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.upgrade-card {
+  background: var(--surface);
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: var(--shadow);
+}
+
+.upgrade-top {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.upgrade-icon {
+  font-size: 1.8rem;
+  line-height: 1;
+}
+
+.upgrade-name {
+  font-weight: 800;
+  font-size: 1rem;
+}
+
+.lv-tag {
+  font-weight: 600;
+  font-size: 0.8rem;
+  color: var(--mint);
+}
+
+.upgrade-desc {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+.upgrade-effect {
+  font-size: 0.75rem;
+  color: var(--accent-dark);
+  margin-top: 6px;
+}
+
+.buy-btn {
+  width: 100%;
+  padding: 12px;
+  font-size: 0.95rem;
+  background: linear-gradient(135deg, #ffc857, #ffb347);
+  color: #5c3d00;
+  border: none;
+}
+
+.buy-btn.maxed {
+  background: #eee;
+  color: var(--muted);
+}
+
+.workout-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  color: var(--muted);
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.session-coins {
+  font-weight: 700;
+  color: #8a5a00;
+}
+
+.rest-bonus {
+  font-size: 0.85rem;
+  color: var(--mint);
+  margin: 0 0 8px;
 }
 
 .daily-card h2,
@@ -205,13 +361,6 @@ body {
   color: var(--muted);
   font-weight: 500;
   font-size: 0.9rem;
-}
-
-.workout-header {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.85rem;
-  color: var(--muted);
 }
 
 .timer-ring {

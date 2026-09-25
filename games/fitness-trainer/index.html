@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#1a2744" />
+  <title>健身大亨 · 练主角赚钱升级</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="app">
+    <header class="top-bar">
+      <div class="brand">
+        <span class="logo">健身大亨</span>
+        <span class="tag">主角锻炼 · 赚钱 · 升级</span>
+      </div>
+      <div class="top-chips">
+        <span class="chip gold">🪙 <strong id="coins">0</strong></span>
+        <span class="chip">Lv.<strong id="hero-level">1</strong></span>
+      </div>
+    </header>
+
+    <section class="gym-stage">
+      <canvas id="gym-canvas" width="360" height="220" aria-label="健身房场景"></canvas>
+      <p class="hero-name" id="hero-name">主角 · 阿强</p>
+      <p class="status-line" id="status-line">点下方训练，让主角动起来！</p>
+      <div class="bars">
+        <label>体力 <span id="energy-text">100/100</span></label>
+        <div class="bar"><div class="fill energy" id="energy-bar"></div></div>
+        <label>经验 <span id="exp-text">0/100</span></label>
+        <div class="bar"><div class="fill exp" id="exp-bar"></div></div>
+      </div>
+    </section>
+
+    <section class="stats-panel" id="stats-panel"></section>
+
+    <section class="train-panel">
+      <h2>训练项目</h2>
+      <div class="train-grid" id="train-grid"></div>
+    </section>
+
+    <section class="actions">
+      <button type="button" class="btn secondary" id="btn-shop">🛒 升级商店</button>
+      <button type="button" class="btn ghost" id="btn-rename">✏️ 改名</button>
+    </section>
+
+    <dialog id="shop-dialog">
+      <form method="dialog" class="shop-sheet">
+        <header>
+          <h2>升级商店</h2>
+          <p>金币 <strong id="shop-coins">0</strong> · 永久提升主角属性</p>
+        </header>
+        <div class="upgrade-list" id="upgrade-list"></div>
+        <button type="submit" class="btn primary wide">完成</button>
+      </form>
+    </dialog>
+
+    <footer class="foot">进度保存在本机 · 离线最多累计 8 小时训练收益</footer>
+  </div>
+  <script type="module" src="js/game.js"></script>
+</body>
+</html>

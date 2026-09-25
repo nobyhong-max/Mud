@@ -4,3 +4,6 @@ dist
 *.log
 .vite
 .herenow
+
+.herenow/
+dist/

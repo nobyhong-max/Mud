@@ -2,7 +2,19 @@
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#0a1016" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="尖锋战术" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="description" content="尖锋战术 SpikeTactics — 手机可玩的回合制战术 FPS" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png" />
+    <link rel="apple-touch-icon" href="/icons/icon-192.png" />
     <title>尖锋战术 SpikeTactics</title>
     <link rel="stylesheet" href="/src/style.css" />
   </head>
@@ -38,7 +50,7 @@
           <div id="ammo-text">12 <small>/ 36</small></div>
           <div class="lbl" id="gun-name">短焰</div>
         </div>
-        <div id="abilities">
+        <div id="abilities" class="desktop-abilities">
           <div class="ab" data-k="Q"><kbd>Q</kbd><span id="ab-q">—</span><i id="cd-q"></i></div>
           <div class="ab" data-k="E"><kbd>E</kbd><span id="ab-e">—</span><i id="cd-e"></i></div>
           <div class="ab" data-k="C"><kbd>C</kbd><span id="ab-c">—</span><i id="cd-c"></i></div>
@@ -53,12 +65,39 @@
       <div id="hold-bar" class="hidden"><i id="hold-fill"></i><span id="hold-label"></span></div>
     </div>
 
+    <!-- 手游触控层 -->
+    <div id="mobile-controls" class="hidden" aria-hidden="true">
+      <div id="joy-base" class="joy-base">
+        <div id="joy-knob" class="joy-knob"></div>
+        <span class="joy-label">移动</span>
+      </div>
+      <div id="look-pad" class="look-pad" aria-label="瞄准区域"></div>
+      <div class="mc-right">
+        <button type="button" class="mc-btn fire" id="mc-fire">开火</button>
+        <div class="mc-row">
+          <button type="button" class="mc-btn" id="mc-reload">换弹</button>
+          <button type="button" class="mc-btn" id="mc-jump">跳</button>
+          <button type="button" class="mc-btn" id="mc-sprint">冲刺</button>
+        </div>
+        <div class="mc-row abilities">
+          <button type="button" class="mc-btn ab" id="mc-q">Q</button>
+          <button type="button" class="mc-btn ab" id="mc-e">E</button>
+          <button type="button" class="mc-btn ab" id="mc-c">C</button>
+          <button type="button" class="mc-btn ab ult" id="mc-x">大招</button>
+        </div>
+        <div class="mc-row">
+          <button type="button" class="mc-btn interact" id="mc-interact">互动</button>
+          <button type="button" class="mc-btn" id="mc-buy">商店</button>
+        </div>
+      </div>
+    </div>
+
     <!-- 选角 -->
     <div id="menu">
       <div class="panel">
         <p class="brand">SPIKETACTICS</p>
         <h1>尖锋战术</h1>
-        <p class="sub">回合制 · 爆弹器 · 特工技能 · 本地人机</p>
+        <p class="sub">回合制 · 爆弹器 · 特工技能 · 本地人机 · 手游</p>
 
         <div class="agents">
           <button class="agent on" data-id="flashwind">
@@ -79,10 +118,11 @@
         </div>
 
         <button id="btn-play" class="primary">开始对局</button>
-        <p class="hint">
+        <p class="hint" id="menu-controls-hint">
           WASD 移动 · 鼠标瞄准 · 空格跳 · 左键射击 · R 换弹<br />
           Q/E/C 技能 · X 大招 · F 安放/拆除/捡起 · B 打开购买 · Esc 释放鼠标
         </p>
+        <p class="hint mobile-install">手机浏览器可「添加到主屏幕」全屏游玩</p>
       </div>
     </div>
 
@@ -90,7 +130,7 @@
     <div id="buy" class="hidden">
       <div class="panel buy-panel">
         <h2>购买阶段 <span id="buy-timer">15</span>s</h2>
-        <p>信用点 <b id="buy-cr">800</b> · 按 B 关闭，倒计时结束自动锁定</p>
+        <p id="buy-help">信用点 <b id="buy-cr">800</b> · 按 B 关闭，倒计时结束自动锁定</p>
         <div class="shop-grid" id="shop-guns"></div>
         <div class="shop-grid" id="shop-armor"></div>
         <button id="btn-lock" class="primary">锁定装备，准备出击</button>
@@ -110,5 +150,12 @@
     <div id="pause-hint" class="hidden">点击画面继续操作</div>
 
     <script type="module" src="/src/main.js"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(() => {});
+        });
+      }
+    </script>
   </body>
 </html>

@@ -3,6 +3,8 @@ import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockCont
 import { AGENTS, ARMOR, ECONOMY, MATCH, WEAPONS } from './config.js';
 import { Sfx } from './audio.js';
 import { buildMap, resolveCollision } from './map.js';
+import { mobilePerfProfile } from './device.js';
+import { MobileControls } from './mobile.js';
 
 const EYE = 1.6;
 const RADIUS = 0.38;
@@ -26,15 +28,33 @@ export class Game {
     this.holdT = 0;
     this.holdMax = 0;
     this.toastT = 0;
+    this.perf = mobilePerfProfile();
+    this.mobileMode = this.perf.mobile;
+    this.touchPlaying = false;
+    this.touchMove = { x: 0, y: 0 };
+    this.touchSprint = false;
+    this.touchJump = false;
 
     this._bindDom();
     this._initThree();
-    this.map = buildMap(this.scene);
+    this.map = buildMap(this.scene, { shadows: this.perf.shadows });
     this._bindInput();
     this._buildShop();
     this.clock = new THREE.Clock();
     this._loop = this._loop.bind(this);
     requestAnimationFrame(this._loop);
+
+    document.documentElement.classList.toggle('mobile-ui', this.mobileMode);
+    const hint = document.getElementById('menu-controls-hint');
+    if (hint && this.mobileMode) {
+      hint.innerHTML =
+        '左摇杆移动 · 右侧滑动瞄准 · 开火 / 换弹 / 跳 / 冲刺<br />技能与「互动」安放拆除 · 可「添加到主屏幕」全屏游玩';
+    }
+    const buyHelp = document.getElementById('buy-help');
+    if (buyHelp && this.mobileMode) {
+      buyHelp.innerHTML = '信用点 <b id="buy-cr">800</b> · 点选购买，倒计时结束自动锁定';
+      this.el.buyCr = document.getElementById('buy-cr');
+    }
   }
 
   _bindDom() {
@@ -98,11 +118,15 @@ export class Game {
     this.canvas = document.getElementById('c');
     this.scene = new THREE.Scene();
     this.camera = new THREE.PerspectiveCamera(78, innerWidth / innerHeight, 0.08, 160);
-    this.renderer = new THREE.WebGLRenderer({ canvas: this.canvas, antialias: true });
-    this.renderer.setSize(innerWidth, innerHeight);
-    this.renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-    this.renderer.shadowMap.enabled = true;
+    this.renderer = new THREE.WebGLRenderer({
+      canvas: this.canvas,
+      antialias: this.perf.antialias,
+      powerPreference: this.mobileMode ? 'low-power' : 'high-performance',
+    });
+    this._applyRendererSize();
+    this.renderer.shadowMap.enabled = this.perf.shadows;
     this.controls = new PointerLockControls(this.camera, document.body);
+    this.camera.rotation.order = 'YXZ';
     this.scene.add(this.playerObject());
     this.muzzle = new THREE.PointLight(0xffaa55, 0, 10);
     this.camera.add(this.muzzle);
@@ -112,6 +136,7 @@ export class Game {
     this.plantedMesh = null;
 
     this.controls.addEventListener('unlock', () => {
+      if (this.mobileMode) return;
       if (this.phase === 'action' && this.player?.alive) {
         this.el.pause.classList.remove('hidden');
       }
@@ -119,18 +144,107 @@ export class Game {
     this.controls.addEventListener('lock', () => {
       this.el.pause.classList.add('hidden');
     });
-    addEventListener('resize', () => {
-      this.camera.aspect = innerWidth / innerHeight;
-      this.camera.updateProjectionMatrix();
-      this.renderer.setSize(innerWidth, innerHeight);
-    });
+    addEventListener('resize', () => this._applyRendererSize());
+    addEventListener('orientationchange', () => setTimeout(() => this._applyRendererSize(), 120));
+  }
+
+  _applyRendererSize() {
+    const w = innerWidth;
+    const h = innerHeight;
+    this.camera.aspect = w / h;
+    this.camera.updateProjectionMatrix();
+    this.renderer.setPixelRatio(Math.min(devicePixelRatio, this.perf.pixelRatioCap));
+    this.renderer.setSize(w, h, false);
+    this.canvas.style.width = '100%';
+    this.canvas.style.height = '100%';
   }
 
   playerObject() {
     return this.controls.object ?? this.controls.getObject();
   }
 
+  /** Desktop pointer-lock OR mobile touch session */
+  isControlActive() {
+    if (this.mobileMode) return this.touchPlaying && this.phase === 'action';
+    return this.controls.isLocked;
+  }
+
+  engageControls() {
+    if (this.mobileMode) {
+      this.touchPlaying = true;
+      this.mobile?.setVisible(true);
+      this.el.pause.classList.add('hidden');
+      return;
+    }
+    this.controls.lock();
+  }
+
+  releaseControls() {
+    this.touchPlaying = false;
+    this.mobile?.setVisible(false);
+    this.shooting = false;
+    this.holdingF = false;
+    this.touchSprint = false;
+    this.touchJump = false;
+    this.touchMove = { x: 0, y: 0 };
+    try { this.controls.unlock(); } catch { /* noop */ }
+  }
+
+  applyLook(dx, dy) {
+    const cam = this.camera;
+    cam.rotation.order = 'YXZ';
+    cam.rotation.y -= dx;
+    cam.rotation.x -= dy;
+    const lim = Math.PI / 2 - 0.02;
+    cam.rotation.x = Math.max(-lim, Math.min(lim, cam.rotation.x));
+  }
+
   _bindInput() {
+    this.mobile = new MobileControls({
+      onLook: (dx, dy) => {
+        if (this.isControlActive()) this.applyLook(dx, dy);
+      },
+      onFire: (on) => {
+        if (!this.isControlActive()) return;
+        this.shooting = on;
+      },
+      onReload: () => {
+        if (this.phase === 'action' && this.isControlActive()) this.reload();
+      },
+      onJump: (down) => {
+        this.touchJump = down;
+        this.keys.Space = down;
+      },
+      onSprint: (down) => {
+        this.touchSprint = down;
+        this.keys.ShiftLeft = down;
+      },
+      onAbility: (slot) => {
+        if (this.phase === 'action' && this.isControlActive()) this.cast(slot);
+      },
+      onInteract: (down) => {
+        this.holdingF = down;
+        if (!down) {
+          this.holdT = 0;
+          this.el.hold.classList.add('hidden');
+        }
+      },
+      onBuy: () => {
+        if (this.phase === 'buy') this.toggleBuyPanel();
+      },
+    });
+    this.mobile.setVisible(false);
+
+    // Sync joystick axes into movement each frame via touchMove
+    const syncMove = () => {
+      if (this.mobileMode && this.mobile) {
+        this.touchMove.x = this.mobile.move.x;
+        this.touchMove.y = this.mobile.move.y;
+      }
+      requestAnimationFrame(syncMove);
+    };
+    requestAnimationFrame(syncMove);
+
     addEventListener('keydown', (e) => {
       this.keys[e.code] = true;
       if (e.code === 'KeyR' && this.phase === 'action') this.reload();
@@ -150,6 +264,7 @@ export class Game {
       }
     });
     addEventListener('mousedown', (e) => {
+      if (this.mobileMode) return;
       if (e.button === 0) {
         if (!this.controls.isLocked && this.phase === 'action') {
           this.controls.lock();
@@ -161,6 +276,23 @@ export class Game {
     addEventListener('mouseup', (e) => {
       if (e.button === 0) this.shooting = false;
     });
+
+    // Mobile: tap canvas / resume hint to resume
+    const resume = () => {
+      if (this.mobileMode && this.phase === 'action' && this.player?.alive && !this.touchPlaying) {
+        this.engageControls();
+      }
+    };
+    this.el.pause?.addEventListener('click', resume);
+    this.el.pause?.addEventListener('touchend', (e) => {
+      e.preventDefault();
+      resume();
+    }, { passive: false });
+
+    // Prevent pull-to-refresh / page scroll during play
+    document.body.addEventListener('touchmove', (e) => {
+      if (this.phase === 'action' && this.touchPlaying) e.preventDefault();
+    }, { passive: false });
   }
 
   _buildShop() {
@@ -194,7 +326,7 @@ export class Game {
     this.el.hud.classList.add('hidden');
     this.el.cross.classList.add('hidden');
     this.el.menu.classList.remove('hidden');
-    this.controls.unlock();
+    this.releaseControls();
   }
 
   startMatch() {
@@ -221,6 +353,8 @@ export class Game {
     this.refreshShop();
     this.showToast('购买阶段');
     this.updateHud();
+    this.mobile?.setVisible(false);
+    this.touchPlaying = false;
   }
 
   toggleBuyPanel() {
@@ -239,7 +373,10 @@ export class Game {
     this.el.cross.classList.remove('hidden');
     this.el.hud.classList.remove('hidden');
     this.showToast(this.playerSide === 'attack' ? '进攻开始' : '防守开始');
-    this.controls.lock();
+    this.engageControls();
+    if (this.mobileMode) {
+      this.el.pause.textContent = '点按继续操作';
+    }
     this.updateHud();
   }
 
@@ -284,6 +421,14 @@ export class Game {
     this.el.abE.textContent = a.e.name;
     this.el.abC.textContent = a.c.name;
     this.el.abX.textContent = a.x.name;
+    const mq = document.getElementById('mc-q');
+    const me = document.getElementById('mc-e');
+    const mc = document.getElementById('mc-c');
+    const mx = document.getElementById('mc-x');
+    if (mq) mq.textContent = a.q.name;
+    if (me) me.textContent = a.e.name;
+    if (mc) mc.textContent = a.c.name;
+    if (mx) mx.textContent = a.x.name;
   }
 
   buyGun(id) {
@@ -365,7 +510,7 @@ export class Game {
       new THREE.MeshStandardMaterial({ color })
     );
     torso.position.y = 1.05;
-    torso.castShadow = true;
+    torso.castShadow = this.perf.shadows;
     const head = new THREE.Mesh(
       new THREE.BoxGeometry(0.42, 0.42, 0.42),
       new THREE.MeshStandardMaterial({ color: 0xffd2b3 })
@@ -437,7 +582,7 @@ export class Game {
 
   // ——— Abilities ———
   cast(slot) {
-    if (!this.player?.alive || !this.controls.isLocked) return;
+    if (!this.player?.alive || !this.isControlActive()) return;
     const a = AGENTS[this.player.agentId];
     if (slot === 'x') {
       if (this.player.ult < this.player.ultNeed) return;
@@ -962,7 +1107,7 @@ export class Game {
   endRound(winnerSide, reason) {
     if (this.phase === 'end') return;
     this.phase = 'end';
-    this.controls.unlock();
+    this.releaseControls();
     this.el.cross.classList.add('hidden');
     this.el.hold.classList.add('hidden');
     this.el.obj.classList.add('hidden');
@@ -1097,21 +1242,29 @@ export class Game {
       const p = this.player;
       const obj = this.playerObject();
 
-      if (p.alive && this.controls.isLocked) {
-        // movement
-        const base = this.keys.ShiftLeft ? 8.2 : 6.0;
-        const forward = Number(!!this.keys.KeyW) - Number(!!this.keys.KeyS);
-        const strafe = Number(!!this.keys.KeyD) - Number(!!this.keys.KeyA);
+      if (p.alive && this.isControlActive()) {
+        // movement (keyboard + virtual joystick)
+        const sprint = !!(this.keys.ShiftLeft || this.touchSprint);
+        const base = sprint ? 8.2 : 6.0;
+        let forward = Number(!!this.keys.KeyW) - Number(!!this.keys.KeyS);
+        let strafe = Number(!!this.keys.KeyD) - Number(!!this.keys.KeyA);
+        if (this.mobileMode) {
+          forward += this.touchMove.y;
+          strafe += this.touchMove.x;
+          forward = Math.max(-1, Math.min(1, forward));
+          strafe = Math.max(-1, Math.min(1, strafe));
+        }
         const dir = new THREE.Vector3();
         this.controls.getDirection(dir);
         dir.y = 0; dir.normalize();
         const right = new THREE.Vector3().crossVectors(dir, new THREE.Vector3(0, 1, 0)).negate();
         const wish = new THREE.Vector3().addScaledVector(dir, forward).addScaledVector(right, strafe);
-        p.moving = wish.lengthSq() > 0;
+        p.moving = wish.lengthSq() > 0.0025;
         if (p.moving) {
-          wish.normalize().multiplyScalar(base * dt);
+          const mag = Math.min(1, wish.length());
+          wish.normalize().multiplyScalar(base * dt * mag);
           obj.position.add(wish);
-          p.speedXZ = base;
+          p.speedXZ = base * mag;
           p.stepT -= dt;
           if (p.stepT <= 0 && p.onGround) {
             this.sfx.step();
@@ -1119,7 +1272,7 @@ export class Game {
           }
         } else p.speedXZ = 0;
 
-        if (this.keys.Space && p.onGround) {
+        if ((this.keys.Space || this.touchJump) && p.onGround) {
           p.velY = 7.2;
           p.onGround = false;
         }

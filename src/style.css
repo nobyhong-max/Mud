@@ -139,3 +139,170 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
   .agents { grid-template-columns: 1fr; }
   #bottom { flex-wrap: wrap; justify-content: center; width: 96%; gap: 10px; }
 }
+
+/* ——— Mobile / PWA ——— */
+html, body {
+  touch-action: none;
+  overscroll-behavior: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#mobile-controls {
+  position: fixed; inset: 0; z-index: 30;
+  pointer-events: none;
+  padding:
+    env(safe-area-inset-top, 0)
+    env(safe-area-inset-right, 0)
+    env(safe-area-inset-bottom, 0)
+    env(safe-area-inset-left, 0);
+}
+#mobile-controls:not(.hidden) { display: block; }
+
+.joy-base {
+  pointer-events: auto;
+  position: absolute;
+  z-index: 3;
+  left: max(18px, env(safe-area-inset-left));
+  bottom: max(28px, env(safe-area-inset-bottom));
+  width: 132px; height: 132px;
+  border-radius: 50%;
+  background: #ffffff14;
+  border: 2px solid #ffffff33;
+  touch-action: none;
+}
+.joy-knob {
+  position: absolute; left: 50%; top: 50%;
+  width: 54px; height: 54px; margin: -27px 0 0 -27px;
+  border-radius: 50%;
+  background: #0fdda3aa;
+  border: 2px solid #0fdda3;
+  will-change: transform;
+}
+.joy-label {
+  position: absolute; left: 0; right: 0; bottom: -22px;
+  text-align: center; font-size: .68rem; color: var(--muted);
+  pointer-events: none;
+}
+
+.look-pad {
+  pointer-events: auto;
+  position: absolute;
+  z-index: 1;
+  right: 0; top: 14%;
+  width: 52%; height: 48%;
+  touch-action: none;
+  background: transparent;
+}
+
+.mc-right {
+  pointer-events: none;
+  position: absolute;
+  z-index: 4;
+  right: max(12px, env(safe-area-inset-right));
+  bottom: max(18px, env(safe-area-inset-bottom));
+  display: flex; flex-direction: column; align-items: flex-end; gap: 8px;
+}
+.mc-row { display: flex; gap: 8px; pointer-events: none; }
+.mc-btn {
+  pointer-events: auto;
+  min-width: 56px; min-height: 52px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 1px solid #ffffff33;
+  background: rgba(10, 18, 26, 0.78);
+  color: var(--text);
+  font-family: inherit;
+  font-size: .78rem;
+  font-weight: 700;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.mc-btn:active { filter: brightness(1.25); background: #0fdda344; }
+.mc-btn.fire {
+  min-width: 88px; min-height: 88px; border-radius: 50%;
+  background: #ff4655cc; border-color: #ff7a84; font-size: 1rem;
+}
+.mc-btn.interact {
+  min-width: 72px; background: #0fdda355; border-color: #0fdda3;
+}
+.mc-btn.ab { min-width: 58px; font-size: .72rem; }
+.mc-btn.ult { background: #ff465544; border-color: #ff4655; }
+
+.mobile-install { display: none; }
+
+html.mobile-ui .desktop-abilities { display: none; }
+html.mobile-ui .mobile-install { display: block; }
+html.mobile-ui #bottom {
+  bottom: auto;
+  top: max(72px, calc(env(safe-area-inset-top) + 62px));
+  left: 12px;
+  right: auto;
+  transform: none;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  width: auto;
+  max-width: 46vw;
+}
+html.mobile-ui #topbar {
+  top: max(8px, env(safe-area-inset-top));
+  transform: translateX(-50%) scale(0.92);
+  transform-origin: top center;
+}
+html.mobile-ui #credits {
+  top: max(10px, env(safe-area-inset-top));
+  right: max(10px, env(safe-area-inset-right));
+  font-size: .75rem;
+  padding: 4px 8px;
+}
+html.mobile-ui #obj-hint {
+  bottom: max(200px, calc(env(safe-area-inset-bottom) + 190px));
+  font-size: .8rem;
+  max-width: 70vw;
+}
+html.mobile-ui #hold-bar {
+  bottom: max(210px, calc(env(safe-area-inset-bottom) + 200px));
+}
+html.mobile-ui #killfeed {
+  top: max(70px, calc(env(safe-area-inset-top) + 58px));
+  right: max(8px, env(safe-area-inset-right));
+  max-width: 42vw;
+}
+html.mobile-ui .panel {
+  width: min(560px, 94vw);
+  max-height: min(92vh, 920px);
+  overflow: auto;
+  padding: 18px 16px;
+  -webkit-overflow-scrolling: touch;
+}
+html.mobile-ui .primary, html.mobile-ui .ghost, html.mobile-ui .agent, html.mobile-ui .shop-item {
+  min-height: 48px;
+}
+html.mobile-ui .shop-grid {
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+}
+html.mobile-ui #pause-hint {
+  bottom: 42%;
+  font-size: 1rem;
+  padding: 14px 18px;
+}
+
+/* Landscape phone: keep joystick/fire clear of HUD */
+@media (orientation: landscape) and (max-height: 500px) {
+  html.mobile-ui #bottom {
+    top: max(8px, env(safe-area-inset-top));
+    left: max(8px, env(safe-area-inset-left));
+    max-width: 34vw;
+  }
+  html.mobile-ui #topbar { transform: translateX(-50%) scale(0.8); }
+  .joy-base { width: 110px; height: 110px; bottom: max(12px, env(safe-area-inset-bottom)); }
+  .mc-btn.fire { min-width: 74px; min-height: 74px; }
+  .mc-btn { min-width: 48px; min-height: 44px; font-size: .7rem; }
+}
+
+@media (orientation: portrait) and (max-width: 900px) {
+  html.mobile-ui .look-pad { width: 58%; height: 48%; top: 22%; }
+  .mc-right { bottom: max(12px, env(safe-area-inset-bottom)); }
+}
+

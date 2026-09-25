@@ -2,7 +2,8 @@ import * as THREE from 'three';
 
 /** 裂港 Rift Dock — A/B sites, mid, attack/defend spawns */
 
-export function buildMap(scene) {
+export function buildMap(scene, options = {}) {
+  const shadows = options.shadows !== false;
   const colliders = [];
 
   const add = (w, h, d, x, y, z, color, opts = {}) => {
@@ -17,8 +18,8 @@ export function buildMap(scene) {
       })
     );
     mesh.position.set(x, y, z);
-    mesh.castShadow = !opts.noShadow;
-    mesh.receiveShadow = true;
+    mesh.castShadow = shadows && !opts.noShadow;
+    mesh.receiveShadow = shadows;
     scene.add(mesh);
     if (!opts.noCol) {
       colliders.push({
@@ -77,9 +78,14 @@ export function buildMap(scene) {
   ring(scene, siteB, 0x0fdda3, 'B 包点');
 
   scene.add(new THREE.HemisphereLight(0xc5d4e4, 0x222830, 1.15));
-  const sun = new THREE.DirectionalLight(0xfff2e4, 1.25);
+  const sun = new THREE.DirectionalLight(0xfff2e4, shadows ? 1.25 : 1.45);
   sun.position.set(18, 42, 12);
-  sun.castShadow = true;
+  sun.castShadow = shadows;
+  if (shadows) {
+    sun.shadow.mapSize.set(1024, 1024);
+    sun.shadow.camera.near = 2;
+    sun.shadow.camera.far = 90;
+  }
   scene.add(sun);
   scene.add(new THREE.AmbientLight(0x556878, 0.55));
   scene.background = new THREE.Color(0x15202c);

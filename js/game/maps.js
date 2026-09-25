@@ -55,13 +55,15 @@ export const MAPS = [
   {
     id: "yard",
     name: "YARD",
-    blurb: "开阔庭院 · 掩体散落 · 暖色调",
+    nameCn: "庭院",
+    blurb: "开阔场地，木箱掩体多，适合中远枪战。",
     accent: "#c4a574",
   },
   {
     id: "corridors",
     name: "CORRIDORS",
-    blurb: "工业走廊 · 狭道交火 · 冷色调",
+    nameCn: "走廊",
+    blurb: "狭长通道，转角多，适合近距离对枪。",
     accent: "#4a7a8c",
   },
 ];

@@ -585,6 +585,26 @@ body {
   font-size: 0.9rem;
 }
 
+.net-steps {
+  margin: 0 0 0.65rem;
+  padding-left: 1.2rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.net-steps li {
+  margin-bottom: 0.2rem;
+}
+
+.map-en {
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  font-weight: 500;
+  margin-left: 0.35rem;
+}
+
 .ghost-btn {
   border: 1px solid rgba(46, 230, 166, 0.4);
   background: rgba(8, 18, 26, 0.6);

@@ -6,7 +6,7 @@ const COLORS = [0xff5533, 0xff8844, 0xff3355];
 export class Enemy {
   constructor(spawn, index) {
     this.index = index;
-    this.name = `BOT-${index + 1}`;
+    this.name = `机器人${index + 1}`;
     this.health = 100;
     this.maxHealth = 100;
     this.alive = true;

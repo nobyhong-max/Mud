@@ -7,7 +7,7 @@ export const BIND_ACTIONS = [
   { id: "back", label: "后退", defaultCode: "KeyS" },
   { id: "left", label: "左移", defaultCode: "KeyA" },
   { id: "right", label: "右移", defaultCode: "KeyD" },
-  { id: "shoot", label: "射击", defaultCode: "Mouse0" },
+  { id: "shoot", label: "开火", defaultCode: "Mouse0" },
   { id: "reload", label: "换弹", defaultCode: "KeyR" },
   { id: "ability", label: "技能", defaultCode: "KeyQ" },
   { id: "pause", label: "暂停", defaultCode: "Escape" },
@@ -49,5 +49,5 @@ export function codeLabel(code) {
 
 export function prettyBindsHelp(binds) {
   const L = (id) => codeLabel(binds[id]);
-  return `${L("forward")}${L("left")}${L("back")}${L("right")} 移动 · ${L("shoot")} 射击 · ${L("reload")} 换弹 · ${L("ability")} 技能 · ${L("pause")} 暂停`;
+  return `${L("forward")}${L("left")}${L("back")}${L("right")} 移动 · ${L("shoot")} 开火 · ${L("reload")} 换弹 · ${L("ability")} 技能 · ${L("pause")} 暂停`;
 }

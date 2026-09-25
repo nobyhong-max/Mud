@@ -48,7 +48,7 @@ export class NetRoom {
     this.peer = new window.Peer(id, { debug: 1 });
     await new Promise((resolve, reject) => {
       this.peer.on("open", () => {
-        this._status(`房间已创建：${this.code}`);
+        this._status(`房间号 ${this.code}`);
         resolve();
       });
       this.peer.on("error", (err) => {
@@ -58,7 +58,7 @@ export class NetRoom {
     });
     this.peer.on("connection", (conn) => {
       this._bindConn(conn);
-      this._status("玩家已加入，可以开始");
+      this._status("好友已到 · 可以开始");
       this.onPeerOpen?.();
     });
     return this.code;
@@ -71,7 +71,7 @@ export class NetRoom {
     this.code = String(code || "")
       .trim()
       .toUpperCase();
-    if (this.code.length < 4) throw new Error("房间号无效");
+    if (this.code.length < 4) throw new Error("房间号不对");
     this.peer = new window.Peer({ debug: 1 });
     await new Promise((resolve, reject) => {
       this.peer.on("open", () => resolve());
@@ -79,11 +79,11 @@ export class NetRoom {
     });
     const conn = this.peer.connect(PREFIX + this.code, { reliable: true });
     await new Promise((resolve, reject) => {
-      const t = setTimeout(() => reject(new Error("连接超时")), 12000);
+      const t = setTimeout(() => reject(new Error("连接超时，请重试")), 12000);
       conn.on("open", () => {
         clearTimeout(t);
         this._bindConn(conn);
-        this._status(`已加入房间 ${this.code}`);
+        this._status(`已进入 ${this.code}`);
         resolve();
       });
       conn.on("error", (err) => {
@@ -107,7 +107,7 @@ export class NetRoom {
     });
     conn.on("close", () => {
       this.connected = false;
-      this._status("对方已断开");
+      this._status("对方已离开");
     });
   }
 

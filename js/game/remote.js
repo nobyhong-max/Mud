@@ -1,7 +1,7 @@
 import * as THREE from "three";
 
 /** Opponent avatar for multiplayer */
-export function createRemotePlayer(color = 0x4ec9ff, label = "P2") {
+export function createRemotePlayer(color = 0x4ec9ff, label = "对手") {
   const root = new THREE.Group();
   const torso = new THREE.Mesh(
     new THREE.BoxGeometry(0.7, 1.15, 0.45),

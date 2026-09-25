@@ -105,7 +105,7 @@ function buildSelectUI() {
     btn.type = "button";
     btn.className = "card-opt";
     btn.dataset.id = c.id;
-    btn.innerHTML = `<h3>${c.name} <span class="effect-tag">${c.effectTag}</span></h3><div class="role">${c.role} · ${c.abilityName}</div><p>${c.description}</p>`;
+    btn.innerHTML = `<h3>${c.name} <span class="effect-tag">${c.effectTag}</span></h3><div class="role">${c.nameCn} · ${c.role}</div><p>${c.description}</p>`;
     btn.addEventListener("click", () => {
       unlockAudio();
       SFX.ui();
@@ -122,7 +122,7 @@ function buildSelectUI() {
     btn.type = "button";
     btn.className = "card-opt";
     btn.dataset.id = m.id;
-    btn.innerHTML = `<h3>${m.name}</h3><div class="role" style="color:${m.accent}">地图</div><p>${m.blurb}</p>`;
+    btn.innerHTML = `<h3>${m.nameCn} <span class="map-en">${m.name}</span></h3><div class="role" style="color:${m.accent}">地图</div><p>${m.blurb}</p>`;
     btn.addEventListener("click", () => {
       unlockAudio();
       SFX.ui();
@@ -229,13 +229,13 @@ function updateModeUI() {
   el.hostPanel?.classList.toggle("hidden", playMode !== "host");
   el.joinPanel?.classList.toggle("hidden", playMode !== "join");
   if (playMode === "practice") {
-    setNetStatus("练习模式：本地 AI 机器人");
+    setNetStatus("练习：和 AI 对枪，随时开打");
     net?.destroy();
     net = null;
   } else if (playMode === "host") {
-    setNetStatus("点击「创建房间」，把房间号发给好友");
+    setNetStatus("开房：先生成房间号，再发给好友");
   } else {
-    setNetStatus("输入好友房间号后点「加入」");
+    setNetStatus("加入：输入好友的房间号");
   }
   refreshStart();
 }
@@ -252,13 +252,13 @@ el.btnCreateRoom?.addEventListener("click", async () => {
   unlockAudio();
   SFX.ui();
   try {
-    setNetStatus("正在创建房间…");
+    setNetStatus("正在生成房间号…");
     net?.destroy();
     net = new NetRoom();
     wireNet(net);
     const code = await net.host();
     if (el.roomCode) el.roomCode.textContent = code;
-    setNetStatus(`房间 ${code} 已开，等待好友加入后点开始`);
+    setNetStatus(`房间号 ${code} · 发给好友，等人到齐再开始`);
     refreshStart();
   } catch (err) {
     setNetStatus(`开房失败：${err.message || err}`);
@@ -275,7 +275,7 @@ el.btnJoinRoom?.addEventListener("click", async () => {
     wireNet(net);
     const code = await net.join(el.joinCode?.value || "");
     if (el.roomCode) el.roomCode.textContent = code;
-    setNetStatus(`已加入 ${code}，等待房主开始对局`);
+    setNetStatus(`已进入 ${code} · 等房主点开始`);
     waitingForNetStart = true;
     refreshStart();
   } catch (err) {
@@ -324,7 +324,7 @@ function handleNetMessage(msg) {
       remote.alive = false;
       remote.mesh.visible = false;
     }
-    pushFeed("你 淘汰了 对手");
+    pushFeed("淘汰了对手");
     endRound(true);
   } else if (msg.t === "abil" && msg.kind === "smoke") {
     smokes.push(new SmokeCloud(scene, new THREE.Vector3(msg.x, 2, msg.z), 8));
@@ -337,16 +337,13 @@ function refreshStart() {
   const base = !!(selectedChar && selectedMap);
   if (playMode === "practice") {
     el.btnStart.disabled = !base;
-    el.btnStart.textContent = "开始对局 · START";
+    el.btnStart.textContent = "开始对局";
   } else if (playMode === "host") {
-    el.btnStart.disabled = !(base && net?.code);
-    el.btnStart.textContent = net?.connected ? "开始联机对局" : "等待加入后开始";
-    // Allow host to start even before join for testing solo-in-room? Prefer require connection
+    el.btnStart.textContent = net?.connected ? "双方就绪 · 开始" : "等人加入后再开始";
     el.btnStart.disabled = !(base && net?.code && net?.connected);
   } else {
-    // join: host starts the match
     el.btnStart.disabled = true;
-    el.btnStart.textContent = waitingForNetStart || net?.connected ? "等待房主开始…" : "请先加入房间";
+    el.btnStart.textContent = waitingForNetStart || net?.connected ? "已加入 · 等房主开始" : "请先加入房间";
   }
 }
 /** —— Runtime match state —— */
@@ -484,15 +481,15 @@ function startMatch(rematch = false, opts = {}) {
   refreshBindsHelp();
   updateScoreUI();
   el.roundLabel.textContent = multiplayer
-    ? `联机 · ${getMapMeta(selectedMap).name} · CD 5s`
-    : `第 ${round} 回合 · ${getMapMeta(selectedMap).name}`;
+    ? `联机 · ${getMapMeta(selectedMap).nameCn}`
+    : `第 ${round} 局 · ${getMapMeta(selectedMap).nameCn}`;
   el.objHint.textContent = multiplayer
-    ? `击败对手 · 技能冷却 5 秒`
-    : `歼灭全部敌人 · 先赢 ${WINS_NEEDED} 回合`;
+    ? "打倒对面 · 技能冷却 5 秒"
+    : `清光敌人 · 先赢 ${WINS_NEEDED} 局`;
 
   running = true;
   startMatch._multi = multiplayer;
-  showCenter(multiplayer ? "联机对战" : `回合 ${round}`, 1.4);
+  showCenter(multiplayer ? "开战" : `第 ${round} 局`, 1.4);
   bindGameInput();
   setTouchControlsVisible(true);
   if (!isTouch) el.canvas.requestPointerLock?.();
@@ -906,7 +903,7 @@ function firePlayer() {
           const killed = remote.takeDamage(shot.damage);
           if (killed) {
             net?.send({ t: "frag" });
-            pushFeed("你 淘汰了 对手");
+            pushFeed("淘汰了对手");
             endRound(true);
           }
         }
@@ -922,7 +919,7 @@ function firePlayer() {
     SFX.hit();
     const killed = hit.enemy.takeDamage(shot.damage);
     if (killed) {
-      pushFeed(`你 淘汰了 ${hit.enemy.name}`);
+      pushFeed(`淘汰了 ${hit.enemy.name}`);
       checkRoundWin();
     }
   }
@@ -940,11 +937,11 @@ function endRound(playerWon) {
   roundEnding = true;
   if (playerWon) {
     scoreYou += 1;
-    showCenter("回合胜利", 2);
-    pushFeed("回合胜利 — 全歼敌人");
+    showCenter("本局胜利", 2);
+    pushFeed("本局胜利 · 清光敌人");
   } else {
     scoreEnemy += 1;
-    showCenter("回合失败", 2);
+    showCenter("本局失败", 2);
     pushFeed("你被淘汰了");
   }
   updateScoreUI();
@@ -962,8 +959,8 @@ function endRound(playerWon) {
 function beginNextRound() {
   roundEnding = false;
   el.roundLabel.textContent = startMatch._multi
-    ? `联机 · ${getMapMeta(selectedMap).name}`
-    : `第 ${round} 回合 · ${getMapMeta(selectedMap).name}`;
+    ? `联机 · ${getMapMeta(selectedMap).nameCn}`
+    : `第 ${round} 局 · ${getMapMeta(selectedMap).nameCn}`;
   for (const s of smokes) s.dispose();
   smokes = [];
   const pvp = mapData.spawns.pvp || [mapData.spawns.player, mapData.spawns.enemies[0]];
@@ -975,7 +972,7 @@ function beginNextRound() {
     player.setSpawn(mapData.spawns.player);
     enemies.forEach((e, i) => e.respawn(mapData.spawns.enemies[i].clone()));
   }
-  showCenter(startMatch._multi ? "下一回合" : `回合 ${round}`, 1.2);
+  showCenter(startMatch._multi ? "下一局" : `第 ${round} 局`, 1.2);
   if (!isTouch) el.canvas.requestPointerLock?.();
 }
 
@@ -984,8 +981,8 @@ function endMatch(won) {
   showScreen("result");
   el.resultTitle.textContent = won ? "胜利" : "失败";
   el.resultDetail.textContent = won
-    ? `比分 ${scoreYou} : ${scoreEnemy} · 特工 ${getCharacter(selectedChar).name} · ${getMapMeta(selectedMap).name}`
-    : `比分 ${scoreYou} : ${scoreEnemy} · 再试一次？`;
+    ? `${scoreYou}:${scoreEnemy} · ${getCharacter(selectedChar).nameCn} · ${getMapMeta(selectedMap).nameCn}`
+    : `${scoreYou}:${scoreEnemy} · 再试一次？`;
 }
 
 function updateHud(now) {

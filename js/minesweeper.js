@@ -57,6 +57,7 @@ let flagMode = false;
 let firstClickPending = true;
 
 const boardEl = /** @type {HTMLElement} */ (document.getElementById("board"));
+const boardWrapEl = /** @type {HTMLElement} */ (document.getElementById("board-wrap"));
 const minesEl = document.getElementById("mines-left");
 const timerEl = document.getElementById("timer");
 const faceBtn = /** @type {HTMLButtonElement} */ (document.getElementById("btn-face"));
@@ -192,17 +193,32 @@ function updateCounters() {
   minesEl.textContent = String(left).padStart(3, "0");
 }
 
-function cellSizeForGrid() {
-  const maxDim = Math.max(cols, rows);
-  if (maxDim <= 9) return 36;
-  if (maxDim <= 16) return 28;
-  if (maxDim <= 24) return 24;
-  return 20;
+const CELL_GAP = 2;
+const LONG_PRESS_MS = 480;
+const POINTER_SLOP = 12;
+const DOUBLE_TAP_MS = 360;
+
+/** @type {{ i: number, t: number }} */
+let lastTap = { i: -1, t: 0 };
+
+function updateLayout() {
+  if (!boardWrapEl || !boardEl) return;
+  const gap = CELL_GAP;
+  const pad = 8;
+  const availW = Math.max(120, boardWrapEl.clientWidth - pad);
+  const availH = Math.max(120, boardWrapEl.clientHeight - pad);
+  let size = Math.min(
+    Math.floor((availW - gap * (cols - 1)) / cols),
+    Math.floor((availH - gap * (rows - 1)) / rows),
+  );
+  size = Math.max(18, Math.min(44, size));
+  document.documentElement.style.setProperty("--cell-size", `${size}px`);
+  document.documentElement.style.setProperty("--cell-gap", `${gap}px`);
+  boardEl.style.gridTemplateColumns = `repeat(${cols}, ${size}px)`;
+  boardEl.style.gridTemplateRows = `repeat(${rows}, ${size}px)`;
 }
 
 function renderBoard() {
-  boardEl.style.gridTemplateColumns = `repeat(${cols}, var(--cell-size))`;
-  document.documentElement.style.setProperty("--cell-size", `${cellSizeForGrid()}px`);
   boardEl.innerHTML = "";
   for (let r = 0; r < rows; r++) {
     for (let c = 0; c < cols; c++) {
@@ -216,6 +232,7 @@ function renderBoard() {
       boardEl.appendChild(btn);
     }
   }
+  requestAnimationFrame(updateLayout);
 }
 
 function paintCell(btn, i) {
@@ -379,13 +396,32 @@ function handleFirstClick(c, r) {
   }
 }
 
+function cellFromTarget(target) {
+  const t = /** @type {HTMLElement} */ (target).closest(".ms-cell");
+  if (!t) return null;
+  const i = Number(t.dataset.i);
+  return { el: /** @type {HTMLButtonElement} */ (t), i, c: i % cols, r: Math.floor(i / cols) };
+}
+
 function onPrimaryAction(c, r) {
   if (phase === "won" || phase === "lost") return;
+  const i = idx(c, r);
   if (flagMode) {
     toggleFlag(c, r);
+    refreshAllCells();
     return;
   }
-  const i = idx(c, r);
+  if (states[i] === "revealed" && counts[i] > 0) {
+    const now = Date.now();
+    if (lastTap.i === i && now - lastTap.t < DOUBLE_TAP_MS) {
+      chord(c, r);
+      lastTap = { i: -1, t: 0 };
+      refreshAllCells();
+      return;
+    }
+    lastTap = { i, t: now };
+    return;
+  }
   if (states[i] === "flagged") return;
   handleFirstClick(c, r);
   if (states[i] === "hidden") revealCell(c, r);
@@ -393,82 +429,102 @@ function onPrimaryAction(c, r) {
 }
 
 function bindBoardEvents() {
-  boardEl.oncontextmenu = (e) => e.preventDefault();
-
+  /** @type {number | null} */
   let longPressTimer = null;
   let longPressFired = false;
+  let downX = 0;
+  let downY = 0;
+  /** @type {number | null} */
+  let activePointer = null;
+
+  const clearLongPress = () => {
+    if (longPressTimer != null) {
+      clearTimeout(longPressTimer);
+      longPressTimer = null;
+    }
+  };
+
+  document.addEventListener("contextmenu", (e) => {
+    if (/** @type {HTMLElement} */ (e.target).closest(".ms-board")) e.preventDefault();
+  });
 
   boardEl.addEventListener("pointerdown", (e) => {
-    const t = /** @type {HTMLElement} */ (e.target);
-    if (!t.classList.contains("ms-cell")) return;
-    longPressFired = false;
-    const i = Number(t.dataset.i);
-    const c = i % cols;
-    const r = Math.floor(i / cols);
+    const cell = cellFromTarget(e.target);
+    if (!cell) return;
     if (e.button === 2) {
       e.preventDefault();
-      toggleFlag(c, r);
+      toggleFlag(cell.c, cell.r);
       refreshAllCells();
       return;
     }
-    if (e.pointerType === "touch") {
+    if (e.button !== 0) return;
+    activePointer = e.pointerId;
+    longPressFired = false;
+    downX = e.clientX;
+    downY = e.clientY;
+    try {
+      cell.el.setPointerCapture(e.pointerId);
+    } catch {
+      /* ignore */
+    }
+    if (e.pointerType === "touch" || e.pointerType === "pen") {
+      clearLongPress();
       longPressTimer = window.setTimeout(() => {
         longPressFired = true;
-        toggleFlag(c, r);
+        toggleFlag(cell.c, cell.r);
         refreshAllCells();
-      }, 450);
+        if (navigator.vibrate) navigator.vibrate(12);
+      }, LONG_PRESS_MS);
     }
   });
 
-  boardEl.addEventListener("pointerup", () => {
-    if (longPressTimer != null) {
-      clearTimeout(longPressTimer);
-      longPressTimer = null;
-    }
+  boardEl.addEventListener("pointermove", (e) => {
+    if (activePointer !== e.pointerId) return;
+    const dx = e.clientX - downX;
+    const dy = e.clientY - downY;
+    if (dx * dx + dy * dy > POINTER_SLOP * POINTER_SLOP) clearLongPress();
   });
 
-  boardEl.addEventListener("pointercancel", () => {
-    if (longPressTimer != null) {
-      clearTimeout(longPressTimer);
-      longPressTimer = null;
-    }
-  });
-
-  boardEl.addEventListener("click", (e) => {
-    const t = /** @type {HTMLElement} */ (e.target);
-    if (!t.classList.contains("ms-cell")) return;
+  const finishPointer = (e) => {
+    if (activePointer !== e.pointerId) return;
+    activePointer = null;
+    clearLongPress();
+    const cell = cellFromTarget(e.target);
+    if (!cell) return;
     if (longPressFired) {
       longPressFired = false;
       e.preventDefault();
       return;
     }
-    const i = Number(t.dataset.i);
-    const c = i % cols;
-    const r = Math.floor(i / cols);
-    onPrimaryAction(c, r);
-  });
+    if (e.button !== 0) return;
+    onPrimaryAction(cell.c, cell.r);
+  };
 
-  boardEl.addEventListener("contextmenu", (e) => {
-    const t = /** @type {HTMLElement} */ (e.target);
-    if (!t.classList.contains("ms-cell")) return;
-    e.preventDefault();
-    const i = Number(t.dataset.i);
-    const c = i % cols;
-    const r = Math.floor(i / cols);
-    toggleFlag(c, r);
-    refreshAllCells();
+  boardEl.addEventListener("pointerup", finishPointer);
+  boardEl.addEventListener("pointercancel", (e) => {
+    activePointer = null;
+    clearLongPress();
+    longPressFired = false;
   });
 
   boardEl.addEventListener("dblclick", (e) => {
-    const t = /** @type {HTMLElement} */ (e.target);
-    if (!t.classList.contains("ms-cell")) return;
+    const cell = cellFromTarget(e.target);
+    if (!cell) return;
     e.preventDefault();
-    const i = Number(t.dataset.i);
-    const c = i % cols;
-    const r = Math.floor(i / cols);
-    chord(c, r);
+    chord(cell.c, cell.r);
     refreshAllCells();
   });
+}
+
+function bindLayoutEvents() {
+  window.addEventListener("resize", () => requestAnimationFrame(updateLayout));
+  window.addEventListener("orientationchange", () => {
+    window.setTimeout(() => requestAnimationFrame(updateLayout), 120);
+  });
+  if (typeof ResizeObserver !== "undefined" && boardWrapEl) {
+    const ro = new ResizeObserver(() => requestAnimationFrame(updateLayout));
+    ro.observe(boardWrapEl);
+  }
 }
 
 function setPresetActive(id) {
@@ -525,5 +581,6 @@ function syncFlagModeLabel() {
 setPresetActive("beginner");
 syncFlagModeLabel();
 bindBoardEvents();
+bindLayoutEvents();
 initControls();
 newGame();

@@ -27,12 +27,34 @@
         <div class="menu-shell">
           <div class="menu-scroll">
             <div class="menu-panel">
-            <div class="menu-toolbar">
-              <button id="btn-settings-menu" class="ghost-btn" type="button">键位设置</button>
-            </div>
+              <div class="menu-toolbar">
+                <button id="btn-settings-menu" class="keybind-fab" type="button" title="修改键位">
+                  ⌨️ 键位
+                </button>
+              </div>
               <p class="eyebrow">张三的小游戏</p>
               <h1 class="brand">PULSE STRIKE</h1>
-              <p class="tagline">本地 3D 射击演示 · 无联网 · 打 AI 机器人</p>
+              <p class="tagline">本地练习 · PeerJS 联机开房 · 打 AI / 打真人</p>
+
+              <h2 class="section-label">模式</h2>
+              <div class="mode-row" id="mode-row">
+                <button type="button" class="mode-btn selected" data-mode="practice">练习 BOT</button>
+                <button type="button" class="mode-btn" data-mode="host">联机开房</button>
+                <button type="button" class="mode-btn" data-mode="join">加入房间</button>
+              </div>
+              <div id="net-panel" class="net-panel hidden">
+                <div id="host-panel" class="hidden">
+                  <button type="button" id="btn-create-room" class="ghost-btn wide">创建房间</button>
+                  <p class="net-code">房间号 <strong id="room-code">----</strong></p>
+                </div>
+                <div id="join-panel" class="hidden">
+                  <label class="join-label">输入房间号
+                    <input id="join-code" maxlength="6" placeholder="如 AB3K" autocomplete="off" />
+                  </label>
+                  <button type="button" id="btn-join-room" class="ghost-btn wide">加入</button>
+                </div>
+                <p id="net-status" class="net-status">选择联机模式后创建或加入房间</p>
+              </div>
 
               <h2 class="section-label">选择特工</h2>
               <div id="char-grid" class="select-grid"></div>
@@ -42,10 +64,13 @@
 
               <p class="hint desktop-hint">WASD 移动 · 鼠标瞄准 · 左键射击 · R 换弹 · Q 技能 · Esc 暂停</p>
               <p class="hint mobile-hint">触控：左摇杆移动 · 右半屏滑动瞄准 · 开火/技能按钮</p>
+              <p class="hint keybind-hint">改键请点右上角 <strong>键位</strong>（暂停菜单也可进）</p>
             </div>
           </div>
           <div class="menu-cta-bar">
+            <p class="cta-subhint">冷却统一 5 秒 · 联机需双方同开此页</p>
             <button id="btn-start" class="cta" type="button" disabled>开始对局 · START</button>
+            <button id="btn-settings-cta" class="ghost-btn wide settings-under-cta" type="button">打开键位设置</button>
           </div>
         </div>
       </section>
@@ -91,7 +116,7 @@
         <div id="pause-menu" class="overlay-panel hidden">
           <h2>暂停</h2>
           <button id="btn-resume" type="button">继续</button>
-          <button id="btn-settings-pause" type="button">键位设置</button>
+          <button id="btn-settings-pause" class="keybind-emphasis" type="button">⌨️ 键位设置</button>
           <button id="btn-quit" type="button">返回菜单</button>
         </div>
         <div id="touch-controls" class="hidden" aria-hidden="true">

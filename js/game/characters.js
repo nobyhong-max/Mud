@@ -9,8 +9,8 @@ export const CHARACTERS = [
     color: 0xffc857,
     abilityName: "致盲闪光",
     abilityKey: "Q",
-    cooldown: 8,
-    description: "投掷致盲闪光，干扰敌人瞄准约 2.5 秒。",
+    cooldown: 5,
+    description: "投掷致盲闪光，干扰敌人瞄准约 2.5 秒。冷却 5 秒。",
     ability: "flash",
   },
   {
@@ -21,8 +21,8 @@ export const CHARACTERS = [
     color: 0x6ec6ff,
     abilityName: "烟雾遮挡",
     abilityKey: "Q",
-    cooldown: 10,
-    description: "在准星落点生成浓烟屏障，遮挡视线约 8 秒。",
+    cooldown: 5,
+    description: "在准星落点生成浓烟屏障，遮挡视线约 8 秒。冷却 5 秒。",
     ability: "smoke",
   },
   {
@@ -33,8 +33,8 @@ export const CHARACTERS = [
     color: 0x2ee6a6,
     abilityName: "冲刺腾空",
     abilityKey: "Q",
-    cooldown: 6,
-    description: "向前冲刺一段距离，落地回复少量生命。",
+    cooldown: 5,
+    description: "向前冲刺一段距离，落地回复少量生命。冷却 5 秒。",
     ability: "dash",
   },
 ];

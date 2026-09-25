@@ -43,7 +43,7 @@ export class Player {
   }
 
   startAbilityCooldown() {
-    const cd = this.character.cooldown || 6;
+    const cd = this.character.cooldown || 5;
     this.abilityReadyAt = performance.now() / 1000 + cd;
     this._abilityWasReady = false;
   }

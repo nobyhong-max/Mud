@@ -11,6 +11,7 @@ test("characters module exports three distinct agents", async () => {
   assert.match(src, /id:\s*"blitz"/);
   assert.match(src, /id:\s*"vapor"/);
   assert.match(src, /id:\s*"surge"/);
+  assert.match(src, /cooldown:\s*5/);
   assert.match(src, /effectTag:\s*"致盲"/);
   assert.match(src, /effectTag:\s*"烟雾"/);
   assert.match(src, /effectTag:\s*"冲刺"/);

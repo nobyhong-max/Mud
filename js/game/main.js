@@ -21,6 +21,9 @@ import {
   codeLabel,
   prettyBindsHelp,
 } from "./binds.js";
+import { createViewWeapon } from "./weapon.js";
+import { NetRoom } from "./net.js";
+import { createRemotePlayer } from "./remote.js";
 
 const WINS_NEEDED = 3;
 
@@ -64,11 +67,27 @@ const el = {
   btnSettingsClose: document.getElementById("btn-settings-close"),
   btnBindsReset: document.getElementById("btn-binds-reset"),
   desktopHint: document.querySelector(".desktop-hint"),
+  btnSettingsCta: document.getElementById("btn-settings-cta"),
+  modeRow: document.getElementById("mode-row"),
+  netPanel: document.getElementById("net-panel"),
+  hostPanel: document.getElementById("host-panel"),
+  joinPanel: document.getElementById("join-panel"),
+  btnCreateRoom: document.getElementById("btn-create-room"),
+  btnJoinRoom: document.getElementById("btn-join-room"),
+  roomCode: document.getElementById("room-code"),
+  joinCode: document.getElementById("join-code"),
+  netStatus: document.getElementById("net-status"),
 };
 
 let binds = loadBinds();
 let listeningAction = null;
 let settingsOpen = false;
+let playMode = "practice"; // practice | host | join
+let net = null;
+let remote = null;
+let weaponView = null;
+let netSyncAcc = 0;
+let waitingForNetStart = false;
 
 let selectedChar = null;
 let selectedMap = null;
@@ -159,17 +178,13 @@ function closeSettings() {
   saveBinds(binds);
 }
 
-function refreshStart() {
-  el.btnStart.disabled = !(selectedChar && selectedMap);
-}
-
 buildSelectUI();
 // Defaults for faster demo
 selectedChar = "blitz";
 selectedMap = "yard";
 el.charGrid.querySelector('[data-id="blitz"]')?.classList.add("selected");
 el.mapGrid.querySelector('[data-id="yard"]')?.classList.add("selected");
-refreshStart();
+updateModeUI();
 
 el.btnStart.addEventListener("click", (e) => {
   e.preventDefault();
@@ -177,17 +192,22 @@ el.btnStart.addEventListener("click", (e) => {
   SFX.ui();
   if (!selectedChar) selectedChar = "blitz";
   if (!selectedMap) selectedMap = "yard";
-  startMatch(false);
+  if (playMode === "host" && net?.connected) {
+    net.send({ t: "go", map: selectedMap, hostChar: selectedChar });
+    startMatch(false, { multiplayer: true, asGuest: false });
+    return;
+  }
+  startMatch(false, { multiplayer: false });
 });
 el.btnRematch.addEventListener("click", () => {
   unlockAudio();
-  startMatch(false);
+  if (playMode === "practice") startMatch(false);
 });
 el.btnMenu.addEventListener("click", () => {
   showScreen("menu");
-});
-el.btnSettingsMenu?.addEventListener("click", () => openSettings());
+});el.btnSettingsMenu?.addEventListener("click", () => openSettings());
 el.btnSettingsPause?.addEventListener("click", () => openSettings());
+el.btnSettingsCta?.addEventListener("click", () => openSettings());
 el.btnSettingsClose?.addEventListener("click", () => closeSettings());
 el.btnBindsReset?.addEventListener("click", () => {
   binds = resetBinds();
@@ -195,6 +215,140 @@ el.btnBindsReset?.addEventListener("click", () => {
   renderBindsList();
   refreshBindsHelp();
 });
+
+function setNetStatus(msg) {
+  if (el.netStatus) el.netStatus.textContent = msg;
+}
+
+function updateModeUI() {
+  el.modeRow?.querySelectorAll(".mode-btn").forEach((b) => {
+    b.classList.toggle("selected", b.dataset.mode === playMode);
+  });
+  const online = playMode !== "practice";
+  el.netPanel?.classList.toggle("hidden", !online);
+  el.hostPanel?.classList.toggle("hidden", playMode !== "host");
+  el.joinPanel?.classList.toggle("hidden", playMode !== "join");
+  if (playMode === "practice") {
+    setNetStatus("练习模式：本地 AI 机器人");
+    net?.destroy();
+    net = null;
+  } else if (playMode === "host") {
+    setNetStatus("点击「创建房间」，把房间号发给好友");
+  } else {
+    setNetStatus("输入好友房间号后点「加入」");
+  }
+  refreshStart();
+}
+
+el.modeRow?.addEventListener("click", (e) => {
+  const btn = e.target.closest(".mode-btn");
+  if (!btn) return;
+  playMode = btn.dataset.mode;
+  SFX.ui();
+  updateModeUI();
+});
+
+el.btnCreateRoom?.addEventListener("click", async () => {
+  unlockAudio();
+  SFX.ui();
+  try {
+    setNetStatus("正在创建房间…");
+    net?.destroy();
+    net = new NetRoom();
+    wireNet(net);
+    const code = await net.host();
+    if (el.roomCode) el.roomCode.textContent = code;
+    setNetStatus(`房间 ${code} 已开，等待好友加入后点开始`);
+    refreshStart();
+  } catch (err) {
+    setNetStatus(`开房失败：${err.message || err}`);
+  }
+});
+
+el.btnJoinRoom?.addEventListener("click", async () => {
+  unlockAudio();
+  SFX.ui();
+  try {
+    setNetStatus("正在加入…");
+    net?.destroy();
+    net = new NetRoom();
+    wireNet(net);
+    const code = await net.join(el.joinCode?.value || "");
+    if (el.roomCode) el.roomCode.textContent = code;
+    setNetStatus(`已加入 ${code}，等待房主开始对局`);
+    waitingForNetStart = true;
+    refreshStart();
+  } catch (err) {
+    setNetStatus(`加入失败：${err.message || err}`);
+  }
+});
+
+function wireNet(room) {
+  room.onStatus = setNetStatus;
+  room.onPeerOpen = () => refreshStart();
+  room.onMessage = (msg) => handleNetMessage(msg);
+}
+
+function handleNetMessage(msg) {
+  if (!msg || !msg.t) return;
+  if (msg.t === "go") {
+    selectedMap = msg.map || selectedMap;
+    waitingForNetStart = false;
+    startMatch(false, { multiplayer: true, asGuest: true, hostChar: msg.hostChar });
+    return;
+  }
+  if (!running || !player) return;
+  if (msg.t === "pose" && remote) {
+    remote.setPose(msg.x, 0, msg.z, msg.yaw || 0);
+    remote.health = msg.hp ?? remote.health;
+    if (msg.alive === false) {
+      remote.alive = false;
+      remote.mesh.visible = false;
+    }
+  } else if (msg.t === "fire") {
+    const origin = new THREE.Vector3(msg.ox, msg.oy, msg.oz);
+    const dir = new THREE.Vector3(msg.dx, msg.dy, msg.dz).normalize();
+    spawnTracer(scene, origin, origin.clone().addScaledVector(dir, 60));
+    const hit = hitscanPlayer(origin, dir, player, mapData.colliders, 90);
+    if (hit.hit) {
+      SFX.hit();
+      const dead = player.takeDamage(msg.dmg || 28, performance.now() / 1000);
+      if (dead) {
+        net?.send({ t: "frag" });
+        endRound(false);
+      }
+    }
+  } else if (msg.t === "frag") {
+    // we killed them
+    if (remote) {
+      remote.alive = false;
+      remote.mesh.visible = false;
+    }
+    pushFeed("你 淘汰了 对手");
+    endRound(true);
+  } else if (msg.t === "abil" && msg.kind === "smoke") {
+    smokes.push(new SmokeCloud(scene, new THREE.Vector3(msg.x, 2, msg.z), 8));
+  }
+}
+
+updateModeUI();
+
+function refreshStart() {
+  const base = !!(selectedChar && selectedMap);
+  if (playMode === "practice") {
+    el.btnStart.disabled = !base;
+    el.btnStart.textContent = "开始对局 · START";
+  } else if (playMode === "host") {
+    el.btnStart.disabled = !(base && net?.code);
+    el.btnStart.textContent = net?.connected ? "开始联机对局" : "等待加入后开始";
+    // Allow host to start even before join for testing solo-in-room? Prefer require connection
+    el.btnStart.disabled = !(base && net?.code && net?.connected);
+  } else {
+    // join: host starts the match
+    el.btnStart.disabled = true;
+    el.btnStart.textContent = waitingForNetStart || net?.connected ? "等待房主开始…" : "请先加入房间";
+  }
+}
 /** —— Runtime match state —— */
 let renderer, scene, camera, clock;
 let player, mapData, enemies, smokes;
@@ -227,6 +381,8 @@ function disposeMatch() {
   animId = 0;
   running = false;
   setTouchControlsVisible(false);
+  weaponView = null;
+  remote = null;
   if (renderer) {
     renderer.dispose();
     renderer = null;
@@ -256,7 +412,8 @@ function initRenderer() {
   el.canvas.style.height = "100%";
 }
 
-function startMatch(rematch = false) {
+function startMatch(rematch = false, opts = {}) {
+  const multiplayer = !!opts.multiplayer || playMode !== "practice";
   disposeMatch();
   if (!rematch) {
     scoreYou = 0;
@@ -299,24 +456,45 @@ function startMatch(rematch = false) {
   camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 120);
   const character = getCharacter(selectedChar);
   player = new Player(camera, character);
-  player.setSpawn(mapData.spawns.player);
 
-  enemies = createEnemies(mapData.spawns.enemies);
-  for (const e of enemies) scene.add(e.mesh);
+  const pvpSpawns = mapData.spawns.pvp || [mapData.spawns.player, mapData.spawns.enemies[0]];
+  const isHostSeat = multiplayer ? (opts.asGuest ? false : true) : true;
+  const mySpawn = multiplayer ? pvpSpawns[isHostSeat ? 0 : 1] : mapData.spawns.player;
+  player.setSpawn(mySpawn.clone());
+
+  weaponView = createViewWeapon();
+  camera.add(weaponView.root);
+  scene.add(camera);
+
+  enemies = [];
+  remote = null;
+  if (multiplayer) {
+    remote = createRemotePlayer(0xff6b4a, "对手");
+    const theirSpawn = pvpSpawns[isHostSeat ? 1 : 0];
+    remote.respawn(theirSpawn.clone());
+    scene.add(remote.mesh);
+  } else {
+    enemies = createEnemies(mapData.spawns.enemies);
+    for (const e of enemies) scene.add(e.mesh);
+  }
 
   smokes = [];
   el.abilityName.textContent = character.abilityName;
   if (el.abilityTag) el.abilityTag.textContent = character.effectTag;
   refreshBindsHelp();
   updateScoreUI();
-  el.roundLabel.textContent = `第 ${round} 回合 · ${getMapMeta(selectedMap).name}`;
-  el.objHint.textContent = `歼灭全部敌人 · 先赢 ${WINS_NEEDED} 回合`;
+  el.roundLabel.textContent = multiplayer
+    ? `联机 · ${getMapMeta(selectedMap).name} · CD 5s`
+    : `第 ${round} 回合 · ${getMapMeta(selectedMap).name}`;
+  el.objHint.textContent = multiplayer
+    ? `击败对手 · 技能冷却 5 秒`
+    : `歼灭全部敌人 · 先赢 ${WINS_NEEDED} 回合`;
 
   running = true;
-  showCenter(`回合 ${round}`, 1.4);
+  startMatch._multi = multiplayer;
+  showCenter(multiplayer ? "联机对战" : `回合 ${round}`, 1.4);
   bindGameInput();
   setTouchControlsVisible(true);
-  // Desktop: request pointer lock after click; mobile uses touch look
   if (!isTouch) el.canvas.requestPointerLock?.();
   loop();
 }
@@ -682,6 +860,7 @@ function tryAbility() {
     pos.y = 2;
     smokes.push(new SmokeCloud(scene, pos, 8));
     SFX.smoke();
+    if (startMatch._multi) net?.send({ t: "abil", kind: "smoke", x: pos.x, z: pos.z });
   } else if (type === "dash") {
     player.startDash();
     SFX.dash();
@@ -697,8 +876,45 @@ function firePlayer() {
   const shot = player.tryShoot();
   if (!shot) return;
   SFX.shoot();
+  weaponView?.kick();
   spawnMuzzleFlash(scene, shot.origin, shot.dir);
   const solid = mapData.colliders;
+
+  if (startMatch._multi && remote) {
+    net?.send({
+      t: "fire",
+      ox: shot.origin.x,
+      oy: shot.origin.y,
+      oz: shot.origin.z,
+      dx: shot.dir.x,
+      dy: shot.dir.y,
+      dz: shot.dir.z,
+      dmg: shot.damage,
+    });
+    const hitPt = shot.origin.clone().addScaledVector(shot.dir, 80);
+    spawnTracer(scene, shot.origin.clone().addScaledVector(shot.dir, 0.5), hitPt);
+    if (remote.alive) {
+      const aim = remote.getAimPoint();
+      const to = aim.clone().sub(shot.origin);
+      const dist = to.length();
+      const along = to.dot(shot.dir);
+      if (along > 0 && along < 90) {
+        const closest = shot.origin.clone().addScaledVector(shot.dir, along);
+        if (closest.distanceTo(aim) < 0.7) {
+          spawnImpact(scene, aim);
+          SFX.hit();
+          const killed = remote.takeDamage(shot.damage);
+          if (killed) {
+            net?.send({ t: "frag" });
+            pushFeed("你 淘汰了 对手");
+            endRound(true);
+          }
+        }
+      }
+    }
+    return;
+  }
+
   const hit = hitscan(shot.origin, shot.dir, enemies, solid, 90);
   spawnTracer(scene, shot.origin.clone().addScaledVector(shot.dir, 0.5), hit.point);
   spawnImpact(scene, hit.point);
@@ -745,12 +961,21 @@ function endRound(playerWon) {
 
 function beginNextRound() {
   roundEnding = false;
-  el.roundLabel.textContent = `第 ${round} 回合 · ${getMapMeta(selectedMap).name}`;
+  el.roundLabel.textContent = startMatch._multi
+    ? `联机 · ${getMapMeta(selectedMap).name}`
+    : `第 ${round} 回合 · ${getMapMeta(selectedMap).name}`;
   for (const s of smokes) s.dispose();
   smokes = [];
-  player.setSpawn(mapData.spawns.player);
-  enemies.forEach((e, i) => e.respawn(mapData.spawns.enemies[i].clone()));
-  showCenter(`回合 ${round}`, 1.2);
+  const pvp = mapData.spawns.pvp || [mapData.spawns.player, mapData.spawns.enemies[0]];
+  if (startMatch._multi) {
+    const hostSeat = playMode === "host" || !net || net.isHost;
+    player.setSpawn(pvp[hostSeat ? 0 : 1].clone());
+    remote?.respawn(pvp[hostSeat ? 1 : 0].clone());
+  } else {
+    player.setSpawn(mapData.spawns.player);
+    enemies.forEach((e, i) => e.respawn(mapData.spawns.enemies[i].clone()));
+  }
+  showCenter(startMatch._multi ? "下一回合" : `回合 ${round}`, 1.2);
   if (!isTouch) el.canvas.requestPointerLock?.();
 }
 
@@ -771,14 +996,13 @@ function updateHud(now) {
   el.reserve.textContent = String(player.reserve);
 
   const cd = player.abilityCdLeft;
-  const maxCd = player.character.cooldown || 1;
+  const maxCd = player.character.cooldown || 5;
   const keyLabel = codeLabel(binds.ability);
   if (cd > 0.05) {
     el.abilityCd.classList.add("cooling");
-    // Fill grows as cooldown progresses toward ready
     const progress = ((maxCd - cd) / maxCd) * 100;
     el.abilityCd.style.setProperty("--cd", `${progress}%`);
-    el.abilityKeyLabel.textContent = String(Math.ceil(cd));
+    el.abilityKeyLabel.textContent = `${Math.ceil(cd)}s`;
   } else {
     if (!player._abilityWasReady) {
       player._abilityWasReady = true;
@@ -829,6 +1053,13 @@ function drawMinimap() {
     ctx.arc(ex, ey, 4, 0, Math.PI * 2);
     ctx.fill();
   }
+  if (remote?.alive) {
+    const [rx, ry] = toM(remote.position.x, remote.position.z);
+    ctx.fillStyle = "#4ec9ff";
+    ctx.beginPath();
+    ctx.arc(rx, ry, 4, 0, Math.PI * 2);
+    ctx.fill();
+  }
 
   const [px, py] = toM(player.position.x, player.position.z);
   ctx.fillStyle = "#2ee6a6";
@@ -855,8 +1086,25 @@ function loop() {
 
   const now = performance.now() / 1000;
   player.update(dt, mapData.colliders, mapData.bounds);
+  weaponView?.update(dt);
 
   if (player.wantsShoot && (pointerLocked || isTouch)) firePlayer();
+
+  // Multiplayer pose sync ~10Hz
+  if (startMatch._multi && net?.connected) {
+    netSyncAcc += dt;
+    if (netSyncAcc >= 0.1) {
+      netSyncAcc = 0;
+      net.send({
+        t: "pose",
+        x: player.position.x,
+        z: player.position.z,
+        yaw: player.yaw,
+        hp: player.health,
+        alive: player.alive,
+      });
+    }
+  }
 
   for (const e of enemies) {
     const shot = e.update(dt, player, mapData.colliders, mapData.bounds, now);
@@ -922,4 +1170,9 @@ if (auto) {
 }
 if (params.get("settings") === "1") {
   requestAnimationFrame(() => openSettings());
+}
+const modeParam = params.get("mode");
+if (modeParam === "host" || modeParam === "join" || modeParam === "practice") {
+  playMode = modeParam;
+  updateModeUI();
 }

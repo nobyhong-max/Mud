@@ -2,7 +2,7 @@
 
 ## 老二的小游戏 · 试玩入口
 
-**游戏合集主页（推荐收藏）：** **https://silken-knoll-hmfj.here.now/** — 扫雷、尖锋战术、404号末班车 一键入口。源码：`games/hub/index.html`。
+**游戏合集主页（推荐收藏）：** **https://flowing-mosaic-jth7.here.now/** — 扫雷、尖锋战术、404号末班车、尸潮炮阵 一键入口。源码：`games/hub/index.html`。
 
 独立网页工具，按**微乐经典无癞子斗地主**记牌、校验牌型，并给出可出牌组的评分 / 简化胜率参考。
 

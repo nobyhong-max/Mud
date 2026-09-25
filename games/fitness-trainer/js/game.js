@@ -469,7 +469,7 @@ function drawHero(x, y, action, phase) {
   ctx.stroke();
 
   // arms
-  if action === "pushup") {
+  if (action === "pushup") {
     ctx.beginPath();
     ctx.moveTo(x, bodyY - 20);
     ctx.lineTo(x - 22, bodyY - 2);

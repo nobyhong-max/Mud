@@ -162,6 +162,17 @@ function resetArrays() {
   firstClickPending = true;
 }
 
+/** Prepare empty grid then place mines on first open (does not re-arm first click). */
+function beginFirstOpen(safeIndex) {
+  const n = cols * rows;
+  mines = new Array(n).fill(false);
+  counts = new Array(n).fill(0);
+  states = new Array(n).fill("hidden");
+  flagsPlaced = 0;
+  revealedSafe = 0;
+  placeMines(safeIndex);
+}
+
 function placeMines(safeIndex) {
   const n = cols * rows;
   const pool = [];
@@ -196,10 +207,9 @@ function updateCounters() {
 const CELL_GAP = 2;
 const LONG_PRESS_MS = 480;
 const POINTER_SLOP = 12;
-const DOUBLE_TAP_MS = 360;
-
-/** @type {{ i: number, t: number }} */
-let lastTap = { i: -1, t: 0 };
+/** @type {number} */
+let lastActionAt = 0;
+const ACTION_DEBOUNCE_MS = 80;
 
 function updateLayout() {
   if (!boardWrapEl || !boardEl) return;
@@ -239,7 +249,10 @@ function paintCell(btn, i) {
   btn.className = "ms-cell";
   btn.textContent = "";
   const st = states[i];
-  if (st === "hidden") return;
+  if (st === "hidden") {
+    btn.classList.add("covered");
+    return;
+  }
   if (st === "flagged") {
     btn.classList.add("flagged");
     btn.textContent = "🚩";
@@ -383,17 +396,14 @@ function applyConfig(w, h, m, preset) {
 }
 
 function handleFirstClick(c, r) {
+  if (!firstClickPending) return;
+  firstClickPending = false;
   if (phase === "idle") {
     phase = "playing";
     startTimer();
   }
-  if (firstClickPending) {
-    firstClickPending = false;
-    const safe = idx(c, r);
-    resetArrays();
-    placeMines(safe);
-    phase = "playing";
-  }
+  beginFirstOpen(idx(c, r));
+  phase = "playing";
 }
 
 function cellFromTarget(target) {
@@ -404,6 +414,9 @@ function cellFromTarget(target) {
 }
 
 function onPrimaryAction(c, r) {
+  const now = Date.now();
+  if (now - lastActionAt < ACTION_DEBOUNCE_MS) return;
+  lastActionAt = now;
   if (phase === "won" || phase === "lost") return;
   const i = idx(c, r);
   if (flagMode) {
@@ -412,14 +425,8 @@ function onPrimaryAction(c, r) {
     return;
   }
   if (states[i] === "revealed" && counts[i] > 0) {
-    const now = Date.now();
-    if (lastTap.i === i && now - lastTap.t < DOUBLE_TAP_MS) {
-      chord(c, r);
-      lastTap = { i: -1, t: 0 };
-      refreshAllCells();
-      return;
-    }
-    lastTap = { i, t: now };
+    chord(c, r);
+    refreshAllCells();
     return;
   }
   if (states[i] === "flagged") return;
@@ -436,6 +443,8 @@ function bindBoardEvents() {
   let downY = 0;
   /** @type {number | null} */
   let activePointer = null;
+  /** @type {{ c: number, r: number } | null} */
+  let activeCell = null;
 
   const clearLongPress = () => {
     if (longPressTimer != null) {
@@ -459,6 +468,7 @@ function bindBoardEvents() {
     }
     if (e.button !== 0) return;
     activePointer = e.pointerId;
+    activeCell = { c: cell.c, r: cell.r };
     longPressFired = false;
     downX = e.clientX;
     downY = e.clientY;
@@ -489,20 +499,25 @@ function bindBoardEvents() {
     if (activePointer !== e.pointerId) return;
     activePointer = null;
     clearLongPress();
-    const cell = cellFromTarget(e.target);
-    if (!cell) return;
     if (longPressFired) {
       longPressFired = false;
+      activeCell = null;
       e.preventDefault();
       return;
     }
     if (e.button !== 0) return;
-    onPrimaryAction(cell.c, cell.r);
+    const targetCell = cellFromTarget(e.target);
+    const c = targetCell?.c ?? activeCell?.c;
+    const r = targetCell?.r ?? activeCell?.r;
+    activeCell = null;
+    if (c == null || r == null) return;
+    onPrimaryAction(c, r);
   };
 
   boardEl.addEventListener("pointerup", finishPointer);
   boardEl.addEventListener("pointercancel", (e) => {
     activePointer = null;
+    activeCell = null;
     clearLongPress();
     longPressFired = false;
   });

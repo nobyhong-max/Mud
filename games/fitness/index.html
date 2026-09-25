@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#ff6b4a" />
+  <title>燃动闯关 · 锻炼赚钱升级</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="app">
+    <header class="top-bar" id="top-bar">
+      <div class="top-left">
+        <span class="logo">燃动闯关</span>
+        <span class="tagline">锻炼 · 赚钱 · 升级</span>
+      </div>
+      <div class="top-stats">
+        <span class="chip chip-gold" title="训练金币">🪙 <strong id="total-coins">0</strong></span>
+        <span class="chip" title="连续打卡">🔥 <strong id="streak">0</strong></span>
+        <span class="chip">⚡ <strong id="total-score">0</strong></span>
+      </div>
+    </header>
+
+    <main id="screen-home" class="screen active">
+      <section class="hero-card">
+        <p class="greeting" id="greeting">动起来，练完就能攒金币升级！</p>
+        <div class="stat-grid">
+          <div class="stat-box">
+            <span class="stat-label">累计消耗</span>
+            <span class="stat-value"><strong id="total-kcal">0</strong> 千卡</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-label">已解锁关卡</span>
+            <span class="stat-value">第 <strong id="unlocked-level">1</strong> 关</span>
+          </div>
+        </div>
+        <div class="player-stats" id="player-stats"></div>
+      </section>
+
+      <section class="nav-row">
+        <button type="button" class="btn secondary compact" id="btn-shop">🛒 升级商店</button>
+      </section>
+
+      <section class="daily-card" id="daily-card">
+        <h2>今日挑战</h2>
+        <p class="daily-desc" id="daily-desc">完成速燃跟练，点亮徽章并拿金币加成。</p>
+        <button type="button" class="btn secondary" id="btn-daily">开始今日挑战</button>
+        <span class="badge-done hidden" id="daily-done">✓ 今日已完成</span>
+      </section>
+
+      <section class="levels-section">
+        <h2>闯关模式</h2>
+        <div class="level-list" id="level-list"></div>
+      </section>
+    </main>
+
+    <main id="screen-shop" class="screen hidden">
+      <div class="shop-header">
+        <h2>升级商店</h2>
+        <p class="shop-balance">当前金币 <strong id="shop-coins">0</strong></p>
+        <p class="shop-hint">永久提升属性，下一局立刻生效</p>
+      </div>
+      <div class="upgrade-list" id="upgrade-list"></div>
+      <button type="button" class="btn ghost" id="btn-shop-back">返回主页</button>
+    </main>
+
+    <main id="screen-workout" class="screen hidden">
+      <div class="workout-header">
+        <span class="level-tag" id="workout-level-tag">第 1 关</span>
+        <span class="set-tag" id="workout-set-tag">第 1 / 3 组</span>
+        <span class="session-coins">🪙 <strong id="session-coins">0</strong></span>
+      </div>
+      <div class="timer-ring" aria-hidden="true">
+        <svg viewBox="0 0 120 120">
+          <circle class="ring-bg" cx="60" cy="60" r="52" />
+          <circle class="ring-fg" id="timer-ring" cx="60" cy="60" r="52" />
+        </svg>
+        <span class="timer-text" id="timer-text">20</span>
+      </div>
+      <div class="exercise-card">
+        <div class="exercise-icon" id="exercise-icon">🏋️</div>
+        <h2 id="exercise-name">深蹲</h2>
+        <p class="exercise-tip" id="exercise-tip">跟着节奏，点按下方按钮计次</p>
+        <div class="rep-row">
+          <span>本组次数</span>
+          <strong><span id="rep-count">0</span> / <span id="rep-target">10</span></strong>
+        </div>
+        <div class="combo-row">
+          连击 ×<strong id="combo-mult">1.0</strong>
+          <span class="combo-msg" id="combo-msg"></span>
+        </div>
+      </div>
+      <button type="button" class="tap-zone" id="tap-zone" aria-label="跟练计次">
+        <span class="tap-label" id="tap-label">点按跟练</span>
+        <span class="tap-hint" id="tap-hint">也可上滑计次（开合跳）</span>
+      </button>
+      <button type="button" class="btn ghost" id="btn-quit-workout">退出本局</button>
+    </main>
+
+    <main id="screen-rest" class="screen hidden">
+      <div class="rest-panel">
+        <h2>组间休息</h2>
+        <p class="rest-copy" id="rest-copy">深呼吸，下一组马上开始</p>
+        <div class="rest-timer" id="rest-timer">15</div>
+        <p class="rest-bonus hidden" id="rest-bonus">恢复属性已缩短休息</p>
+        <button type="button" class="btn secondary" id="btn-skip-rest">跳过休息</button>
+      </div>
+    </main>
+
+    <main id="screen-result" class="screen hidden">
+      <div class="result-panel">
+        <h2 id="result-title">闯关成功！</h2>
+        <p class="result-sub" id="result-sub">你比昨天更强了</p>
+        <ul class="result-stats">
+          <li>本局得分 <strong id="result-score">0</strong></li>
+          <li>获得金币 <strong id="result-coins">0</strong> 🪙</li>
+          <li>估算消耗 <strong id="result-kcal">0</strong> 千卡</li>
+          <li>最高连击 ×<strong id="result-combo">1</strong></li>
+        </ul>
+        <button type="button" class="btn primary" id="btn-result-home">返回主页</button>
+        <button type="button" class="btn secondary" id="btn-result-shop">去升级商店</button>
+        <button type="button" class="btn secondary hidden" id="btn-next-level">挑战下一关</button>
+      </div>
+    </main>
+
+    <div class="toast hidden" id="toast" role="status"></div>
+  </div>
+  <script src="js/game.js"></script>
+</body>
+</html>

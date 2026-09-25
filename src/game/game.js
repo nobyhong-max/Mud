@@ -5,6 +5,7 @@ import { Sfx } from './audio.js';
 import { buildMap, resolveCollision } from './map.js';
 import { mobilePerfProfile } from './device.js';
 import { MobileControls } from './mobile.js';
+import { WeaponViewModel } from './viewmodel.js';
 
 const EYE = 1.6;
 const RADIUS = 0.38;
@@ -129,7 +130,10 @@ export class Game {
     this.camera.rotation.order = 'YXZ';
     this.scene.add(this.playerObject());
     this.muzzle = new THREE.PointLight(0xffaa55, 0, 10);
+    this.muzzle.position.set(0.05, -0.05, -0.55);
     this.camera.add(this.muzzle);
+    this.viewModel = new WeaponViewModel(this.camera);
+    void this.viewModel.load();
     this.scene.add(this.camera);
     this.ray = new THREE.Raycaster();
     this.spikeMesh = null;
@@ -411,6 +415,7 @@ export class Game {
       stepT: 0,
     };
     this.applyAgentLabels();
+    this.viewModel?.applyWeapon(this.player.weaponId);
     const spawn = this.playerSide === 'attack' ? this.map.attackSpawn : this.map.defendSpawn;
     this.playerObject().position.copy(spawn);
   }
@@ -445,6 +450,7 @@ export class Game {
     this.player.weapon = { ...w };
     this.player.mag = w.magSize;
     this.player.reserve = w.reserve;
+    this.viewModel?.applyWeapon(id);
     this.sfx.buy();
     this.refreshShop();
     this.updateHud();
@@ -699,10 +705,19 @@ export class Game {
     this.effects.push({ mesh: m, life, kind: 'smoke', blocks: true, radius });
   }
 
+  _isViewModelMesh(object) {
+    let o = object;
+    while (o) {
+      if (o === this.camera) return true;
+      o = o.parent;
+    }
+    return false;
+  }
+
   _aimPoint(maxDist) {
     this.ray.setFromCamera(new THREE.Vector2(0, 0), this.camera);
     const hit = this.ray.intersectObjects(this.scene.children, true).find((h) => {
-      return h.object.isMesh && !this.camera.children.includes(h.object);
+      return h.object.isMesh && !this._isViewModelMesh(h.object);
     });
     if (hit && hit.distance < maxDist) return hit.point.clone();
     return this.ray.ray.origin.clone().addScaledVector(this.ray.ray.direction, maxDist);
@@ -725,6 +740,7 @@ export class Game {
     p.fireCd = 1 / p.weapon.fireRate;
     this.sfx.shoot();
     this.muzzle.intensity = 3;
+    this.viewModel?.onFire();
 
     const pellets = p.weapon.pellets || 1;
     let anyHit = false;
@@ -1301,6 +1317,7 @@ export class Game {
         for (const s of ['q', 'e', 'c']) p.cds[s] = Math.max(0, p.cds[s] - dt);
         if (this.shooting) this.tryShoot();
         this.muzzle.intensity = Math.max(0, this.muzzle.intensity - dt * 14);
+        this.viewModel?.update(dt, { moving: p.moving, speedXZ: p.speedXZ });
 
         // flame on player
         for (const e of this.effects) {

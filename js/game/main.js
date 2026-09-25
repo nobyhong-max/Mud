@@ -12,6 +12,15 @@ import {
   SmokeCloud,
   createFlashBurst,
 } from "./combat.js";
+import { SFX, unlockAudio } from "./audio.js";
+import {
+  BIND_ACTIONS,
+  loadBinds,
+  saveBinds,
+  resetBinds,
+  codeLabel,
+  prettyBindsHelp,
+} from "./binds.js";
 
 const WINS_NEEDED = 3;
 
@@ -28,7 +37,10 @@ const el = {
   ammo: document.getElementById("ammo-text"),
   reserve: document.getElementById("reserve-text"),
   abilityName: document.getElementById("ability-name"),
+  abilityTag: document.getElementById("ability-tag"),
   abilityCd: document.getElementById("ability-cd"),
+  abilityKeyLabel: document.getElementById("ability-key-label"),
+  bindsHint: document.getElementById("binds-hint"),
   scoreYou: document.getElementById("score-you"),
   scoreEnemy: document.getElementById("score-enemy"),
   roundLabel: document.getElementById("round-label"),
@@ -45,7 +57,18 @@ const el = {
   btnRematch: document.getElementById("btn-rematch"),
   btnMenu: document.getElementById("btn-menu"),
   objHint: document.getElementById("obj-hint"),
+  settings: document.getElementById("settings-panel"),
+  bindsList: document.getElementById("binds-list"),
+  btnSettingsMenu: document.getElementById("btn-settings-menu"),
+  btnSettingsPause: document.getElementById("btn-settings-pause"),
+  btnSettingsClose: document.getElementById("btn-settings-close"),
+  btnBindsReset: document.getElementById("btn-binds-reset"),
+  desktopHint: document.querySelector(".desktop-hint"),
 };
+
+let binds = loadBinds();
+let listeningAction = null;
+let settingsOpen = false;
 
 let selectedChar = null;
 let selectedMap = null;
@@ -63,8 +86,10 @@ function buildSelectUI() {
     btn.type = "button";
     btn.className = "card-opt";
     btn.dataset.id = c.id;
-    btn.innerHTML = `<h3>${c.name}</h3><div class="role">${c.role}</div><p>${c.description}</p>`;
+    btn.innerHTML = `<h3>${c.name} <span class="effect-tag">${c.effectTag}</span></h3><div class="role">${c.role} · ${c.abilityName}</div><p>${c.description}</p>`;
     btn.addEventListener("click", () => {
+      unlockAudio();
+      SFX.ui();
       selectedChar = c.id;
       [...el.charGrid.children].forEach((n) => n.classList.toggle("selected", n.dataset.id === c.id));
       refreshStart();
@@ -80,12 +105,58 @@ function buildSelectUI() {
     btn.dataset.id = m.id;
     btn.innerHTML = `<h3>${m.name}</h3><div class="role" style="color:${m.accent}">地图</div><p>${m.blurb}</p>`;
     btn.addEventListener("click", () => {
+      unlockAudio();
+      SFX.ui();
       selectedMap = m.id;
       [...el.mapGrid.children].forEach((n) => n.classList.toggle("selected", n.dataset.id === m.id));
       refreshStart();
     });
     el.mapGrid.appendChild(btn);
   }
+  refreshBindsHelp();
+}
+
+function refreshBindsHelp() {
+  const help = prettyBindsHelp(binds);
+  if (el.desktopHint) el.desktopHint.textContent = help;
+  if (el.bindsHint) el.bindsHint.textContent = help;
+  if (el.abilityKeyLabel) el.abilityKeyLabel.textContent = codeLabel(binds.ability);
+  const touchAb = document.getElementById("btn-touch-ability");
+  if (touchAb) touchAb.textContent = "技能";
+}
+
+function renderBindsList() {
+  if (!el.bindsList) return;
+  el.bindsList.innerHTML = "";
+  for (const action of BIND_ACTIONS) {
+    const row = document.createElement("button");
+    row.type = "button";
+    row.className = "bind-row" + (listeningAction === action.id ? " listening" : "");
+    row.innerHTML = `<span>${action.label}</span><kbd>${codeLabel(binds[action.id])}</kbd>`;
+    row.addEventListener("click", (e) => {
+      e.preventDefault();
+      listeningAction = action.id;
+      renderBindsList();
+    });
+    el.bindsList.appendChild(row);
+  }
+}
+
+function openSettings() {
+  unlockAudio();
+  settingsOpen = true;
+  listeningAction = null;
+  el.settings.classList.remove("hidden");
+  renderBindsList();
+  if (document.pointerLockElement) document.exitPointerLock();
+}
+
+function closeSettings() {
+  settingsOpen = false;
+  listeningAction = null;
+  el.settings.classList.add("hidden");
+  refreshBindsHelp();
+  saveBinds(binds);
 }
 
 function refreshStart() {
@@ -102,13 +173,27 @@ refreshStart();
 
 el.btnStart.addEventListener("click", (e) => {
   e.preventDefault();
+  unlockAudio();
+  SFX.ui();
   if (!selectedChar) selectedChar = "blitz";
   if (!selectedMap) selectedMap = "yard";
   startMatch(false);
 });
-el.btnRematch.addEventListener("click", () => startMatch(false));
+el.btnRematch.addEventListener("click", () => {
+  unlockAudio();
+  startMatch(false);
+});
 el.btnMenu.addEventListener("click", () => {
   showScreen("menu");
+});
+el.btnSettingsMenu?.addEventListener("click", () => openSettings());
+el.btnSettingsPause?.addEventListener("click", () => openSettings());
+el.btnSettingsClose?.addEventListener("click", () => closeSettings());
+el.btnBindsReset?.addEventListener("click", () => {
+  binds = resetBinds();
+  SFX.ui();
+  renderBindsList();
+  refreshBindsHelp();
 });
 /** —— Runtime match state —— */
 let renderer, scene, camera, clock;
@@ -221,6 +306,8 @@ function startMatch(rematch = false) {
 
   smokes = [];
   el.abilityName.textContent = character.abilityName;
+  if (el.abilityTag) el.abilityTag.textContent = character.effectTag;
+  refreshBindsHelp();
   updateScoreUI();
   el.roundLabel.textContent = `第 ${round} 回合 · ${getMapMeta(selectedMap).name}`;
   el.objHint.textContent = `歼灭全部敌人 · 先赢 ${WINS_NEEDED} 回合`;
@@ -269,43 +356,122 @@ document.addEventListener("pointerlockchange", () => {
   pointerLocked = document.pointerLockElement === el.canvas;
 });
 
+function actionForCode(code) {
+  for (const [action, c] of Object.entries(binds)) {
+    if (c === code) return action;
+  }
+  return null;
+}
+
+const MOVE_KEY = { forward: "KeyW", back: "KeyS", left: "KeyA", right: "KeyD" };
+
+function mouseCode(button) {
+  if (button === 0) return "Mouse0";
+  if (button === 2) return "Mouse2";
+  if (button === 1) return "Mouse1";
+  return `Mouse${button}`;
+}
+
 document.addEventListener("mousemove", (e) => {
-  if (!running || paused || !pointerLocked || !player) return;
+  if (!running || paused || !pointerLocked || !player || settingsOpen) return;
   player.onMouseMove(e.movementX, e.movementY);
 });
 
 document.addEventListener("keydown", (e) => {
+  if (settingsOpen && listeningAction) {
+    e.preventDefault();
+    if (e.code === "Escape") {
+      listeningAction = null;
+      renderBindsList();
+      return;
+    }
+    // Avoid binding bare modifiers alone
+    if (["ShiftLeft", "ShiftRight", "ControlLeft", "ControlRight", "AltLeft", "AltRight"].includes(e.code)) return;
+    binds[listeningAction] = e.code;
+    // Deduplicate: clear other actions using same code
+    for (const id of Object.keys(binds)) {
+      if (id !== listeningAction && binds[id] === e.code) binds[id] = "";
+    }
+    listeningAction = null;
+    saveBinds(binds);
+    SFX.ui();
+    renderBindsList();
+    refreshBindsHelp();
+    return;
+  }
+
+  if (settingsOpen) return;
   if (!running || !player) return;
-  if (e.code === "Escape") {
+
+  const action = actionForCode(e.code);
+  if (action === "pause" || e.code === "Escape") {
+    e.preventDefault();
     togglePause();
     return;
   }
   if (paused) return;
-  player.keys[e.code] = true;
-  if (e.code === "KeyR") player.tryReload();
-  if (e.code === "KeyQ") tryAbility();
+
+  if (action && MOVE_KEY[action]) {
+    player.keys[MOVE_KEY[action]] = true;
+  }
+  if (action === "reload" && !e.repeat) {
+    player.tryReload();
+    SFX.reload();
+  }
+  if (action === "ability" && !e.repeat) tryAbility();
+  if (action === "shoot") player.wantsShoot = true;
 });
 
 document.addEventListener("keyup", (e) => {
   if (!player) return;
-  player.keys[e.code] = false;
+  const action = actionForCode(e.code);
+  if (action && MOVE_KEY[action]) player.keys[MOVE_KEY[action]] = false;
+  if (action === "shoot") player.wantsShoot = false;
 });
 
 document.addEventListener("mousedown", (e) => {
-  if (!running || paused || !player) return;
-  if (e.button === 0) {
-    if (!isTouch && !pointerLocked) {
-      el.canvas.requestPointerLock?.();
-      return;
+  if (settingsOpen && listeningAction) {
+    e.preventDefault();
+    const code = mouseCode(e.button);
+    binds[listeningAction] = code;
+    for (const id of Object.keys(binds)) {
+      if (id !== listeningAction && binds[id] === code) binds[id] = "";
     }
-    if (pointerLocked || isTouch) player.wantsShoot = true;
+    listeningAction = null;
+    saveBinds(binds);
+    SFX.ui();
+    renderBindsList();
+    refreshBindsHelp();
+    return;
+  }
+  if (settingsOpen) return;
+  if (!running || paused || !player) return;
+  const code = mouseCode(e.button);
+  if (code === binds.shoot || (binds.shoot === "Mouse0" && e.button === 0)) {
+    if (!isTouch && !pointerLocked && e.button === 0) {
+      el.canvas.requestPointerLock?.();
+      // still allow shoot after lock request on next frame
+    }
+    if (pointerLocked || isTouch || e.button === 0) player.wantsShoot = true;
   }
 });
 
 document.addEventListener("mouseup", (e) => {
-  if (e.button === 0 && player) player.wantsShoot = false;
+  if (!player) return;
+  const code = mouseCode(e.button);
+  if (code === binds.shoot || (binds.shoot === "Mouse0" && e.button === 0)) {
+    player.wantsShoot = false;
+  }
 });
 
+document.addEventListener("contextmenu", (e) => {
+  if (running || settingsOpen) e.preventDefault();
+});
+
+el.abilityCd?.addEventListener("click", (e) => {
+  e.preventDefault();
+  if (running && !paused) tryAbility();
+});
 function setTouchControlsVisible(on) {
   if (!touchUI.root) return;
   const show = on && isTouch && running;
@@ -480,9 +646,10 @@ el.btnQuit.addEventListener("click", () => {
 });
 
 function tryAbility() {
-  if (!player.alive || player.abilityCd > 0) return;
+  if (!player || !player.alive || !player.abilityReady) return false;
   const type = player.character.ability;
   const now = performance.now() / 1000;
+  unlockAudio();
 
   if (type === "flash") {
     const origin = camera.position.clone();
@@ -490,24 +657,22 @@ function tryAbility() {
     const dest = origin.clone().addScaledVector(dir, 14);
     dest.y = Math.max(1.2, dest.y);
     createFlashBurst(scene, dest);
+    SFX.flash();
     for (const e of enemies) {
       if (!e.alive) continue;
       const d = e.position.distanceTo(new THREE.Vector3(dest.x, 0, dest.z));
       if (d < 12) {
-        // Dot product: roughly facing the flash
         const toFlash = dest.clone().sub(e.getAimPoint()).normalize();
         const facing = new THREE.Vector3(0, 0, 1).applyAxisAngle(new THREE.Vector3(0, 1, 0), e.mesh.rotation.y);
         const facingFlash = facing.dot(toFlash) > -0.2;
         if (facingFlash || d < 5) e.applyFlash(2.5, now);
       }
     }
-    // Self-flash mild if looking at it
     const toF = dest.clone().sub(camera.position).normalize();
     const look = new THREE.Vector3(0, 0, -1).applyQuaternion(camera.quaternion);
     if (look.dot(toF) > 0.55 && camera.position.distanceTo(dest) < 16) {
       player.flashUntil = now + 1.2;
     }
-    player.abilityCd = player.character.cooldown;
   } else if (type === "smoke") {
     const origin = camera.position.clone();
     const dir = new THREE.Vector3(0, 0, -1).applyQuaternion(camera.quaternion);
@@ -516,23 +681,29 @@ function tryAbility() {
     if (hit.type === "none") pos.copy(origin).addScaledVector(dir, 18);
     pos.y = 2;
     smokes.push(new SmokeCloud(scene, pos, 8));
-    player.abilityCd = player.character.cooldown;
+    SFX.smoke();
   } else if (type === "dash") {
     player.startDash();
-    player.abilityCd = player.character.cooldown;
+    SFX.dash();
+  } else {
+    return false;
   }
+
+  player.startAbilityCooldown();
+  return true;
 }
 
 function firePlayer() {
   const shot = player.tryShoot();
   if (!shot) return;
+  SFX.shoot();
   spawnMuzzleFlash(scene, shot.origin, shot.dir);
-  // Exclude smoke from blocking bullet? Smoke blocks vision not bullets for demo — still allow
   const solid = mapData.colliders;
   const hit = hitscan(shot.origin, shot.dir, enemies, solid, 90);
   spawnTracer(scene, shot.origin.clone().addScaledVector(shot.dir, 0.5), hit.point);
   spawnImpact(scene, hit.point);
   if (hit.type === "enemy") {
+    SFX.hit();
     const killed = hit.enemy.takeDamage(shot.damage);
     if (killed) {
       pushFeed(`你 淘汰了 ${hit.enemy.name}`);
@@ -599,16 +770,23 @@ function updateHud(now) {
   el.ammo.textContent = player.reloading ? "…" : String(player.ammo);
   el.reserve.textContent = String(player.reserve);
 
-  const cd = player.abilityCd;
-  const maxCd = player.character.cooldown;
-  if (cd > 0) {
+  const cd = player.abilityCdLeft;
+  const maxCd = player.character.cooldown || 1;
+  const keyLabel = codeLabel(binds.ability);
+  if (cd > 0.05) {
     el.abilityCd.classList.add("cooling");
-    el.abilityCd.style.setProperty("--cd", `${((maxCd - cd) / maxCd) * 100}%`);
-    el.abilityCd.querySelector("span").textContent = Math.ceil(cd);
+    // Fill grows as cooldown progresses toward ready
+    const progress = ((maxCd - cd) / maxCd) * 100;
+    el.abilityCd.style.setProperty("--cd", `${progress}%`);
+    el.abilityKeyLabel.textContent = String(Math.ceil(cd));
   } else {
+    if (!player._abilityWasReady) {
+      player._abilityWasReady = true;
+      SFX.ready();
+    }
     el.abilityCd.classList.remove("cooling");
-    el.abilityCd.style.setProperty("--cd", "0%");
-    el.abilityCd.querySelector("span").textContent = "Q";
+    el.abilityCd.style.setProperty("--cd", "100%");
+    el.abilityKeyLabel.textContent = keyLabel;
   }
 
   // Flash overlay
@@ -733,11 +911,15 @@ window.__PULSE_STRIKE__ = {
 };
 
 // ?autostart=blitz,yard  — skip menu for screenshots / demos
-const auto = new URLSearchParams(location.search).get("autostart");
+const params = new URLSearchParams(location.search);
+const auto = params.get("autostart");
 if (auto) {
   const [c, m] = auto.split(",");
   if (c) selectedChar = c;
   if (m) selectedMap = m;
   refreshStart();
   requestAnimationFrame(() => startMatch(false));
+}
+if (params.get("settings") === "1") {
+  requestAnimationFrame(() => openSettings());
 }

@@ -303,6 +303,11 @@ body {
   z-index: 4;
 }
 
+#hud .cd-ring,
+#hud .binds-hint {
+  pointer-events: auto;
+}
+
 .hud-top {
   position: absolute;
   top: 1rem;
@@ -387,35 +392,151 @@ body {
 .ability {
   flex-direction: column;
   align-items: flex-end;
+  gap: 0.2rem;
 }
 
 #ability-name {
   font-size: 0.65rem;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.12em;
   color: var(--cyan);
 }
 
+.effect-tag {
+  display: inline-block;
+  padding: 0.12rem 0.45rem;
+  border: 1px solid rgba(46, 230, 166, 0.55);
+  background: rgba(46, 230, 166, 0.12);
+  color: var(--accent);
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+  vertical-align: middle;
+}
+
+.card-opt h3 .effect-tag {
+  margin-left: 0.35rem;
+  font-size: 0.6rem;
+}
+
 .cd-ring {
-  width: 48px;
-  height: 48px;
+  width: 52px;
+  height: 52px;
   border: 2px solid var(--accent);
   display: grid;
   place-items: center;
   font-size: 1rem;
   background: rgba(0, 0, 0, 0.35);
   position: relative;
+  color: inherit;
+  font-family: var(--font-display);
+  cursor: pointer;
+  padding: 0;
 }
 
 .cd-ring.cooling {
   border-color: var(--muted);
   color: var(--muted);
+  cursor: default;
 }
 
 .cd-ring.cooling::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: conic-gradient(transparent var(--cd, 0%), rgba(0, 0, 0, 0.55) var(--cd, 0%));
+  background: conic-gradient(var(--accent) var(--cd, 0%), rgba(0, 0, 0, 0.55) var(--cd, 0%));
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.binds-hint {
+  position: absolute;
+  bottom: calc(4.8rem + env(safe-area-inset-bottom, 0px));
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 92%;
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  pointer-events: none !important;
+}
+
+.menu-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.5rem;
+}
+
+.ghost-btn {
+  border: 1px solid rgba(46, 230, 166, 0.4);
+  background: rgba(8, 18, 26, 0.6);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  padding: 0.55rem 0.85rem;
+  min-height: 40px;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.ghost-btn:hover {
+  background: rgba(46, 230, 166, 0.15);
+}
+
+.settings-panel {
+  z-index: 30;
+  width: min(420px, calc(100vw - 1.5rem));
+  max-height: min(90dvh, 640px);
+  overflow-y: auto;
+  pointer-events: auto;
+}
+
+.settings-panel.hidden {
+  display: none;
+}
+
+.settings-note {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin: 0 0 0.75rem;
+}
+
+.binds-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 0.75rem;
+}
+
+.bind-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.7rem 0.85rem;
+  min-height: 48px;
+  border: 1px solid rgba(46, 230, 166, 0.3);
+  background: rgba(0, 0, 0, 0.35);
+  color: var(--ink);
+  font: inherit;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.bind-row.listening {
+  border-color: var(--warn);
+  box-shadow: 0 0 0 1px rgba(255, 107, 74, 0.4);
+}
+
+.bind-row kbd {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  min-width: 3.5rem;
+  text-align: right;
 }
 
 #minimap {

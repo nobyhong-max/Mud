@@ -22,7 +22,7 @@ export class Player {
     this.reloading = false;
     this.reloadTimer = 0;
     this.shootCooldown = 0;
-    this.abilityCd = 0;
+    this.abilityReadyAt = 0; // performance.now()/1000 when ability can be used again
     this.alive = true;
     this.flashUntil = 0;
     this.keys = Object.create(null);
@@ -31,6 +31,21 @@ export class Player {
     this.dashVel = null;
     this.dashTimer = 0;
     this.spawnProtectUntil = 0;
+    this._abilityWasReady = true;
+  }
+
+  get abilityCdLeft() {
+    return Math.max(0, this.abilityReadyAt - performance.now() / 1000);
+  }
+
+  get abilityReady() {
+    return this.abilityCdLeft <= 0;
+  }
+
+  startAbilityCooldown() {
+    const cd = this.character.cooldown || 6;
+    this.abilityReadyAt = performance.now() / 1000 + cd;
+    this._abilityWasReady = false;
   }
 
   setSpawn(pos) {
@@ -44,7 +59,8 @@ export class Player {
     this.reserve = 90;
     this.reloading = false;
     this.alive = true;
-    this.abilityCd = 0;
+    this.abilityReadyAt = 0;
+    this._abilityWasReady = true;
     this.flashUntil = 0;
     this.dashVel = null;
     this.spawnProtectUntil = performance.now() / 1000 + 2.5;
@@ -90,7 +106,7 @@ export class Player {
     }
 
     this.shootCooldown = Math.max(0, this.shootCooldown - dt);
-    this.abilityCd = Math.max(0, this.abilityCd - dt);
+    // ability uses absolute readyAt — no float-decay stuck state
 
     if (this.dashTimer > 0) {
       this.dashTimer -= dt;

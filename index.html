@@ -27,6 +27,9 @@
         <div class="menu-shell">
           <div class="menu-scroll">
             <div class="menu-panel">
+            <div class="menu-toolbar">
+              <button id="btn-settings-menu" class="ghost-btn" type="button">键位设置</button>
+            </div>
               <p class="eyebrow">张三的小游戏</p>
               <h1 class="brand">PULSE STRIKE</h1>
               <p class="tagline">本地 3D 射击演示 · 无联网 · 打 AI 机器人</p>
@@ -72,10 +75,12 @@
               <span id="reserve-text">90</span>
             </div>
             <div class="stat ability">
-              <span id="ability-name">FLASH</span>
-              <div class="cd-ring" id="ability-cd"><span>Q</span></div>
+              <span id="ability-tag" class="effect-tag">致盲</span>
+              <span id="ability-name">致盲闪光</span>
+              <button type="button" class="cd-ring" id="ability-cd" title="使用技能"><span id="ability-key-label">Q</span></button>
             </div>
           </div>
+          <div id="binds-hint" class="binds-hint"></div>
           <canvas id="minimap" width="140" height="140"></canvas>
           <div id="obj-hint">歼灭敌方特工 · 先赢 3 回合</div>
         </div>
@@ -86,6 +91,7 @@
         <div id="pause-menu" class="overlay-panel hidden">
           <h2>暂停</h2>
           <button id="btn-resume" type="button">继续</button>
+          <button id="btn-settings-pause" type="button">键位设置</button>
           <button id="btn-quit" type="button">返回菜单</button>
         </div>
         <div id="touch-controls" class="hidden" aria-hidden="true">
@@ -93,8 +99,8 @@
             <div id="joy-base"><div id="joy-knob"></div></div>
           </div>
           <div id="touch-actions">
-            <button type="button" id="btn-touch-ability" class="touch-btn">Q</button>
-            <button type="button" id="btn-touch-reload" class="touch-btn">R</button>
+            <button type="button" id="btn-touch-ability" class="touch-btn">技能</button>
+            <button type="button" id="btn-touch-reload" class="touch-btn">换弹</button>
             <button type="button" id="btn-touch-fire" class="touch-btn fire">开火</button>
             <button type="button" id="btn-touch-pause" class="touch-btn">‖</button>
           </div>
@@ -110,6 +116,14 @@
           <button id="btn-menu" type="button">返回选人</button>
         </div>
       </section>
+
+      <div id="settings-panel" class="overlay-panel settings-panel hidden">
+        <h2>键位设置</h2>
+        <p class="settings-note">点击一项后按下新按键；鼠标左键可绑射击。</p>
+        <div id="binds-list" class="binds-list"></div>
+        <button id="btn-binds-reset" type="button">恢复默认</button>
+        <button id="btn-settings-close" type="button">完成</button>
+      </div>
     </div>
     <script type="module" src="./js/game/main.js"></script>
   </body>

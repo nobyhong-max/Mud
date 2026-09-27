@@ -6,6 +6,7 @@
     { "path": "pages/answer/index", "style": { "navigationBarTitleText": "作答" } },
     { "path": "pages/waiting/index", "style": { "navigationBarTitleText": "等待" } },
     { "path": "pages/reveal/index", "style": { "navigationBarTitleText": "揭晓" } },
-    { "path": "pages/memory/index", "style": { "navigationBarTitleText": "回忆墙" } }
+    { "path": "pages/memory/index", "style": { "navigationBarTitleText": "回忆墙" } },
+    { "path": "pages/decks/index", "style": { "navigationBarTitleText": "牌组" } }
   ]
 }

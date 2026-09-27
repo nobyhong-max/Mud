@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>联机打怪 · Mud RPG</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div id="overlay">
+    <div class="panel login-panel" id="loginPanel">
+      <h1>联机打怪 RPG</h1>
+      <p class="sub">2D 俯视角探索 · 独立战斗界面 · 宠物与首领</p>
+      <label>昵称</label>
+      <input id="nickname" maxlength="16" placeholder="输入昵称" />
+      <button id="joinBtn">进入游戏</button>
+    </div>
+  </div>
+
+  <div id="hud" class="hidden">
+    <div class="hud-row">
+      <span id="modeLabel">探索模式</span>
+      <span id="mapName">地图</span>
+      <span id="playerLevel">Lv.1</span>
+    </div>
+    <div class="bar-wrap">
+      <div class="bar-label">生命</div>
+      <div class="bar"><div id="hpBar" class="fill hp"></div></div>
+      <span id="hpText">100/100</span>
+    </div>
+    <div id="petHud" class="pet-hud hidden">
+      <span id="petName">宠物</span>
+      <span id="petStats"></span>
+    </div>
+    <div id="toast" class="toast hidden"></div>
+  </div>
+
+  <div id="sidebar" class="hidden">
+    <h3>地图传送</h3>
+    <ul id="mapList"></ul>
+    <p class="hint">探索：WASD 移动，靠近或点击怪物进入战斗</p>
+    <p class="hint">战斗：空格攻击，非首领可逃跑</p>
+  </div>
+
+  <canvas id="game" width="1280" height="720"></canvas>
+
+  <div id="battleScreen" class="hidden" aria-label="战斗界面">
+    <div class="battle-panel">
+      <header class="battle-header">
+        <h2 id="battleTitle">战斗</h2>
+        <span id="battleMapName"></span>
+      </header>
+      <canvas id="battleCanvas" width="960" height="360"></canvas>
+      <div class="battle-bars">
+        <div class="battle-side ally">
+          <div class="name" id="battlePlayerName">你</div>
+          <div class="bar"><div id="battlePlayerHp" class="fill hp"></div></div>
+          <div id="battlePetRow" class="pet-row hidden">
+            <span id="battlePetLabel"></span>
+            <div class="bar small"><div id="battlePetHp" class="fill hp"></div></div>
+          </div>
+        </div>
+        <div class="battle-side foe">
+          <div class="name" id="battleEnemyName">敌人</div>
+          <div class="bar"><div id="battleEnemyHp" class="fill boss-fill"></div></div>
+        </div>
+      </div>
+      <ul id="battleLog" class="battle-log"></ul>
+      <div class="battle-actions">
+        <button id="battleAttackBtn">攻击 (空格)</button>
+        <button id="battleFleeBtn" class="secondary">逃跑</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script type="module" src="/js/client.js"></script>
+</body>
+</html>

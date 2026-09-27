@@ -4,6 +4,7 @@
     <div class="page-main">
       <h1 class="brand">半个岛</h1>
       <p class="slogan">两座半岛，拼在一起。</p>
+      <div class="island-silhouette" aria-hidden="true" />
       <div class="wave" />
 
       <p v-if="error" class="muted">{{ error }}</p>
@@ -55,6 +56,9 @@
           追问：{{ reveal.prompt.followup }}
         </p>
         <p v-if="streakMsg" class="streak">{{ streakMsg }}</p>
+        <p v-if="reveal.phase === 'revealed'" class="free">
+          已揭晓内容可永久回看，与会员无关。
+        </p>
         <router-link v-if="reveal.phase === 'revealed'" class="btn ghost" to="/memory">
           回忆墙
         </router-link>
@@ -130,35 +134,40 @@ watch(() => [session.userId, session.pairId], load);
   gap: 1rem;
 }
 .split.joined {
-  animation: join 0.85s ease both;
+  animation: join 0.9s ease both;
 }
 .pane {
-  padding: 0.75rem 0;
-  border-top: 1px solid rgba(196, 165, 116, 0.35);
+  padding: 0.85rem 0;
+  border-top: 1px solid rgba(201, 166, 107, 0.4);
 }
 .label {
-  opacity: 0.6;
+  opacity: 0.58;
   font-size: 0.85rem;
   margin: 0 0 0.35rem;
 }
 .body {
   margin: 0;
-  font-size: 1.1rem;
+  font-size: 1.12rem;
   line-height: 1.5;
 }
 .time {
   margin: 0.4rem 0 0;
   font-size: 0.75rem;
-  opacity: 0.5;
+  opacity: 0.48;
 }
 .followup {
-  opacity: 0.8;
+  opacity: 0.82;
   font-size: 0.95rem;
 }
 .streak {
   font-family: var(--font-display);
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   letter-spacing: 0.06em;
+}
+.free {
+  font-size: 0.85rem;
+  opacity: 0.65;
+  margin: 0;
 }
 .ghost {
   display: inline-block;
@@ -173,10 +182,12 @@ watch(() => [session.userId, session.pairId], load);
 @keyframes join {
   from {
     opacity: 0;
-    transform: translateY(16px) scale(0.98);
+    filter: blur(2px);
+    transform: translateY(18px) scale(0.97);
   }
   to {
     opacity: 1;
+    filter: blur(0);
     transform: translateY(0) scale(1);
   }
 }

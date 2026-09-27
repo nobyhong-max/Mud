@@ -49,7 +49,8 @@ export function migrate(db: DatabaseSync): void {
       status TEXT NOT NULL,
       created_at TEXT NOT NULL,
       revealed_at TEXT,
-      UNIQUE(pair_id, date_key)
+      kind TEXT NOT NULL DEFAULT 'daily',
+      deck_id TEXT
     );
 
     CREATE TABLE IF NOT EXISTS answers (
@@ -68,9 +69,26 @@ export function migrate(db: DatabaseSync): void {
       used_on TEXT NOT NULL,
       PRIMARY KEY (pair_id, prompt_id, used_on)
     );
+
+    CREATE TABLE IF NOT EXISTS nudges (
+      id TEXT PRIMARY KEY,
+      pair_id TEXT NOT NULL,
+      from_user_id TEXT NOT NULL,
+      date_key TEXT NOT NULL,
+      created_at TEXT NOT NULL
+    );
+
+    CREATE TABLE IF NOT EXISTS events (
+      id TEXT PRIMARY KEY,
+      name TEXT NOT NULL,
+      pair_id TEXT,
+      user_id TEXT,
+      platform TEXT NOT NULL DEFAULT 'h5',
+      payload_json TEXT,
+      created_at TEXT NOT NULL
+    );
   `);
 
-  // Soft migrations for Phase 0 → 1 DBs
   const cols = (table: string) =>
     (db.prepare(`PRAGMA table_info(${table})`).all() as { name: string }[]).map(
       (c) => c.name,
@@ -88,33 +106,31 @@ export function migrate(db: DatabaseSync): void {
   }
 
   const promptCols = cols("prompts");
-  if (!promptCols.includes("relation_mode")) {
-    db.exec(
-      "ALTER TABLE prompts ADD COLUMN relation_mode TEXT NOT NULL DEFAULT 'both'",
-    );
-  }
-  if (!promptCols.includes("deck")) {
-    db.exec("ALTER TABLE prompts ADD COLUMN deck TEXT NOT NULL DEFAULT 'daily_bits'");
-  }
-  if (!promptCols.includes("tags_json")) {
-    db.exec("ALTER TABLE prompts ADD COLUMN tags_json TEXT");
-  }
-  if (!promptCols.includes("followup")) {
-    db.exec("ALTER TABLE prompts ADD COLUMN followup TEXT");
-  }
-  if (!promptCols.includes("daily_eligible")) {
-    db.exec(
-      "ALTER TABLE prompts ADD COLUMN daily_eligible INTEGER NOT NULL DEFAULT 1",
-    );
-  }
-  if (!promptCols.includes("needs_review")) {
-    db.exec(
-      "ALTER TABLE prompts ADD COLUMN needs_review INTEGER NOT NULL DEFAULT 0",
-    );
+  for (const [name, sql] of [
+    ["relation_mode", "ALTER TABLE prompts ADD COLUMN relation_mode TEXT NOT NULL DEFAULT 'both'"],
+    ["deck", "ALTER TABLE prompts ADD COLUMN deck TEXT NOT NULL DEFAULT 'daily_bits'"],
+    ["tags_json", "ALTER TABLE prompts ADD COLUMN tags_json TEXT"],
+    ["followup", "ALTER TABLE prompts ADD COLUMN followup TEXT"],
+    ["daily_eligible", "ALTER TABLE prompts ADD COLUMN daily_eligible INTEGER NOT NULL DEFAULT 1"],
+    ["needs_review", "ALTER TABLE prompts ADD COLUMN needs_review INTEGER NOT NULL DEFAULT 0"],
+  ] as const) {
+    if (!promptCols.includes(name)) db.exec(sql);
   }
 
   const asgCols = cols("assignments");
   if (!asgCols.includes("revealed_at")) {
     db.exec("ALTER TABLE assignments ADD COLUMN revealed_at TEXT");
   }
+  if (!asgCols.includes("kind")) {
+    db.exec("ALTER TABLE assignments ADD COLUMN kind TEXT NOT NULL DEFAULT 'daily'");
+  }
+  if (!asgCols.includes("deck_id")) {
+    db.exec("ALTER TABLE assignments ADD COLUMN deck_id TEXT");
+  }
+
+  // Unique daily assignment per pair/day (extras use separate rows with kind=extra)
+  db.exec(`
+    CREATE UNIQUE INDEX IF NOT EXISTS idx_assignments_daily
+      ON assignments(pair_id, date_key) WHERE kind = 'daily';
+  `);
 }

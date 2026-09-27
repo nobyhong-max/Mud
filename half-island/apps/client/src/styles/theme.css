@@ -1,11 +1,12 @@
 :root {
-  --ink: #1a2430;
+  --ink: #14202a;
   --mist: #d7e4ef;
-  --sea: #2f5d6e;
-  --shore: #c4a574;
-  --glow: #f0e6d4;
-  --night: #0e1a24;
-  --foam: rgba(240, 230, 212, 0.12);
+  --sea: #2a5566;
+  --shore: #c9a66b;
+  --glow: #f3ead8;
+  --night: #0b1620;
+  --foam: rgba(243, 234, 216, 0.1);
+  --horizon: rgba(90, 140, 155, 0.35);
   --font-display: "ZCOOL XiaoWei", "Noto Serif SC", serif;
   --font-body: "Noto Serif SC", "Songti SC", serif;
 }
@@ -25,17 +26,37 @@ body {
   color: var(--glow);
   font-family: var(--font-body);
   background:
-    radial-gradient(120% 80% at 50% -10%, #3a6a7a 0%, transparent 55%),
-    radial-gradient(90% 60% at 80% 100%, #1c3540 0%, transparent 50%),
-    linear-gradient(180deg, #132430 0%, var(--night) 55%, #0a141c 100%);
+    radial-gradient(ellipse 90% 55% at 50% -8%, rgba(74, 120, 132, 0.55), transparent 60%),
+    radial-gradient(ellipse 70% 45% at 100% 90%, rgba(28, 55, 66, 0.7), transparent 55%),
+    radial-gradient(ellipse 50% 30% at 0% 70%, rgba(40, 70, 80, 0.4), transparent 50%),
+    linear-gradient(180deg, #101f2a 0%, var(--night) 48%, #071018 100%);
   background-attachment: fixed;
 }
 
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, transparent 62%, rgba(11, 22, 32, 0.55) 100%),
+    repeating-linear-gradient(
+      -12deg,
+      transparent,
+      transparent 18px,
+      rgba(215, 228, 239, 0.015) 18px,
+      rgba(215, 228, 239, 0.015) 19px
+    );
+  z-index: 0;
+}
+
 .shell {
+  position: relative;
+  z-index: 1;
   min-height: 100vh;
   max-width: 480px;
   margin: 0 auto;
-  padding: 1.25rem 1.25rem 2.5rem;
+  padding: 1.25rem 1.25rem 2.75rem;
 }
 
 a {
@@ -45,27 +66,29 @@ a {
 button,
 .btn {
   appearance: none;
-  border: 1px solid rgba(196, 165, 116, 0.55);
-  background: linear-gradient(180deg, rgba(196, 165, 116, 0.25), rgba(47, 93, 110, 0.35));
+  border: 1px solid rgba(201, 166, 107, 0.55);
+  background: linear-gradient(180deg, rgba(201, 166, 107, 0.22), rgba(42, 85, 102, 0.4));
   color: var(--glow);
   font-family: var(--font-body);
   font-size: 1rem;
   padding: 0.75rem 1.25rem;
   border-radius: 2px;
   cursor: pointer;
-  transition: transform 0.2s ease, border-color 0.2s ease;
+  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
 }
 
 button:hover,
 .btn:hover {
   transform: translateY(-1px);
   border-color: var(--shore);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
 }
 
 button:disabled {
   opacity: 0.45;
   cursor: not-allowed;
   transform: none;
+  box-shadow: none;
 }
 
 input,
@@ -73,7 +96,7 @@ textarea,
 select {
   width: 100%;
   background: var(--foam);
-  border: 1px solid rgba(215, 228, 239, 0.25);
+  border: 1px solid rgba(215, 228, 239, 0.22);
   color: var(--glow);
   font-family: var(--font-body);
   font-size: 1rem;
@@ -83,18 +106,20 @@ select {
 
 .brand {
   font-family: var(--font-display);
-  font-size: clamp(2.4rem, 10vw, 3.4rem);
-  letter-spacing: 0.08em;
+  font-size: clamp(2.6rem, 11vw, 3.6rem);
+  letter-spacing: 0.1em;
   margin: 0;
-  line-height: 1.15;
-  animation: rise 0.8s ease both;
+  line-height: 1.12;
+  text-shadow: 0 2px 24px rgba(42, 85, 102, 0.45);
+  animation: rise 0.85s ease both;
 }
 
 .slogan {
-  margin: 0.5rem 0 0;
-  opacity: 0.85;
-  font-size: 1rem;
-  animation: rise 0.9s ease 0.1s both;
+  margin: 0.55rem 0 0;
+  opacity: 0.88;
+  font-size: 1.02rem;
+  letter-spacing: 0.04em;
+  animation: rise 0.95s ease 0.08s both;
 }
 
 .page {
@@ -118,7 +143,7 @@ select {
 }
 
 .prompt-text {
-  font-size: 1.35rem;
+  font-size: 1.38rem;
   line-height: 1.55;
   margin: 0;
   animation: rise 0.7s ease both;
@@ -127,15 +152,25 @@ select {
 .wave {
   height: 2px;
   width: 100%;
-  background: linear-gradient(90deg, transparent, var(--shore), transparent);
-  opacity: 0.55;
+  background: linear-gradient(90deg, transparent, var(--shore), var(--horizon), transparent);
+  opacity: 0.6;
   animation: pulse 2.8s ease-in-out infinite;
+}
+
+.island-silhouette {
+  height: 48px;
+  margin: 0.25rem 0 0.5rem;
+  background:
+    radial-gradient(ellipse 40% 70% at 28% 80%, rgba(201, 166, 107, 0.35), transparent 70%),
+    radial-gradient(ellipse 45% 80% at 72% 78%, rgba(90, 140, 155, 0.4), transparent 70%);
+  mask-image: linear-gradient(180deg, transparent, #000 30%, #000 75%, transparent);
+  animation: drift 6s ease-in-out infinite;
 }
 
 @keyframes rise {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(14px);
   }
   to {
     opacity: 1;
@@ -150,24 +185,38 @@ select {
     transform: scaleX(0.85);
   }
   50% {
-    opacity: 0.8;
+    opacity: 0.85;
     transform: scaleX(1);
+  }
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(-3px);
+    opacity: 1;
   }
 }
 
 .nav-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  opacity: 0.8;
+  gap: 0.55rem;
+  opacity: 0.85;
   font-size: 0.85rem;
 }
 
 .nav-row a {
   text-decoration: none;
   border-bottom: 1px solid transparent;
+  padding-bottom: 1px;
 }
 
 .nav-row a.router-link-active {
   border-bottom-color: var(--shore);
+  color: var(--glow);
 }

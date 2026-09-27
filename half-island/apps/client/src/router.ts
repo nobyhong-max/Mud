@@ -5,6 +5,7 @@ import AnswerPage from "./pages/answer/index.vue";
 import WaitingPage from "./pages/waiting/index.vue";
 import RevealPage from "./pages/reveal/index.vue";
 import MemoryPage from "./pages/memory/index.vue";
+import DecksPage from "./pages/decks/index.vue";
 
 export const router = createRouter({
   history: createWebHistory(),
@@ -16,5 +17,6 @@ export const router = createRouter({
     { path: "/waiting", component: WaitingPage, meta: { title: "等待" } },
     { path: "/reveal", component: RevealPage, meta: { title: "揭晓" } },
     { path: "/memory", component: MemoryPage, meta: { title: "回忆墙" } },
+    { path: "/decks", component: DecksPage, meta: { title: "牌组" } },
   ],
 });

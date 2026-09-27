@@ -1,6 +1,7 @@
 import Fastify from "fastify";
 import cors from "@fastify/cors";
 import { getDb } from "./db/client.js";
+import { growthRoutes } from "./routes/growth.js";
 import { healthRoutes } from "./routes/health.js";
 import { pairRoutes } from "./routes/pairs.js";
 import { todayRoutes } from "./routes/today.js";
@@ -10,20 +11,22 @@ const host = process.env.HOST ?? "0.0.0.0";
 const corsOrigin = process.env.CORS_ORIGIN ?? "http://localhost:5173";
 
 async function main(): Promise<void> {
-  // ensure DB file + schema
   getDb();
 
   const app = Fastify({ logger: true });
-  await app.register(cors, { origin: corsOrigin.split(",").map((s) => s.trim()) });
+  await app.register(cors, {
+    origin: corsOrigin.split(",").map((s) => s.trim()),
+  });
 
   await app.register(healthRoutes);
   await app.register(pairRoutes);
   await app.register(todayRoutes);
+  await app.register(growthRoutes);
 
   app.get("/", async () => ({
     brand: "半个岛",
     slogan: "你来了，岛才完整。",
-    phase: "1",
+    phase: "2",
     docs: "见 half-island/README.md",
     health: "/health",
   }));

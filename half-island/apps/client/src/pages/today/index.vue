@@ -5,16 +5,16 @@
       <p class="eyebrow">今日 · {{ dateKey || "—" }}</p>
       <h1 class="brand">半个岛</h1>
       <p class="slogan">你来了，岛才完整。</p>
+      <div class="island-silhouette" aria-hidden="true" />
       <div class="wave" />
 
       <p v-if="error" class="muted">{{ error }}</p>
       <template v-else-if="reveal">
         <p class="meta">
-          {{ relationshipLabel }} · 连线 {{ streak }} 天 ·
-          <span>{{ phaseLabel }}</span>
+          {{ relationshipLabel }} · 连线 {{ streak }} 天 · {{ phaseLabel }}
         </p>
         <p class="prompt-text">{{ reveal.prompt.prompt }}</p>
-        <p v-if="reveal.prompt.relationMode" class="tag">
+        <p class="tag">
           {{ reveal.prompt.deck }} · {{ reveal.prompt.relationMode }} · L{{
             reveal.prompt.intimacyLevel
           }}
@@ -39,8 +39,12 @@
           </router-link>
         </div>
         <p class="soft">{{ softNote }}</p>
+        <div class="links">
+          <router-link to="/decks">主题牌组</router-link>
+          <router-link to="/memory">回忆墙</router-link>
+        </div>
       </template>
-      <p v-else class="muted">加载中…</p>
+      <p v-else class="muted">潮水正在拢岸…</p>
     </div>
   </div>
 </template>
@@ -57,7 +61,7 @@ const dateKey = ref("");
 const streak = ref(0);
 const relationshipType = ref("");
 const error = ref("");
-const softNote = ref("每日一题揭晓免费常开。");
+const softNote = ref("每日一题揭晓永久免费。");
 
 const relationshipLabel = computed(() =>
   relationshipType.value === "friends" ? "密友岛" : "情侣岛",
@@ -87,8 +91,7 @@ async function load(): Promise<void> {
     dateKey.value = data.dateKey;
     streak.value = data.streak;
     relationshipType.value = data.relationshipType;
-    const pw = await api.paywall(session.pairId, session.userId);
-    softNote.value = pw.paywall.message;
+    softNote.value = data.paywall?.message ?? softNote.value;
   } catch (e) {
     error.value = e instanceof Error ? e.message : "加载失败";
   }
@@ -101,31 +104,42 @@ watch(() => [session.userId, session.pairId], load);
 <style scoped>
 .eyebrow {
   margin: 0;
-  letter-spacing: 0.18em;
-  font-size: 0.75rem;
-  opacity: 0.65;
+  letter-spacing: 0.2em;
+  font-size: 0.72rem;
+  opacity: 0.62;
   animation: rise 0.6s ease both;
 }
 .meta {
   margin: 0;
-  opacity: 0.75;
+  opacity: 0.78;
   font-size: 0.95rem;
 }
 .tag {
   margin: 0;
-  font-size: 0.8rem;
-  opacity: 0.55;
+  font-size: 0.78rem;
+  opacity: 0.5;
 }
 .actions {
-  margin-top: 0.5rem;
+  margin-top: 0.35rem;
 }
 .actions .btn {
   display: inline-block;
   text-decoration: none;
 }
 .soft {
-  margin-top: 1rem;
-  font-size: 0.85rem;
-  opacity: 0.65;
+  margin-top: 0.85rem;
+  font-size: 0.86rem;
+  opacity: 0.68;
+  line-height: 1.45;
+}
+.links {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.9rem;
+  opacity: 0.85;
+}
+.links a {
+  text-decoration: none;
+  border-bottom: 1px solid rgba(201, 166, 107, 0.4);
 }
 </style>

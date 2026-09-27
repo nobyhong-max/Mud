@@ -40,6 +40,8 @@ export function mapAssignment(row: Record<string, unknown>): Assignment {
     status: row.status as AssignmentStatus,
     createdAt: String(row.created_at),
     revealedAt: row.revealed_at ? String(row.revealed_at) : null,
+    kind: (row.kind as Assignment["kind"]) || "daily",
+    deckId: row.deck_id ? String(row.deck_id) : null,
   };
 }
 

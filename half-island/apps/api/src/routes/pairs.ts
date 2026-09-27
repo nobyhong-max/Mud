@@ -2,6 +2,7 @@ import type { FastifyInstance } from "fastify";
 import type { Pair, RelationshipType } from "@half-island/shared";
 import { getDb } from "../db/client.js";
 import { id, inviteCode } from "../lib/ids.js";
+import { trackEvent } from "../services/events.js";
 
 function rowToPair(row: Record<string, unknown>): Pair {
   return {
@@ -112,6 +113,11 @@ export async function pairRoutes(app: FastifyInstance): Promise<void> {
       string,
       unknown
     >;
+    trackEvent("pair_success", {
+      pairId,
+      userId,
+      payload: { relationshipType: String(updated.relationship_type) },
+    });
     return { pair: rowToPair(updated) };
   });
 

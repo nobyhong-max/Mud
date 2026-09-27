@@ -7,7 +7,10 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
   });
   const data = (await res.json()) as T & { error?: string; message?: string };
   if (!res.ok) {
-    throw new Error(data.message || data.error || `HTTP ${res.status}`);
+    throw Object.assign(new Error(data.message || data.error || `HTTP ${res.status}`), {
+      status: res.status,
+      data,
+    });
   }
   return data;
 }
@@ -42,6 +45,7 @@ export const api = {
       premium: boolean;
       assignment: import("@half-island/shared").Assignment;
       reveal: import("@half-island/shared").Reveal;
+      paywall: import("@half-island/shared").SoftPaywallInfo;
     }>(`/today?pairId=${encodeURIComponent(pairId)}&userId=${encodeURIComponent(userId)}`),
   answer: (body: {
     assignmentId: string;
@@ -62,13 +66,38 @@ export const api = {
       body: JSON.stringify(body),
     }),
   memory: (pairId: string, userId: string) =>
-    request<{ items: import("@half-island/shared").MemoryItem[] }>(
+    request<{
+      items: import("@half-island/shared").MemoryItem[];
+      freeRevealArchive: true;
+      streak: number;
+    }>(
       `/memory?pairId=${encodeURIComponent(pairId)}&userId=${encodeURIComponent(userId)}`,
     ),
   paywall: (pairId: string, userId: string) =>
     request<{ paywall: import("@half-island/shared").SoftPaywallInfo }>(
       `/paywall?pairId=${encodeURIComponent(pairId)}&userId=${encodeURIComponent(userId)}`,
     ),
+  togglePremium: (body: { pairId: string; userId: string; premium: boolean }) =>
+    request<{ paywall: import("@half-island/shared").SoftPaywallInfo }>(
+      "/premium/toggle",
+      { method: "POST", body: JSON.stringify(body) },
+    ),
+  decks: (pairId: string, userId: string) =>
+    request<{
+      decks: import("@half-island/shared").DeckSummary[];
+      paywall: import("@half-island/shared").SoftPaywallInfo;
+    }>(`/decks?pairId=${encodeURIComponent(pairId)}&userId=${encodeURIComponent(userId)}`),
+  startDeck: (body: { pairId: string; userId: string; deckId: string }) =>
+    request<{
+      assignmentId: string;
+      prompt: import("@half-island/shared").DailyPrompt;
+      kind: "extra";
+    }>("/decks/start", { method: "POST", body: JSON.stringify(body) }),
+  nudge: (body: { pairId: string; userId: string }) =>
+    request<import("@half-island/shared").NudgeResult>("/nudge", {
+      method: "POST",
+      body: JSON.stringify(body),
+    }),
 };
 
 export { API_BASE };

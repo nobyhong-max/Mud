@@ -32,6 +32,8 @@ const pairs = [
 function main(): void {
   const db = getDb();
   db.exec(`
+    DELETE FROM events;
+    DELETE FROM nudges;
     DELETE FROM pair_prompt_history;
     DELETE FROM answers;
     DELETE FROM assignments;
@@ -65,8 +67,8 @@ function main(): void {
 
   const dateKey = shanghaiDateKey();
   const insertAsg = db.prepare(
-    `INSERT INTO assignments (id, pair_id, prompt_id, date_key, status, created_at, revealed_at)
-     VALUES (?, ?, ?, ?, 'assigned', ?, NULL)`,
+    `INSERT INTO assignments (id, pair_id, prompt_id, date_key, status, created_at, revealed_at, kind, deck_id)
+     VALUES (?, ?, ?, ?, 'assigned', ?, NULL, 'daily', NULL)`,
   );
   const hist = db.prepare(
     `INSERT INTO pair_prompt_history (pair_id, prompt_id, used_on) VALUES (?, ?, ?)`,
@@ -79,7 +81,7 @@ function main(): void {
     hist.run(p.id, promptId, dateKey);
   }
 
-  console.log("半个岛 Phase 1 seed 完成");
+  console.log("半个岛 Phase 2 seed 完成");
   console.log(`  users: ${users.length}`);
   console.log(
     `  pairs: couple=${pairs[0]!.invite_code} / friends=${pairs[1]!.invite_code}`,

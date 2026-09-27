@@ -1,0 +1,10 @@
+{
+  "description": "与未来 uni-app / Taro 页面清单对齐的 Phase 0 约定（H5 由 vue-router 实现）",
+  "pages": [
+    { "path": "pages/today/index", "style": { "navigationBarTitleText": "今日" } },
+    { "path": "pages/invite/index", "style": { "navigationBarTitleText": "邀请上岛" } },
+    { "path": "pages/answer/index", "style": { "navigationBarTitleText": "作答" } },
+    { "path": "pages/waiting/index", "style": { "navigationBarTitleText": "等待" } },
+    { "path": "pages/reveal/index", "style": { "navigationBarTitleText": "揭晓" } }
+  ]
+}

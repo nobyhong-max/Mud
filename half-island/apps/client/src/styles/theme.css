@@ -1,0 +1,173 @@
+:root {
+  --ink: #1a2430;
+  --mist: #d7e4ef;
+  --sea: #2f5d6e;
+  --shore: #c4a574;
+  --glow: #f0e6d4;
+  --night: #0e1a24;
+  --foam: rgba(240, 230, 212, 0.12);
+  --font-display: "ZCOOL XiaoWei", "Noto Serif SC", serif;
+  --font-body: "Noto Serif SC", "Songti SC", serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  color: var(--glow);
+  font-family: var(--font-body);
+  background:
+    radial-gradient(120% 80% at 50% -10%, #3a6a7a 0%, transparent 55%),
+    radial-gradient(90% 60% at 80% 100%, #1c3540 0%, transparent 50%),
+    linear-gradient(180deg, #132430 0%, var(--night) 55%, #0a141c 100%);
+  background-attachment: fixed;
+}
+
+.shell {
+  min-height: 100vh;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 1.25rem 1.25rem 2.5rem;
+}
+
+a {
+  color: var(--shore);
+}
+
+button,
+.btn {
+  appearance: none;
+  border: 1px solid rgba(196, 165, 116, 0.55);
+  background: linear-gradient(180deg, rgba(196, 165, 116, 0.25), rgba(47, 93, 110, 0.35));
+  color: var(--glow);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+button:hover,
+.btn:hover {
+  transform: translateY(-1px);
+  border-color: var(--shore);
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  background: var(--foam);
+  border: 1px solid rgba(215, 228, 239, 0.25);
+  color: var(--glow);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  padding: 0.75rem;
+  border-radius: 2px;
+}
+
+.brand {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 10vw, 3.4rem);
+  letter-spacing: 0.08em;
+  margin: 0;
+  line-height: 1.15;
+  animation: rise 0.8s ease both;
+}
+
+.slogan {
+  margin: 0.5rem 0 0;
+  opacity: 0.85;
+  font-size: 1rem;
+  animation: rise 0.9s ease 0.1s both;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  min-height: calc(100vh - 2.5rem);
+}
+
+.page-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.muted {
+  opacity: 0.7;
+  font-size: 0.95rem;
+}
+
+.prompt-text {
+  font-size: 1.35rem;
+  line-height: 1.55;
+  margin: 0;
+  animation: rise 0.7s ease both;
+}
+
+.wave {
+  height: 2px;
+  width: 100%;
+  background: linear-gradient(90deg, transparent, var(--shore), transparent);
+  opacity: 0.55;
+  animation: pulse 2.8s ease-in-out infinite;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scaleX(0.85);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scaleX(1);
+  }
+}
+
+.nav-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  opacity: 0.8;
+  font-size: 0.85rem;
+}
+
+.nav-row a {
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+.nav-row a.router-link-active {
+  border-bottom-color: var(--shore);
+}

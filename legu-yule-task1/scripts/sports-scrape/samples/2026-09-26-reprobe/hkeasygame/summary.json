@@ -1,0 +1,134 @@
+[
+  {
+    "round": 1,
+    "ts": "2026-09-26T07:29:29.632380+00:00",
+    "sources": {
+      "乐古体育": {
+        "ok": false,
+        "status": null,
+        "elapsed_ms": 8033,
+        "url": "https://hkeasygame.com/api/sports/football/today",
+        "bytes": 0,
+        "preview": "",
+        "headers": {},
+        "error": "URLError: <urlopen error _ssl.c:983: The handshake operation timed out>",
+        "root_probe": {
+          "ok": false,
+          "status": null,
+          "elapsed_ms": 8009,
+          "url": "https://hkeasygame.com/",
+          "bytes": 0,
+          "preview": "",
+          "headers": {},
+          "error": "URLError: <urlopen error _ssl.c:983: The handshake operation timed out>"
+        }
+      },
+      "FB体育": {
+        "ok": false,
+        "status": null,
+        "elapsed_ms": 8009,
+        "url": "https://hkeasygame.com/api/sports/football/today",
+        "bytes": 0,
+        "preview": "",
+        "headers": {},
+        "error": "URLError: <urlopen error _ssl.c:983: The handshake operation timed out>",
+        "root_probe": {
+          "ok": false,
+          "status": null,
+          "elapsed_ms": 8009,
+          "url": "https://hkeasygame.com/",
+          "bytes": 0,
+          "preview": "",
+          "headers": {},
+          "error": "URLError: <urlopen error _ssl.c:983: The handshake operation timed out>"
+        }
+      },
+      "利记体育": {
+        "ok": false,
+        "status": null,
+        "elapsed_ms": 8010,
+        "url": "https://hkeasygame.com/api/sports/football/today",
+        "bytes": 0,
+        "preview": "",
+        "headers": {},
+        "error": "URLError: <urlopen error _ssl.c:983: The handshake operation timed out>",
+        "root_probe": {
+          "ok": false,
+          "status": null,
+          "elapsed_ms": 8006,
+          "url": "https://hkeasygame.com/",
+          "bytes": 0,
+          "preview": "",
+          "headers": {},
+          "error": "URLError: <urlopen error _ssl.c:983: The handshake operation timed out>"
+        }
+      }
+    }
+  },
+  {
+    "round": 2,
+    "ts": "2026-09-26T07:30:23.068144+00:00",
+    "sources": {
+      "乐古体育": {
+        "ok": false,
+        "status": null,
+        "elapsed_ms": 8008,
+        "url": "https://hkeasygame.com/api/sports/football/today",
+        "bytes": 0,
+        "preview": "",
+        "headers": {},
+        "error": "URLError: <urlopen error _ssl.c:983: The handshake operation timed out>",
+        "root_probe": {
+          "ok": false,
+          "status": null,
+          "elapsed_ms": 8010,
+          "url": "https://hkeasygame.com/",
+          "bytes": 0,
+          "preview": "",
+          "headers": {},
+          "error": "URLError: <urlopen error _ssl.c:983: The handshake operation timed out>"
+        }
+      },
+      "FB体育": {
+        "ok": false,
+        "status": null,
+        "elapsed_ms": 8010,
+        "url": "https://hkeasygame.com/api/sports/football/today",
+        "bytes": 0,
+        "preview": "",
+        "headers": {},
+        "error": "URLError: <urlopen error _ssl.c:983: The handshake operation timed out>",
+        "root_probe": {
+          "ok": false,
+          "status": null,
+          "elapsed_ms": 8009,
+          "url": "https://hkeasygame.com/",
+          "bytes": 0,
+          "preview": "",
+          "headers": {},
+          "error": "URLError: <urlopen error _ssl.c:983: The handshake operation timed out>"
+        }
+      },
+      "利记体育": {
+        "ok": false,
+        "status": null,
+        "elapsed_ms": 8010,
+        "url": "https://hkeasygame.com/api/sports/football/today",
+        "bytes": 0,
+        "preview": "",
+        "headers": {},
+        "error": "URLError: <urlopen error _ssl.c:983: The handshake operation timed out>",
+        "root_probe": {
+          "ok": false,
+          "status": null,
+          "elapsed_ms": 8010,
+          "url": "https://hkeasygame.com/",
+          "bytes": 0,
+          "preview": "",
+          "headers": {},
+          "error": "URLError: <urlopen error _ssl.c:983: The handshake operation timed out>"
+        }
+      }
+    }
+  }
+]

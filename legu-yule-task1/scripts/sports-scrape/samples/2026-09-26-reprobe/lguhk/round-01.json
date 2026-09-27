@@ -1,0 +1,48 @@
+{
+  "round": 1,
+  "ts": "2026-09-26T07:29:29.632276+00:00",
+  "sources": {
+    "乐古体育": {
+      "ok": false,
+      "status": 403,
+      "elapsed_ms": 38,
+      "url": "https://lguhk.com/api/sports/football/today",
+      "bytes": 2048,
+      "preview": "<!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 8]>    <html class=\"no-js ie8 oldie\" lang=\"en-US\"> <![endif]-->",
+      "headers": {
+        "cf-ray": "a4108ed058ca70f6-IAD",
+        "server": "cloudflare",
+        "content-type": "text/html; charset=UTF-8"
+      },
+      "error": "HTTP Error 403: Forbidden"
+    },
+    "FB体育": {
+      "ok": false,
+      "status": 403,
+      "elapsed_ms": 21,
+      "url": "https://lguhk.com/api/sports/football/today",
+      "bytes": 2048,
+      "preview": "<!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 8]>    <html class=\"no-js ie8 oldie\" lang=\"en-US\"> <![endif]-->",
+      "headers": {
+        "cf-ray": "a4108ed08e6b70c5-IAD",
+        "server": "cloudflare",
+        "content-type": "text/html; charset=UTF-8"
+      },
+      "error": "HTTP Error 403: Forbidden"
+    },
+    "利记体育": {
+      "ok": false,
+      "status": 403,
+      "elapsed_ms": 25,
+      "url": "https://lguhk.com/api/sports/football/today",
+      "bytes": 2048,
+      "preview": "<!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 8]>    <html class=\"no-js ie8 oldie\" lang=\"en-US\"> <![endif]-->",
+      "headers": {
+        "cf-ray": "a4108ed0aa0ee5f6-IAD",
+        "server": "cloudflare",
+        "content-type": "text/html; charset=UTF-8"
+      },
+      "error": "HTTP Error 403: Forbidden"
+    }
+  }
+}

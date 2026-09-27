@@ -1,0 +1,48 @@
+{
+  "round": 1,
+  "ts": "2026-09-26T07:29:29.632279+00:00",
+  "sources": {
+    "乐古体育": {
+      "ok": false,
+      "status": 403,
+      "elapsed_ms": 208,
+      "url": "https://web.qihuibs.com/api/sports/football/today",
+      "bytes": 2048,
+      "preview": "<!doctype html>\r\n<html lang=\"zh\">\r\n<head>\r\n\t<meta charset=\"UTF-8\">\r\n\t<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\">\r\n\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n\t<title>訪問限制</title>\r\n\t<st",
+      "headers": {
+        "cf-ray": "a4108ed07c0d05dd-IAD",
+        "server": "cloudflare",
+        "content-type": "text/html; charset=UTF-8"
+      },
+      "error": "HTTP Error 403: Forbidden"
+    },
+    "FB体育": {
+      "ok": false,
+      "status": 403,
+      "elapsed_ms": 33,
+      "url": "https://web.qihuibs.com/api/sports/football/today",
+      "bytes": 2048,
+      "preview": "<!doctype html>\r\n<html lang=\"zh\">\r\n<head>\r\n\t<meta charset=\"UTF-8\">\r\n\t<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\">\r\n\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n\t<title>訪問限制</title>\r\n\t<st",
+      "headers": {
+        "cf-ray": "a4108ed2aefa55eb-IAD",
+        "server": "cloudflare",
+        "content-type": "text/html; charset=UTF-8"
+      },
+      "error": "HTTP Error 403: Forbidden"
+    },
+    "利记体育": {
+      "ok": false,
+      "status": 403,
+      "elapsed_ms": 35,
+      "url": "https://web.qihuibs.com/api/sports/football/today",
+      "bytes": 2048,
+      "preview": "<!doctype html>\r\n<html lang=\"zh\">\r\n<head>\r\n\t<meta charset=\"UTF-8\">\r\n\t<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\">\r\n\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n\t<title>訪問限制</title>\r\n\t<st",
+      "headers": {
+        "cf-ray": "a4108ed49f4cf2d1-IAD",
+        "server": "cloudflare",
+        "content-type": "text/html; charset=UTF-8"
+      },
+      "error": "HTTP Error 403: Forbidden"
+    }
+  }
+}

@@ -1,0 +1,98 @@
+[
+  {
+    "round": 1,
+    "ts": "2026-09-26T07:29:29.632380+00:00",
+    "sources": {
+      "乐古体育": {
+        "ok": false,
+        "status": 403,
+        "elapsed_ms": 40,
+        "url": "https://lokguhk.com/api/sports/football/today",
+        "bytes": 2048,
+        "preview": "<!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 8]>    <html class=\"no-js ie8 oldie\" lang=\"en-US\"> <![endif]-->",
+        "headers": {
+          "cf-ray": "a4108ed06e0cd6b3-IAD",
+          "server": "cloudflare",
+          "content-type": "text/html; charset=UTF-8"
+        },
+        "error": "HTTP Error 403: Forbidden"
+      },
+      "FB体育": {
+        "ok": false,
+        "status": 403,
+        "elapsed_ms": 31,
+        "url": "https://lokguhk.com/api/sports/football/today",
+        "bytes": 2048,
+        "preview": "<!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 8]>    <html class=\"no-js ie8 oldie\" lang=\"en-US\"> <![endif]-->",
+        "headers": {
+          "cf-ray": "a4108ed09de4e5b2-IAD",
+          "server": "cloudflare",
+          "content-type": "text/html; charset=UTF-8"
+        },
+        "error": "HTTP Error 403: Forbidden"
+      },
+      "利记体育": {
+        "ok": false,
+        "status": 403,
+        "elapsed_ms": 23,
+        "url": "https://lokguhk.com/api/sports/football/today",
+        "bytes": 2048,
+        "preview": "<!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 8]>    <html class=\"no-js ie8 oldie\" lang=\"en-US\"> <![endif]-->",
+        "headers": {
+          "cf-ray": "a4108ed0cf6af26e-IAD",
+          "server": "cloudflare",
+          "content-type": "text/html; charset=UTF-8"
+        },
+        "error": "HTTP Error 403: Forbidden"
+      }
+    }
+  },
+  {
+    "round": 2,
+    "ts": "2026-09-26T07:29:35.322326+00:00",
+    "sources": {
+      "乐古体育": {
+        "ok": false,
+        "status": 403,
+        "elapsed_ms": 31,
+        "url": "https://lokguhk.com/api/sports/football/today",
+        "bytes": 2048,
+        "preview": "<!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 8]>    <html class=\"no-js ie8 oldie\" lang=\"en-US\"> <![endif]-->",
+        "headers": {
+          "cf-ray": "a4108ef3df20117c-IAD",
+          "server": "cloudflare",
+          "content-type": "text/html; charset=UTF-8"
+        },
+        "error": "HTTP Error 403: Forbidden"
+      },
+      "FB体育": {
+        "ok": false,
+        "status": 403,
+        "elapsed_ms": 32,
+        "url": "https://lokguhk.com/api/sports/football/today",
+        "bytes": 2048,
+        "preview": "<!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 8]>    <html class=\"no-js ie8 oldie\" lang=\"en-US\"> <![endif]-->",
+        "headers": {
+          "cf-ray": "a4108ef40e95829f-IAD",
+          "server": "cloudflare",
+          "content-type": "text/html; charset=UTF-8"
+        },
+        "error": "HTTP Error 403: Forbidden"
+      },
+      "利记体育": {
+        "ok": false,
+        "status": 403,
+        "elapsed_ms": 34,
+        "url": "https://lokguhk.com/api/sports/football/today",
+        "bytes": 2048,
+        "preview": "<!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 8]>    <html class=\"no-js ie8 oldie\" lang=\"en-US\"> <![endif]-->",
+        "headers": {
+          "cf-ray": "a4108ef44e332066-IAD",
+          "server": "cloudflare",
+          "content-type": "text/html; charset=UTF-8"
+        },
+        "error": "HTTP Error 403: Forbidden"
+      }
+    }
+  }
+]

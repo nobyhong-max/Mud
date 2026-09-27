@@ -1,0 +1,93 @@
+{
+  "probed_at": "2026-09-26T07:32:13Z",
+  "interval_s": 5,
+  "rounds": 2,
+  "sources": [
+    "乐古体育",
+    "FB体育",
+    "利记体育"
+  ],
+  "hosts": {
+    "lokgujd2t.com": {
+      "base": "https://lokgujd2t.com",
+      "slug": "lokgujd2t",
+      "http_status": 403,
+      "root_http_status": 403,
+      "blocker": "cf_hard_403",
+      "cf_ray": "a4108e483d50e5f0-IAD",
+      "sports_api_distinguishable_from_root": false,
+      "notes": {
+        "api_error": "HTTP Error 403: Forbidden",
+        "root_error": "HTTP Error 403: Forbidden",
+        "server": "cloudflare",
+        "elapsed_ms_api_round1": 47
+      }
+    },
+    "lguhk.com": {
+      "base": "https://lguhk.com",
+      "slug": "lguhk",
+      "http_status": 403,
+      "root_http_status": 403,
+      "blocker": "cf_hard_403",
+      "cf_ray": "a4108ed058ca70f6-IAD",
+      "sports_api_distinguishable_from_root": false,
+      "notes": {
+        "api_error": "HTTP Error 403: Forbidden",
+        "root_error": "HTTP Error 403: Forbidden",
+        "server": "cloudflare",
+        "elapsed_ms_api_round1": 38
+      }
+    },
+    "web.qihuibs.com": {
+      "base": "https://web.qihuibs.com",
+      "slug": "web-qihuibs",
+      "http_status": 403,
+      "root_http_status": 403,
+      "blocker": "geo_10006",
+      "cf_ray": "a4108ed07c0d05dd-IAD",
+      "sports_api_distinguishable_from_root": false,
+      "notes": {
+        "api_error": "HTTP Error 403: Forbidden",
+        "root_error": "HTTP Error 403: Forbidden",
+        "server": "cloudflare",
+        "elapsed_ms_api_round1": 208,
+        "geo_signals": [
+          "title:訪問限制",
+          "Your area has been restricted.",
+          "::CLOUDFLARE_ERROR_1000S_BOX::"
+        ],
+        "note": "Same zh geo-restrict HTML on API path and root; no literal 10006 string in body"
+      }
+    },
+    "lokguhk.com": {
+      "base": "https://lokguhk.com",
+      "slug": "lokguhk",
+      "http_status": 403,
+      "root_http_status": 403,
+      "blocker": "cf_hard_403",
+      "cf_ray": "a4108ed06e0cd6b3-IAD",
+      "sports_api_distinguishable_from_root": false,
+      "notes": {
+        "api_error": "HTTP Error 403: Forbidden",
+        "root_error": "HTTP Error 403: Forbidden",
+        "server": "cloudflare",
+        "elapsed_ms_api_round1": 40
+      }
+    },
+    "hkeasygame.com": {
+      "base": "https://hkeasygame.com",
+      "slug": "hkeasygame",
+      "http_status": null,
+      "root_http_status": null,
+      "blocker": "timeout",
+      "cf_ray": null,
+      "sports_api_distinguishable_from_root": false,
+      "notes": {
+        "api_error": "URLError: <urlopen error _ssl.c:983: The handshake operation timed out>",
+        "root_error": "URLError: <urlopen error _ssl.c:983: The handshake operation timed out>",
+        "server": null,
+        "elapsed_ms_api_round1": 8033
+      }
+    }
+  }
+}

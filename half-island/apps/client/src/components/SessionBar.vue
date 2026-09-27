@@ -12,6 +12,7 @@
       <router-link to="/answer">作答</router-link>
       <router-link to="/waiting">等待</router-link>
       <router-link to="/reveal">揭晓</router-link>
+      <router-link to="/memory">回忆</router-link>
     </nav>
   </div>
 </template>

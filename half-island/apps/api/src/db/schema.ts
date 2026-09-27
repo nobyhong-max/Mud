@@ -17,8 +17,11 @@ export function migrate(db: DatabaseSync): void {
       user_a_id TEXT NOT NULL REFERENCES users(id),
       user_b_id TEXT REFERENCES users(id),
       streak INTEGER NOT NULL DEFAULT 0,
+      last_streak_date TEXT,
+      premium INTEGER NOT NULL DEFAULT 0,
       status TEXT NOT NULL CHECK (status IN ('pending', 'active', 'dissolved')),
-      created_at TEXT NOT NULL
+      created_at TEXT NOT NULL,
+      dissolved_at TEXT
     );
 
     CREATE TABLE IF NOT EXISTS prompts (
@@ -28,6 +31,12 @@ export function migrate(db: DatabaseSync): void {
       choices_json TEXT,
       intimacy_level INTEGER NOT NULL DEFAULT 0,
       audience TEXT NOT NULL CHECK (audience IN ('couple', 'friends', 'neutral')),
+      relation_mode TEXT NOT NULL CHECK (relation_mode IN ('couple', 'friend', 'both')),
+      deck TEXT NOT NULL DEFAULT 'daily_bits',
+      tags_json TEXT,
+      followup TEXT,
+      daily_eligible INTEGER NOT NULL DEFAULT 1,
+      needs_review INTEGER NOT NULL DEFAULT 0,
       nsfw_flag INTEGER NOT NULL DEFAULT 0,
       status TEXT NOT NULL DEFAULT 'active'
     );
@@ -39,6 +48,7 @@ export function migrate(db: DatabaseSync): void {
       date_key TEXT NOT NULL,
       status TEXT NOT NULL,
       created_at TEXT NOT NULL,
+      revealed_at TEXT,
       UNIQUE(pair_id, date_key)
     );
 
@@ -51,5 +61,60 @@ export function migrate(db: DatabaseSync): void {
       created_at TEXT NOT NULL,
       UNIQUE(assignment_id, user_id)
     );
+
+    CREATE TABLE IF NOT EXISTS pair_prompt_history (
+      pair_id TEXT NOT NULL,
+      prompt_id TEXT NOT NULL,
+      used_on TEXT NOT NULL,
+      PRIMARY KEY (pair_id, prompt_id, used_on)
+    );
   `);
+
+  // Soft migrations for Phase 0 → 1 DBs
+  const cols = (table: string) =>
+    (db.prepare(`PRAGMA table_info(${table})`).all() as { name: string }[]).map(
+      (c) => c.name,
+    );
+
+  const pairCols = cols("pairs");
+  if (!pairCols.includes("last_streak_date")) {
+    db.exec("ALTER TABLE pairs ADD COLUMN last_streak_date TEXT");
+  }
+  if (!pairCols.includes("premium")) {
+    db.exec("ALTER TABLE pairs ADD COLUMN premium INTEGER NOT NULL DEFAULT 0");
+  }
+  if (!pairCols.includes("dissolved_at")) {
+    db.exec("ALTER TABLE pairs ADD COLUMN dissolved_at TEXT");
+  }
+
+  const promptCols = cols("prompts");
+  if (!promptCols.includes("relation_mode")) {
+    db.exec(
+      "ALTER TABLE prompts ADD COLUMN relation_mode TEXT NOT NULL DEFAULT 'both'",
+    );
+  }
+  if (!promptCols.includes("deck")) {
+    db.exec("ALTER TABLE prompts ADD COLUMN deck TEXT NOT NULL DEFAULT 'daily_bits'");
+  }
+  if (!promptCols.includes("tags_json")) {
+    db.exec("ALTER TABLE prompts ADD COLUMN tags_json TEXT");
+  }
+  if (!promptCols.includes("followup")) {
+    db.exec("ALTER TABLE prompts ADD COLUMN followup TEXT");
+  }
+  if (!promptCols.includes("daily_eligible")) {
+    db.exec(
+      "ALTER TABLE prompts ADD COLUMN daily_eligible INTEGER NOT NULL DEFAULT 1",
+    );
+  }
+  if (!promptCols.includes("needs_review")) {
+    db.exec(
+      "ALTER TABLE prompts ADD COLUMN needs_review INTEGER NOT NULL DEFAULT 0",
+    );
+  }
+
+  const asgCols = cols("assignments");
+  if (!asgCols.includes("revealed_at")) {
+    db.exec("ALTER TABLE assignments ADD COLUMN revealed_at TEXT");
+  }
 }

@@ -23,6 +23,7 @@ async function main(): Promise<void> {
   app.get("/", async () => ({
     brand: "半个岛",
     slogan: "你来了，岛才完整。",
+    phase: "1",
     docs: "见 half-island/README.md",
     health: "/health",
   }));

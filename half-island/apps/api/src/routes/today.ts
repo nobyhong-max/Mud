@@ -1,137 +1,109 @@
 import type { FastifyInstance } from "fastify";
 import type {
-  Answer,
-  Assignment,
   AssignmentStatus,
-  DailyPrompt,
-  PromptAudience,
-  PromptType,
   Reveal,
-  RevealPhase,
+  SoftPaywallInfo,
 } from "@half-island/shared";
 import { getDb } from "../db/client.js";
 import { id, shanghaiDateKey } from "../lib/ids.js";
+import { pickDailyPromptId } from "../services/prompt-picker.js";
+import {
+  buildReveal,
+  canReadPartnerAnswer,
+  mapAnswer,
+  mapAssignment,
+  mapPrompt,
+  nextStreak,
+  partnerId,
+} from "../services/reveal.js";
 
-function mapPrompt(row: Record<string, unknown>): DailyPrompt {
-  return {
-    id: String(row.id),
-    type: row.type as PromptType,
-    prompt: String(row.prompt),
-    choices: row.choices_json ? (JSON.parse(String(row.choices_json)) as string[]) : null,
-    intimacyLevel: Number(row.intimacy_level) as DailyPrompt["intimacyLevel"],
-    audience: row.audience as PromptAudience,
-    nsfwFlag: Boolean(row.nsfw_flag),
-    status: row.status as DailyPrompt["status"],
-  };
-}
+type PairRow = {
+  id: string;
+  user_a_id: string;
+  user_b_id: string | null;
+  relationship_type: "couple" | "friends";
+  streak: number;
+  last_streak_date: string | null;
+  premium: number;
+  status: string;
+};
 
-function mapAssignment(row: Record<string, unknown>): Assignment {
-  return {
-    id: String(row.id),
-    pairId: String(row.pair_id),
-    promptId: String(row.prompt_id),
-    dateKey: String(row.date_key),
-    status: row.status as AssignmentStatus,
-    createdAt: String(row.created_at),
-  };
-}
-
-function mapAnswer(row: Record<string, unknown>): Answer {
-  return {
-    id: String(row.id),
-    assignmentId: String(row.assignment_id),
-    userId: String(row.user_id),
-    body: String(row.body),
-    choiceIndex: row.choice_index === null || row.choice_index === undefined
-      ? null
-      : Number(row.choice_index),
-    createdAt: String(row.created_at),
-  };
-}
-
-function partnerId(
-  pair: { user_a_id: string; user_b_id: string | null },
-  userId: string,
-): string | null {
-  if (pair.user_a_id === userId) return pair.user_b_id;
-  if (pair.user_b_id === userId) return pair.user_a_id;
-  return null;
-}
-
-function computePhase(
-  selfAnswered: boolean,
-  partnerAnswered: boolean,
-  status: AssignmentStatus,
-): RevealPhase {
-  if (status === "revealed" || (selfAnswered && partnerAnswered)) {
-    if (status === "revealed") return "revealed";
-    return "ready_to_reveal";
-  }
-  if (!selfAnswered) return "pending_self";
-  return "pending_partner";
+function getActivePair(pairId: string, userId: string): PairRow | "not_found" | "forbidden" | "dissolved" {
+  const pair = getDb().prepare("SELECT * FROM pairs WHERE id = ?").get(pairId) as
+    | PairRow
+    | undefined;
+  if (!pair) return "not_found";
+  if (pair.status === "dissolved") return "dissolved";
+  if (pair.user_a_id !== userId && pair.user_b_id !== userId) return "forbidden";
+  return pair;
 }
 
 export async function todayRoutes(app: FastifyInstance): Promise<void> {
-  app.get("/prompts", async () => {
-    const rows = getDb().prepare("SELECT * FROM prompts WHERE status = 'active'").all();
+  app.get("/prompts", async (req) => {
+    const q = req.query as { relationMode?: string; dailyOnly?: string };
+    let sql = `SELECT * FROM prompts WHERE status = 'active' AND nsfw_flag = 0 AND intimacy_level < 4`;
+    const params: string[] = [];
+    if (q.relationMode === "couple") {
+      sql += ` AND relation_mode IN ('couple','both')`;
+    } else if (q.relationMode === "friend" || q.relationMode === "friends") {
+      sql += ` AND relation_mode IN ('friend','both')`;
+    }
+    if (q.dailyOnly === "1") sql += ` AND daily_eligible = 1`;
+    sql += ` ORDER BY id`;
+    const rows = getDb().prepare(sql).all(...params);
     return { prompts: rows.map((r) => mapPrompt(r as Record<string, unknown>)) };
   });
 
-  /** 今日题：按 pair + 用户视角返回状态（不泄对方答案） */
   app.get<{
     Querystring: { pairId: string; userId: string };
   }>("/today", async (req, reply) => {
     const { pairId, userId } = req.query;
-    if (!pairId || !userId) return reply.code(400).send({ error: "pairId_and_userId_required" });
-
-    const db = getDb();
-    const pair = db.prepare("SELECT * FROM pairs WHERE id = ?").get(pairId) as
-      | {
-          id: string;
-          user_a_id: string;
-          user_b_id: string | null;
-          relationship_type: string;
-          streak: number;
-        }
-      | undefined;
-    if (!pair) return reply.code(404).send({ error: "pair_not_found" });
-    if (pair.user_a_id !== userId && pair.user_b_id !== userId) {
-      return reply.code(403).send({ error: "not_in_pair" });
+    if (!pairId || !userId) {
+      return reply.code(400).send({ error: "pairId_and_userId_required" });
     }
 
+    const pair = getActivePair(pairId, userId);
+    if (pair === "not_found") return reply.code(404).send({ error: "pair_not_found" });
+    if (pair === "dissolved") return reply.code(410).send({ error: "pair_dissolved" });
+    if (pair === "forbidden") return reply.code(403).send({ error: "not_in_pair" });
+
+    const db = getDb();
     const dateKey = shanghaiDateKey();
     let asg = db
       .prepare("SELECT * FROM assignments WHERE pair_id = ? AND date_key = ?")
       .get(pairId, dateKey) as Record<string, unknown> | undefined;
 
-    // 懒创建今日 assignment（Phase 0：按关系类型抽题）
     if (!asg) {
-      const audienceFilter =
-        pair.relationship_type === "friends"
-          ? `audience IN ('friends', 'neutral')`
-          : `audience IN ('couple', 'neutral')`;
-      const prompt = db
-        .prepare(
-          `SELECT * FROM prompts WHERE status = 'active' AND nsfw_flag = 0 AND ${audienceFilter} ORDER BY RANDOM() LIMIT 1`,
-        )
-        .get() as Record<string, unknown> | undefined;
-      if (!prompt) return reply.code(503).send({ error: "no_prompts" });
+      const promptId = pickDailyPromptId(db, pairId, pair.relationship_type);
+      if (!promptId) return reply.code(503).send({ error: "no_prompts" });
 
       const newId = id("asg");
       const createdAt = new Date().toISOString();
       db.prepare(
-        `INSERT INTO assignments (id, pair_id, prompt_id, date_key, status, created_at)
-         VALUES (?, ?, ?, ?, 'assigned', ?)`,
-      ).run(newId, pairId, String(prompt.id), dateKey, createdAt);
+        `INSERT INTO assignments (id, pair_id, prompt_id, date_key, status, created_at, revealed_at)
+         VALUES (?, ?, ?, ?, 'assigned', ?, NULL)`,
+      ).run(newId, pairId, promptId, dateKey, createdAt);
+      db.prepare(
+        `INSERT OR IGNORE INTO pair_prompt_history (pair_id, prompt_id, used_on) VALUES (?, ?, ?)`,
+      ).run(pairId, promptId, dateKey);
       asg = db.prepare("SELECT * FROM assignments WHERE id = ?").get(newId) as Record<
         string,
         unknown
       >;
     }
 
-    const prompt = db
+    const promptRow = db
       .prepare("SELECT * FROM prompts WHERE id = ?")
       .get(String(asg.prompt_id)) as Record<string, unknown>;
+
+    // Safety: friends must never see couple-only
+    if (
+      pair.relationship_type === "friends" &&
+      String(promptRow.relation_mode) === "couple"
+    ) {
+      return reply.code(500).send({ error: "prompt_relation_mismatch" });
+    }
+
     const answers = db
       .prepare("SELECT * FROM answers WHERE assignment_id = ?")
       .all(String(asg.id)) as Record<string, unknown>[];
@@ -143,30 +115,72 @@ export async function todayRoutes(app: FastifyInstance): Promise<void> {
       : undefined;
 
     const status = asg.status as AssignmentStatus;
-    const phase = computePhase(Boolean(selfRow), Boolean(partnerRow), status);
-    const both = Boolean(selfRow && partnerRow);
-
-    const reveal: Reveal = {
+    const reveal = buildReveal({
       assignmentId: String(asg.id),
-      prompt: mapPrompt(prompt),
-      phase: both && status !== "revealed" ? "ready_to_reveal" : phase,
-      selfAnswer: selfRow ? mapAnswer(selfRow) : null,
-      // 硬规则预留：未双答前不返回对方正文
-      partnerAnswer: both ? (partnerRow ? mapAnswer(partnerRow) : null) : null,
-      revealedAt: status === "revealed" ? String(asg.created_at) : null,
-    };
+      prompt: mapPrompt(promptRow),
+      status,
+      selfRow,
+      partnerRow,
+      revealedAt: asg.revealed_at ? String(asg.revealed_at) : null,
+    });
 
     return {
       dateKey,
       pairId,
       relationshipType: pair.relationship_type,
       streak: pair.streak,
+      premium: Boolean(pair.premium),
       assignment: mapAssignment(asg),
       reveal,
     };
   });
 
-  /** 提交答案（幂等：同用户同 assignment 覆盖） */
+  /**
+   * 硬规则端点：显式拉取对方答案。
+   * 未双方作答 → 403，正文永不返回。
+   */
+  app.get<{
+    Querystring: { assignmentId: string; userId: string };
+  }>("/answers/partner", async (req, reply) => {
+    const { assignmentId, userId } = req.query;
+    if (!assignmentId || !userId) {
+      return reply.code(400).send({ error: "invalid_query" });
+    }
+    const db = getDb();
+    const asg = db
+      .prepare("SELECT * FROM assignments WHERE id = ?")
+      .get(assignmentId) as Record<string, unknown> | undefined;
+    if (!asg) return reply.code(404).send({ error: "assignment_not_found" });
+
+    const pair = getActivePair(String(asg.pair_id), userId);
+    if (pair === "not_found") return reply.code(404).send({ error: "pair_not_found" });
+    if (pair === "dissolved") return reply.code(410).send({ error: "pair_dissolved" });
+    if (pair === "forbidden") return reply.code(403).send({ error: "not_in_pair" });
+
+    const count = (
+      db
+        .prepare(`SELECT COUNT(*) AS c FROM answers WHERE assignment_id = ?`)
+        .get(assignmentId) as { c: number }
+    ).c;
+
+    if (!canReadPartnerAnswer(count)) {
+      return reply.code(403).send({
+        error: "both_answered_required",
+        message: "对方答案在双方都写完前不可见。",
+      });
+    }
+
+    const partner = partnerId(pair, userId);
+    if (!partner) return reply.code(409).send({ error: "partner_missing" });
+    const row = db
+      .prepare(
+        `SELECT * FROM answers WHERE assignment_id = ? AND user_id = ?`,
+      )
+      .get(assignmentId, partner) as Record<string, unknown> | undefined;
+    if (!row) return reply.code(404).send({ error: "partner_answer_missing" });
+    return { answer: mapAnswer(row) };
+  });
+
   app.post<{
     Body: {
       assignmentId: string;
@@ -186,12 +200,12 @@ export async function todayRoutes(app: FastifyInstance): Promise<void> {
       .get(assignmentId) as Record<string, unknown> | undefined;
     if (!asg) return reply.code(404).send({ error: "assignment_not_found" });
 
-    const pair = db.prepare("SELECT * FROM pairs WHERE id = ?").get(String(asg.pair_id)) as {
-      user_a_id: string;
-      user_b_id: string | null;
-    };
-    if (pair.user_a_id !== userId && pair.user_b_id !== userId) {
-      return reply.code(403).send({ error: "not_in_pair" });
+    const pair = getActivePair(String(asg.pair_id), userId);
+    if (pair === "not_found") return reply.code(404).send({ error: "pair_not_found" });
+    if (pair === "dissolved") return reply.code(410).send({ error: "pair_dissolved" });
+    if (pair === "forbidden") return reply.code(403).send({ error: "not_in_pair" });
+    if (asg.status === "revealed") {
+      return reply.code(409).send({ error: "already_revealed" });
     }
 
     const existing = db
@@ -216,19 +230,23 @@ export async function todayRoutes(app: FastifyInstance): Promise<void> {
         .get(assignmentId) as { c: number }
     ).c;
 
-    let status: AssignmentStatus = "answered_partial";
-    if (count >= 2) status = "ready_to_reveal";
-    db.prepare("UPDATE assignments SET status = ? WHERE id = ?").run(status, assignmentId);
+    const status: AssignmentStatus =
+      count >= 2 ? "ready_to_reveal" : "answered_partial";
+    db.prepare("UPDATE assignments SET status = ? WHERE id = ?").run(
+      status,
+      assignmentId,
+    );
 
     return { ok: true, assignmentStatus: status };
   });
 
-  /** 揭晓：双方完成后锁定 revealed */
   app.post<{ Body: { assignmentId: string; userId: string } }>(
     "/reveal",
     async (req, reply) => {
       const { assignmentId, userId } = req.body ?? {};
-      if (!assignmentId || !userId) return reply.code(400).send({ error: "invalid_body" });
+      if (!assignmentId || !userId) {
+        return reply.code(400).send({ error: "invalid_body" });
+      }
 
       const db = getDb();
       const asg = db
@@ -236,26 +254,35 @@ export async function todayRoutes(app: FastifyInstance): Promise<void> {
         .get(assignmentId) as Record<string, unknown> | undefined;
       if (!asg) return reply.code(404).send({ error: "assignment_not_found" });
 
-      const pair = db.prepare("SELECT * FROM pairs WHERE id = ?").get(String(asg.pair_id)) as {
-        id: string;
-        user_a_id: string;
-        user_b_id: string | null;
-        streak: number;
-      };
-      if (pair.user_a_id !== userId && pair.user_b_id !== userId) {
-        return reply.code(403).send({ error: "not_in_pair" });
-      }
+      const pair = getActivePair(String(asg.pair_id), userId);
+      if (pair === "not_found") return reply.code(404).send({ error: "pair_not_found" });
+      if (pair === "dissolved") return reply.code(410).send({ error: "pair_dissolved" });
+      if (pair === "forbidden") return reply.code(403).send({ error: "not_in_pair" });
 
       const answers = db
         .prepare("SELECT * FROM answers WHERE assignment_id = ?")
         .all(assignmentId) as Record<string, unknown>[];
       if (answers.length < 2) {
-        return reply.code(403).send({ error: "both_answered_required" });
+        return reply.code(403).send({
+          error: "both_answered_required",
+          message: "双方都写完才能揭晓。",
+        });
       }
 
+      const dateKey = String(asg.date_key);
+      let streak = pair.streak;
+      const revealedAt =
+        asg.revealed_at ? String(asg.revealed_at) : new Date().toISOString();
+
       if (asg.status !== "revealed") {
-        db.prepare("UPDATE assignments SET status = 'revealed' WHERE id = ?").run(assignmentId);
-        db.prepare("UPDATE pairs SET streak = streak + 1 WHERE id = ?").run(pair.id);
+        const next = nextStreak(pair.streak, pair.last_streak_date, dateKey);
+        streak = next.streak;
+        db.prepare(
+          `UPDATE assignments SET status = 'revealed', revealed_at = ? WHERE id = ?`,
+        ).run(revealedAt, assignmentId);
+        db.prepare(
+          `UPDATE pairs SET streak = ?, last_streak_date = ? WHERE id = ?`,
+        ).run(next.streak, next.lastStreakDate, pair.id);
       }
 
       const prompt = db
@@ -264,15 +291,81 @@ export async function todayRoutes(app: FastifyInstance): Promise<void> {
       const selfRow = answers.find((a) => String(a.user_id) === userId)!;
       const partnerRow = answers.find((a) => String(a.user_id) !== userId)!;
 
-      const reveal: Reveal = {
+      const reveal: Reveal = buildReveal({
         assignmentId,
         prompt: mapPrompt(prompt),
-        phase: "revealed",
-        selfAnswer: mapAnswer(selfRow),
-        partnerAnswer: mapAnswer(partnerRow),
-        revealedAt: new Date().toISOString(),
+        status: "revealed",
+        selfRow,
+        partnerRow,
+        revealedAt,
+      });
+
+      return { reveal, streak };
+    },
+  );
+
+  /** 回忆墙：已揭晓归档 */
+  app.get<{ Querystring: { pairId: string; userId: string } }>(
+    "/memory",
+    async (req, reply) => {
+      const { pairId, userId } = req.query;
+      if (!pairId || !userId) {
+        return reply.code(400).send({ error: "pairId_and_userId_required" });
+      }
+      const pair = getActivePair(pairId, userId);
+      if (pair === "not_found") return reply.code(404).send({ error: "pair_not_found" });
+      if (pair === "dissolved") return reply.code(410).send({ error: "pair_dissolved" });
+      if (pair === "forbidden") return reply.code(403).send({ error: "not_in_pair" });
+
+      const db = getDb();
+      const rows = db
+        .prepare(
+          `SELECT a.id AS assignment_id, a.date_key, a.revealed_at, p.prompt,
+                  sa.body AS self_body, pa.body AS partner_body
+           FROM assignments a
+           JOIN prompts p ON p.id = a.prompt_id
+           JOIN answers sa ON sa.assignment_id = a.id AND sa.user_id = ?
+           JOIN answers pa ON pa.assignment_id = a.id AND pa.user_id != ?
+           WHERE a.pair_id = ? AND a.status = 'revealed'
+           ORDER BY a.date_key DESC`,
+        )
+        .all(userId, userId, pairId) as Record<string, unknown>[];
+
+      return {
+        items: rows.map((r) => ({
+          assignmentId: String(r.assignment_id),
+          dateKey: String(r.date_key),
+          prompt: String(r.prompt),
+          selfAnswer: String(r.self_body),
+          partnerAnswer: String(r.partner_body),
+          revealedAt: String(r.revealed_at),
+          relationshipType: pair.relationship_type,
+        })),
       };
-      return { reveal, streak: pair.streak + (asg.status === "revealed" ? 0 : 1) };
+    },
+  );
+
+  /** 软付费 stub：不锁已揭晓；仅题量/牌组门槛说明 */
+  app.get<{ Querystring: { pairId: string; userId: string } }>(
+    "/paywall",
+    async (req, reply) => {
+      const { pairId, userId } = req.query;
+      if (!pairId || !userId) {
+        return reply.code(400).send({ error: "pairId_and_userId_required" });
+      }
+      const pair = getActivePair(pairId, userId);
+      if (typeof pair === "string") {
+        return reply.code(pair === "forbidden" ? 403 : 404).send({ error: pair });
+      }
+      const info: SoftPaywallInfo = {
+        dailyRevealFree: true,
+        premiumRequiredForExtraDecks: true,
+        premium: Boolean(pair.premium),
+        message: pair.premium
+          ? "双人会员已开启：主题牌组与每日多题可用；已揭晓内容始终可回看。"
+          : "每日一题揭晓永久免费。主题牌组与超额题量可开通双人会员（支付闭环 Phase 2）。",
+      };
+      return { paywall: info };
     },
   );
 }

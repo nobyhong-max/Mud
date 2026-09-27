@@ -10,6 +10,8 @@
     "build": "pnpm --filter @half-island/shared build && pnpm --filter @half-island/api build && pnpm --filter @half-island/client build",
     "lint": "pnpm -r run lint",
     "seed": "pnpm --filter @half-island/api seed",
+    "test": "pnpm --filter @half-island/api test",
+    "import:deck": "node scripts/import-question-bank.mjs",
     "typecheck": "pnpm -r run typecheck"
   },
   "engines": {

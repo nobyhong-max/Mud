@@ -14,6 +14,11 @@
           <span>{{ phaseLabel }}</span>
         </p>
         <p class="prompt-text">{{ reveal.prompt.prompt }}</p>
+        <p v-if="reveal.prompt.relationMode" class="tag">
+          {{ reveal.prompt.deck }} · {{ reveal.prompt.relationMode }} · L{{
+            reveal.prompt.intimacyLevel
+          }}
+        </p>
         <div class="actions">
           <router-link v-if="reveal.phase === 'pending_self'" class="btn" to="/answer">
             去作答
@@ -33,6 +38,7 @@
             {{ reveal.phase === "revealed" ? "查看揭晓" : "一起揭晓" }}
           </router-link>
         </div>
+        <p class="soft">{{ softNote }}</p>
       </template>
       <p v-else class="muted">加载中…</p>
     </div>
@@ -51,6 +57,7 @@ const dateKey = ref("");
 const streak = ref(0);
 const relationshipType = ref("");
 const error = ref("");
+const softNote = ref("每日一题揭晓免费常开。");
 
 const relationshipLabel = computed(() =>
   relationshipType.value === "friends" ? "密友岛" : "情侣岛",
@@ -80,6 +87,8 @@ async function load(): Promise<void> {
     dateKey.value = data.dateKey;
     streak.value = data.streak;
     relationshipType.value = data.relationshipType;
+    const pw = await api.paywall(session.pairId, session.userId);
+    softNote.value = pw.paywall.message;
   } catch (e) {
     error.value = e instanceof Error ? e.message : "加载失败";
   }
@@ -93,7 +102,6 @@ watch(() => [session.userId, session.pairId], load);
 .eyebrow {
   margin: 0;
   letter-spacing: 0.18em;
-  text-transform: uppercase;
   font-size: 0.75rem;
   opacity: 0.65;
   animation: rise 0.6s ease both;
@@ -103,11 +111,21 @@ watch(() => [session.userId, session.pairId], load);
   opacity: 0.75;
   font-size: 0.95rem;
 }
+.tag {
+  margin: 0;
+  font-size: 0.8rem;
+  opacity: 0.55;
+}
 .actions {
   margin-top: 0.5rem;
 }
 .actions .btn {
   display: inline-block;
   text-decoration: none;
+}
+.soft {
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  opacity: 0.65;
 }
 </style>

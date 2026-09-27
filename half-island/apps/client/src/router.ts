@@ -4,11 +4,8 @@ import TodayPage from "./pages/today/index.vue";
 import AnswerPage from "./pages/answer/index.vue";
 import WaitingPage from "./pages/waiting/index.vue";
 import RevealPage from "./pages/reveal/index.vue";
+import MemoryPage from "./pages/memory/index.vue";
 
-/**
- * 页面路由与未来 uni-app pages.json 对齐：
- * pages/invite | today | answer | waiting | reveal
- */
 export const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -18,5 +15,6 @@ export const router = createRouter({
     { path: "/answer", component: AnswerPage, meta: { title: "作答" } },
     { path: "/waiting", component: WaitingPage, meta: { title: "等待" } },
     { path: "/reveal", component: RevealPage, meta: { title: "揭晓" } },
+    { path: "/memory", component: MemoryPage, meta: { title: "回忆墙" } },
   ],
 });

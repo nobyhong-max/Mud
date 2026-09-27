@@ -13,6 +13,9 @@ importers:
       '@fastify/cors':
         specifier: ^11.0.1
         version: 11.3.0
+      '@half-island/content':
+        specifier: workspace:*
+        version: link:../../packages/content
       '@half-island/shared':
         specifier: workspace:*
         version: link:../../packages/shared
@@ -54,6 +57,8 @@ importers:
       vue-tsc:
         specifier: ^2.2.8
         version: 2.2.12(typescript@5.9.3)
+
+  packages/content: {}
 
   packages/shared:
     devDependencies:

@@ -1,3 +1,5 @@
+import { initHero3D, updateHero3D } from "./hero3d.js";
+
 const SAVE_KEY = "jianshen-dayheng-v1";
 const OFFLINE_CAP_MS = 8 * 60 * 60 * 1000;
 const TICK_MS = 100;
@@ -136,6 +138,7 @@ const els = {
   shopCoins: document.getElementById("shop-coins"),
   upgradeList: document.getElementById("upgrade-list"),
   canvas: document.getElementById("gym-canvas"),
+  heroGl: document.getElementById("hero-gl"),
 };
 
 const ctx = els.canvas.getContext("2d");
@@ -427,7 +430,7 @@ function drawScene() {
   ctx.fillRect(w - 115, h * 0.44, 34, 6);
 
   const action = state.trainingId || "idle";
-  drawHero(w * 0.42, h * 0.68, action, animPhase);
+  updateHero3D(action, animPhase);
 
   if (toastTimer <= 0 && state.trainingId) {
     const t = TRAININGS.find((x) => x.id === state.trainingId);
@@ -436,78 +439,6 @@ function drawScene() {
     ctx.fillStyle = "#ffe6b3";
     ctx.font = "600 13px PingFang SC, sans-serif";
     ctx.fillText(`${t?.icon || ""} 训练中`, 14, 22);
-  }
-}
-
-function drawHero(x, y, action, phase) {
-  const bounce = Math.sin(phase) * (action === "run" ? 5 : 2);
-  const armSwing = Math.sin(phase * 1.6) * (action === "lift" ? 0.5 : 1);
-  const bodyY = y + bounce;
-
-  ctx.fillStyle = "#ffb347";
-  ctx.beginPath();
-  ctx.arc(x, bodyY - 48, 14, 0, Math.PI * 2);
-  ctx.fill();
-
-  ctx.strokeStyle = "#f8fafc";
-  ctx.lineWidth = 5;
-  ctx.lineCap = "round";
-
-  // body
-  ctx.beginPath();
-  ctx.moveTo(x, bodyY - 34);
-  ctx.lineTo(x, bodyY - 4);
-  ctx.stroke();
-
-  // legs
-  const legSpread = action === "run" ? Math.sin(phase * 1.8) * 10 : action === "pushup" ? 18 : 8;
-  ctx.beginPath();
-  ctx.moveTo(x, bodyY - 4);
-  ctx.lineTo(x - legSpread, bodyY + 22);
-  ctx.moveTo(x, bodyY - 4);
-  ctx.lineTo(x + legSpread, bodyY + 22);
-  ctx.stroke();
-
-  // arms
-  if (action === "pushup") {
-    ctx.beginPath();
-    ctx.moveTo(x, bodyY - 20);
-    ctx.lineTo(x - 22, bodyY - 2);
-    ctx.moveTo(x, bodyY - 20);
-    ctx.lineTo(x + 22, bodyY - 2);
-    ctx.stroke();
-    ctx.fillStyle = "#f8fafc";
-    ctx.fillRect(x - 30, bodyY + 2, 60, 8);
-  } else if (action === "lift") {
-    ctx.beginPath();
-    ctx.moveTo(x, bodyY - 28);
-    ctx.lineTo(x - 18, bodyY - 38 - armSwing * 8);
-    ctx.moveTo(x, bodyY - 28);
-    ctx.lineTo(x + 18, bodyY - 38 + armSwing * 8);
-    ctx.stroke();
-    ctx.fillStyle = "#64748b";
-    ctx.fillRect(x - 28, bodyY - 46 - armSwing * 8, 56, 8);
-  } else if (action === "run") {
-    ctx.beginPath();
-    ctx.moveTo(x, bodyY - 28);
-    ctx.lineTo(x - 14 + armSwing * 10, bodyY - 12);
-    ctx.moveTo(x, bodyY - 28);
-    ctx.lineTo(x + 14 - armSwing * 10, bodyY - 12);
-    ctx.stroke();
-  } else if (action === "yoga") {
-    ctx.beginPath();
-    ctx.moveTo(x, bodyY - 28);
-    ctx.lineTo(x - 26, bodyY - 18);
-    ctx.moveTo(x, bodyY - 28);
-    ctx.lineTo(x + 26, bodyY - 18);
-    ctx.stroke();
-  } else {
-    ctx.beginPath();
-    ctx.moveTo(x, bodyY - 28);
-    ctx.lineTo(x - 16, bodyY - 10);
-    ctx.moveTo(x, bodyY - 28);
-    ctx.lineTo(x + 16, bodyY - 10);
-    ctx.stroke();
   }
 }
 
@@ -530,5 +461,16 @@ els.shopDialog.addEventListener("close", renderUI);
 applyOfflineProgress();
 state.energyMax = 100 + state.upgrades.snack * 8 + (state.level - 1) * 2;
 renderUI();
-drawScene();
-setInterval(() => tick(Date.now()), TICK_MS);
+
+async function boot() {
+  try {
+    await initHero3D(els.heroGl, els.canvas);
+  } catch (err) {
+    console.error("3D hero failed to load", err);
+    els.statusLine.textContent = "3D 主角加载失败，请刷新重试";
+  }
+  drawScene();
+  setInterval(() => tick(Date.now()), TICK_MS);
+}
+
+boot();

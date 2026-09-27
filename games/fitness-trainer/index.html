@@ -7,6 +7,14 @@
   <meta name="theme-color" content="#1a2744" />
   <title>健身大亨 · 练主角赚钱升级</title>
   <link rel="stylesheet" href="css/style.css" />
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://esm.sh/three@0.170.0",
+      "three/addons/": "https://esm.sh/three@0.170.0/examples/jsm/"
+    }
+  }
+  </script>
 </head>
 <body>
   <div id="app">
@@ -22,7 +30,10 @@
     </header>
 
     <section class="gym-stage">
-      <canvas id="gym-canvas" width="360" height="220" aria-label="健身房场景"></canvas>
+      <div class="gym-viewport">
+        <canvas id="gym-canvas" width="360" height="220" aria-label="健身房场景"></canvas>
+        <canvas id="hero-gl" aria-label="3D 主角"></canvas>
+      </div>
       <p class="hero-name" id="hero-name">主角 · 阿强</p>
       <p class="status-line" id="status-line">点下方训练，让主角动起来！</p>
       <div class="bars">

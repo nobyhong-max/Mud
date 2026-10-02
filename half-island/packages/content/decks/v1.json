@@ -1,0 +1,3900 @@
+{
+  "version": "v1",
+  "brand": "半个岛",
+  "source": "docs/half-island-question-bank-v1.md §6 CSV + bilingual EN overlay",
+  "count": 145,
+  "deckOnlyIds": [
+    "HI-Q-026",
+    "HI-Q-039",
+    "HI-Q-045",
+    "HI-Q-049",
+    "HI-Q-052",
+    "HI-Q-057",
+    "HI-Q-062",
+    "HI-Q-063",
+    "HI-Q-064",
+    "HI-Q-065",
+    "HI-Q-066",
+    "HI-Q-067",
+    "HI-Q-068",
+    "HI-Q-069",
+    "HI-Q-070",
+    "HI-Q-071",
+    "HI-Q-072",
+    "HI-Q-074",
+    "HI-Q-075",
+    "HI-Q-076",
+    "HI-Q-078",
+    "HI-Q-079",
+    "HI-Q-080",
+    "HI-Q-089",
+    "HI-Q-094",
+    "HI-Q-095",
+    "HI-Q-096",
+    "HI-Q-097",
+    "HI-Q-098",
+    "HI-Q-099",
+    "HI-Q-100",
+    "HI-Q-101",
+    "HI-Q-102",
+    "HI-Q-103",
+    "HI-Q-104",
+    "HI-Q-125",
+    "HI-Q-137"
+  ],
+  "prompts": [
+    {
+      "id": "HI-Q-001",
+      "deck": "daily_bits",
+      "relationMode": "couple",
+      "intimacyLevel": 0,
+      "type": "open_text",
+      "prompt": "今天有哪一件小事，让你突然觉得这座岛上不只你一个人？",
+      "choices": null,
+      "tags": [
+        "日常",
+        "在场感"
+      ],
+      "notes": "适合日更",
+      "followup": "那一刻你想跟对方说什么？",
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "What small thing today made you suddenly feel you weren't alone on this island?",
+      "choicesEn": null,
+      "followupEn": "What did you want to say to the other person in that moment?"
+    },
+    {
+      "id": "HI-Q-002",
+      "deck": "daily_bits",
+      "relationMode": "both",
+      "intimacyLevel": 0,
+      "type": "open_text",
+      "prompt": "此刻窗外或房间里，有什么细节是你希望对方也看见的？",
+      "choices": null,
+      "tags": [
+        "日常",
+        "感官"
+      ],
+      "notes": "中性日更安全题",
+      "followup": null,
+      "audience": "neutral",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Right now, outside the window or in this room—what detail do you wish the other person could see too?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-003",
+      "deck": "daily_bits",
+      "relationMode": "couple",
+      "intimacyLevel": 0,
+      "type": "single_choice",
+      "prompt": "你更常在什么时候想起对方？",
+      "choices": [
+        "刚醒来那会儿",
+        "忙完一件事的空档",
+        "睡前关灯前"
+      ],
+      "tags": [
+        "日常",
+        "节奏"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "When do you most often think of the other person?",
+      "choicesEn": [
+        "Just after waking",
+        "In the quiet gap after finishing something",
+        "Before turning out the light at night"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-004",
+      "deck": "daily_bits",
+      "relationMode": "both",
+      "intimacyLevel": 0,
+      "type": "either_or",
+      "prompt": "今天更想要：安静并排坐着，还是出门走一段路？",
+      "choices": [
+        "安静并排",
+        "出门走走"
+      ],
+      "tags": [
+        "日常",
+        "陪伴"
+      ],
+      "notes": "二选一；both",
+      "followup": null,
+      "audience": "neutral",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Today, would you rather sit quietly side by side, or go out and walk a while?",
+      "choicesEn": [
+        "Sit quietly side by side",
+        "Go out for a walk"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-005",
+      "deck": "daily_bits",
+      "relationMode": "couple",
+      "intimacyLevel": 1,
+      "type": "open_text",
+      "prompt": "对方最近做过的哪件「很普通」的事，其实被你悄悄记下来了？",
+      "choices": null,
+      "tags": [
+        "日常",
+        "被看见"
+      ],
+      "notes": "略甜，避免油腻",
+      "followup": "你有没有当面说过？",
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Which ordinary thing has the other person done lately that you quietly filed away?",
+      "choicesEn": null,
+      "followupEn": "Have you ever said it out loud?"
+    },
+    {
+      "id": "HI-Q-006",
+      "deck": "daily_bits",
+      "relationMode": "both",
+      "intimacyLevel": 0,
+      "type": "single_choice",
+      "prompt": "你们更像哪种「岛上日常」？",
+      "choices": [
+        "各自做各自的事，偶尔抬头对一眼",
+        "总想找个话题开聊",
+        "一人主导节奏，另一人跟着走"
+      ],
+      "tags": [
+        "日常",
+        "相处模式"
+      ],
+      "notes": "选项无对错",
+      "followup": null,
+      "audience": "neutral",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Which kind of \"island ordinary\" are you two more like?",
+      "choicesEn": [
+        "Each doing your own thing, glancing up now and then",
+        "Always looking for a thread of conversation",
+        "One sets the pace; the other follows"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-007",
+      "deck": "daily_bits",
+      "relationMode": "couple",
+      "intimacyLevel": 1,
+      "type": "open_text",
+      "prompt": "如果用一种味道形容今天的我们，你会选什么？为什么？",
+      "choices": null,
+      "tags": [
+        "感官",
+        "隐喻"
+      ],
+      "notes": "文艺向日更",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "If you had to name today-as-us with a flavor, what would you choose—and why?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-008",
+      "deck": "daily_bits",
+      "relationMode": "both",
+      "intimacyLevel": 0,
+      "type": "whos_more_likely",
+      "prompt": "谁更可能把「马上出门」说成半小时后才真出门？",
+      "choices": [
+        "我",
+        "对方"
+      ],
+      "tags": [
+        "谁更可能",
+        "习惯"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "neutral",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Who is more likely to say \"leaving now\" and only actually leave half an hour later?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-009",
+      "deck": "daily_bits",
+      "relationMode": "couple",
+      "intimacyLevel": 0,
+      "type": "open_text",
+      "prompt": "最近一次，你们因为什么小事一起笑出声？",
+      "choices": null,
+      "tags": [
+        "日常",
+        "快乐"
+      ],
+      "notes": "轻松日更",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "When was the last time something small made you both laugh out loud?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-010",
+      "deck": "daily_bits",
+      "relationMode": "both",
+      "intimacyLevel": 1,
+      "type": "single_choice",
+      "prompt": "今天能量更接近哪种状态？",
+      "choices": [
+        "潮水刚退，想缓一缓",
+        "阳光正好，想做点事",
+        "风有点大，需要彼此稳住"
+      ],
+      "tags": [
+        "日常",
+        "状态隐喻"
+      ],
+      "notes": "岛意象，非心理诊断",
+      "followup": null,
+      "audience": "neutral",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Which state is your energy closest to today?",
+      "choicesEn": [
+        "Tide just out—need to ease down",
+        "Sun just right—want to do something",
+        "Wind a bit strong—need each other to hold steady"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-011",
+      "deck": "daily_bits",
+      "relationMode": "couple",
+      "intimacyLevel": 1,
+      "type": "open_text",
+      "prompt": "对方发来的哪种消息，会让你下意识回得特别快？",
+      "choices": null,
+      "tags": [
+        "沟通",
+        "即时"
+      ],
+      "notes": "注意隐私，勿诱导晒聊天截图",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "What kind of message from the other person makes you reply almost without thinking?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-012",
+      "deck": "daily_bits",
+      "relationMode": "both",
+      "intimacyLevel": 0,
+      "type": "either_or",
+      "prompt": "更想把「今天」收进：一张随手照片，还是一句话备忘？",
+      "choices": [
+        "一张照片",
+        "一句话"
+      ],
+      "tags": [
+        "日常",
+        "记录"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "neutral",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Would you rather tuck \"today\" into a casual photo, or a one-line note?",
+      "choicesEn": [
+        "A photo",
+        "A one-liner"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-013",
+      "deck": "daily_bits",
+      "relationMode": "couple",
+      "intimacyLevel": 0,
+      "type": "open_text",
+      "prompt": "如果今晚多出二十分钟只属于你们，你会怎么用？",
+      "choices": null,
+      "tags": [
+        "日常",
+        "时间"
+      ],
+      "notes": "短时场景好答",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "If tonight gave you twenty extra minutes that belonged only to the two of you, how would you spend them?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-014",
+      "deck": "daily_bits",
+      "relationMode": "both",
+      "intimacyLevel": 1,
+      "type": "whos_more_likely",
+      "prompt": "谁更可能把待办写成很长一串，却先做最简单的那件？",
+      "choices": [
+        "我",
+        "对方"
+      ],
+      "tags": [
+        "谁更可能",
+        "习惯"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "neutral",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Who is more likely to write a long to-do list—then start with the easiest item?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-015",
+      "deck": "daily_bits",
+      "relationMode": "couple",
+      "intimacyLevel": 1,
+      "type": "open_text",
+      "prompt": "有什么「只有你们俩懂」的小暗号或口头禅？",
+      "choices": null,
+      "tags": [
+        "默契",
+        "领地感"
+      ],
+      "notes": "强化专属飞地",
+      "followup": "是怎么形成的？",
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Is there a little signal or catchphrase only the two of you understand?",
+      "choicesEn": null,
+      "followupEn": "How did it come about?"
+    },
+    {
+      "id": "HI-Q-016",
+      "deck": "daily_bits",
+      "relationMode": "both",
+      "intimacyLevel": 0,
+      "type": "single_choice",
+      "prompt": "你们今天更需要对方提供什么？",
+      "choices": [
+        "一句「我在」",
+        "具体帮一把忙",
+        "安静陪伴，不必多说"
+      ],
+      "tags": [
+        "日常",
+        "需求"
+      ],
+      "notes": "中性表述",
+      "followup": null,
+      "audience": "neutral",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "What do you need more from the other person today?",
+      "choicesEn": [
+        "A simple \"I'm here\"",
+        "A concrete hand with something",
+        "Quiet company—no need for many words"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-017",
+      "deck": "daily_bits",
+      "relationMode": "couple",
+      "intimacyLevel": 0,
+      "type": "open_text",
+      "prompt": "描述一个你觉得「很我们」的普通瞬间（不必轰轰烈烈）。",
+      "choices": null,
+      "tags": [
+        "日常",
+        "归属"
+      ],
+      "notes": "核心品牌感",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Describe an ordinary moment that feels deeply \"us\" (it doesn't have to be dramatic).",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-018",
+      "deck": "daily_bits",
+      "relationMode": "both",
+      "intimacyLevel": 1,
+      "type": "either_or",
+      "prompt": "周末早晨更想：赖床聊天，还是早起觅食？",
+      "choices": [
+        "赖床聊天",
+        "早起觅食"
+      ],
+      "tags": [
+        "日常",
+        "周末"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "neutral",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "On a weekend morning, would you rather linger in bed talking, or get up early to hunt for food?",
+      "choicesEn": [
+        "Linger in bed talking",
+        "Get up early and forage"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-019",
+      "deck": "daily_bits",
+      "relationMode": "couple",
+      "intimacyLevel": 1,
+      "type": "open_text",
+      "prompt": "最近有没有哪顿饭或哪杯饮料，让你想起对方？",
+      "choices": null,
+      "tags": [
+        "日常",
+        "感官"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Has a meal or a drink lately brought the other person to mind?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-020",
+      "deck": "daily_bits",
+      "relationMode": "both",
+      "intimacyLevel": 0,
+      "type": "open_text",
+      "prompt": "用三个字形容今天的对方（可以俏皮，不要空夸）。",
+      "choices": null,
+      "tags": [
+        "日常",
+        "三字"
+      ],
+      "notes": "高完成率日更题",
+      "followup": "为什么选这三个字？",
+      "audience": "neutral",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Describe the other person today in three characters (cheeky is fine; empty praise is not).",
+      "choicesEn": null,
+      "followupEn": "Why those three?"
+    },
+    {
+      "id": "HI-Q-021",
+      "deck": "daily_bits",
+      "relationMode": "couple",
+      "intimacyLevel": 0,
+      "type": "single_choice",
+      "prompt": "今天更想被对方怎样接住你的状态？",
+      "choices": [
+        "「辛苦了」就很好",
+        "叫昵称逗一下",
+        "认真问问「你还好吗」"
+      ],
+      "tags": [
+        "日常",
+        "称呼"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "How do you most want the other person to meet you where you are today?",
+      "choicesEn": [
+        "\"You've worked hard\" is enough",
+        "Tease you with a nickname",
+        "Ask, sincerely, \"Are you okay?\""
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-022",
+      "deck": "daily_bits",
+      "relationMode": "both",
+      "intimacyLevel": 0,
+      "type": "open_text",
+      "prompt": "此刻座位旁伸手可及的东西里，哪一件最像你今天的心情？",
+      "choices": null,
+      "tags": [
+        "日常",
+        "物件隐喻"
+      ],
+      "notes": "文艺日更",
+      "followup": null,
+      "audience": "neutral",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Among the things within reach of your seat right now, which one most resembles your mood today?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-023",
+      "deck": "whos_more",
+      "relationMode": "both",
+      "intimacyLevel": 0,
+      "type": "whos_more_likely",
+      "prompt": "谁更可能出门前在镜子前多站两分钟？",
+      "choices": [
+        "我",
+        "对方"
+      ],
+      "tags": [
+        "谁更可能",
+        "出门"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "neutral",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Who is more likely to linger an extra two minutes at the mirror before leaving?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-024",
+      "deck": "whos_more",
+      "relationMode": "couple",
+      "intimacyLevel": 0,
+      "type": "whos_more_likely",
+      "prompt": "谁更可能先发现对方换了发型或新配饰？",
+      "choices": [
+        "我",
+        "对方"
+      ],
+      "tags": [
+        "谁更可能",
+        "观察"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Who is more likely to notice first when the other person changes a haircut or puts on something new?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-025",
+      "deck": "whos_more",
+      "relationMode": "both",
+      "intimacyLevel": 0,
+      "type": "whos_more_likely",
+      "prompt": "谁更可能把快递放在门口「明天再拿」？",
+      "choices": [
+        "我",
+        "对方"
+      ],
+      "tags": [
+        "谁更可能",
+        "拖延"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "neutral",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Who is more likely to leave a package at the door \"for tomorrow\"?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-026",
+      "deck": "whos_more",
+      "relationMode": "couple",
+      "intimacyLevel": 1,
+      "type": "whos_more_likely",
+      "prompt": "谁更可能在争执前先沉默很久？",
+      "choices": [
+        "我",
+        "对方"
+      ],
+      "tags": [
+        "谁更可能",
+        "冲突前兆"
+      ],
+      "notes": "需复审：冲突相关，语气保持轻",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": true,
+      "status": "active",
+      "promptEn": "Who is more likely to go quiet for a long time before a disagreement?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-027",
+      "deck": "whos_more",
+      "relationMode": "both",
+      "intimacyLevel": 0,
+      "type": "whos_more_likely",
+      "prompt": "谁更可能点外卖时改来改去？",
+      "choices": [
+        "我",
+        "对方"
+      ],
+      "tags": [
+        "谁更可能",
+        "外卖"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "neutral",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Who is more likely to keep changing the order when getting takeout?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-028",
+      "deck": "whos_more",
+      "relationMode": "couple",
+      "intimacyLevel": 1,
+      "type": "whos_more_likely",
+      "prompt": "谁更可能记住对方随口说过的愿望？",
+      "choices": [
+        "我",
+        "对方"
+      ],
+      "tags": [
+        "谁更可能",
+        "细心"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Who is more likely to remember a wish the other person mentioned in passing?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-029",
+      "deck": "whos_more",
+      "relationMode": "both",
+      "intimacyLevel": 0,
+      "type": "whos_more_likely",
+      "prompt": "谁更可能迷路还坚持「再走两步就到」？",
+      "choices": [
+        "我",
+        "对方"
+      ],
+      "tags": [
+        "谁更可能",
+        "方向感"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "neutral",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Who is more likely to be lost and still insist \"just a little farther\"?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-030",
+      "deck": "whos_more",
+      "relationMode": "friend",
+      "intimacyLevel": 0,
+      "type": "whos_more_likely",
+      "prompt": "谁更可能把聚会说成「很快就走」，结果聊到很晚？",
+      "choices": [
+        "我",
+        "对方"
+      ],
+      "tags": [
+        "谁更可能",
+        "社交",
+        "密友"
+      ],
+      "notes": "密友向",
+      "followup": null,
+      "audience": "friends",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Who is more likely to say \"we'll only stay a bit\" at a gathering—and still be talking late?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-031",
+      "deck": "whos_more",
+      "relationMode": "couple",
+      "intimacyLevel": 1,
+      "type": "whos_more_likely",
+      "prompt": "谁更可能先提出「我们该认真聊聊这件事」？",
+      "choices": [
+        "我",
+        "对方"
+      ],
+      "tags": [
+        "谁更可能",
+        "沟通"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Who is more likely to say first, \"We should really talk about this\"?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-032",
+      "deck": "whos_more",
+      "relationMode": "both",
+      "intimacyLevel": 0,
+      "type": "whos_more_likely",
+      "prompt": "谁更可能把闹钟定很多个才起得来？",
+      "choices": [
+        "我",
+        "对方"
+      ],
+      "tags": [
+        "谁更可能",
+        "睡眠"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "neutral",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Who is more likely to set a string of alarms just to get up?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-033",
+      "deck": "whos_more",
+      "relationMode": "couple",
+      "intimacyLevel": 0,
+      "type": "whos_more_likely",
+      "prompt": "谁更可能在电影院小声吐槽剧情？",
+      "choices": [
+        "我",
+        "对方"
+      ],
+      "tags": [
+        "谁更可能",
+        "娱乐"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Who is more likely to whisper a running critique of the plot in a movie theater?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-034",
+      "deck": "whos_more",
+      "relationMode": "friend",
+      "intimacyLevel": 0,
+      "type": "whos_more_likely",
+      "prompt": "谁更可能收藏很多攻略却临时决定随缘？",
+      "choices": [
+        "我",
+        "对方"
+      ],
+      "tags": [
+        "谁更可能",
+        "旅行",
+        "密友"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "friends",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Who is more likely to bookmark a pile of guides—then decide on the day to wing it?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-035",
+      "deck": "whos_more",
+      "relationMode": "both",
+      "intimacyLevel": 1,
+      "type": "whos_more_likely",
+      "prompt": "谁更可能先发现家里或房间少了什么东西？",
+      "choices": [
+        "我",
+        "对方"
+      ],
+      "tags": [
+        "谁更可能",
+        "观察"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "neutral",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Who is more likely to notice first that something is missing from the house or room?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-036",
+      "deck": "whos_more",
+      "relationMode": "couple",
+      "intimacyLevel": 1,
+      "type": "whos_more_likely",
+      "prompt": "谁更可能把纪念日记在心里，却装作不张扬？",
+      "choices": [
+        "我",
+        "对方"
+      ],
+      "tags": [
+        "谁更可能",
+        "纪念日"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Who is more likely to keep anniversaries in the heart—and pretend not to make a fuss?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-037",
+      "deck": "whos_more",
+      "relationMode": "both",
+      "intimacyLevel": 0,
+      "type": "whos_more_likely",
+      "prompt": "谁更可能刷到好笑视频立刻转给对方？",
+      "choices": [
+        "我",
+        "对方"
+      ],
+      "tags": [
+        "谁更可能",
+        "分享"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "neutral",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Who is more likely to forward a funny video the moment they see it?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-038",
+      "deck": "whos_more",
+      "relationMode": "friend",
+      "intimacyLevel": 1,
+      "type": "whos_more_likely",
+      "prompt": "谁更可能在对方低落时用「陪着」而不是急着给方案？",
+      "choices": [
+        "我",
+        "对方"
+      ],
+      "tags": [
+        "谁更可能",
+        "支持",
+        "密友"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "friends",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Who is more likely, when the other person is low, to simply stay—rather than rush in with solutions?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-039",
+      "deck": "whos_more",
+      "relationMode": "couple",
+      "intimacyLevel": 1,
+      "type": "whos_more_likely",
+      "prompt": "谁更可能为了迁就对方口味点不爱吃的菜？",
+      "choices": [
+        "我",
+        "对方"
+      ],
+      "tags": [
+        "谁更可能",
+        "照顾"
+      ],
+      "notes": "需复审：迁就/牺牲暗示；揭晓可讨论边界",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": true,
+      "status": "active",
+      "promptEn": "Who is more likely to order a dish they don't love just to match the other person's taste?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-040",
+      "deck": "whos_more",
+      "relationMode": "both",
+      "intimacyLevel": 0,
+      "type": "whos_more_likely",
+      "prompt": "谁更可能把购物车加满却迟迟不结算？",
+      "choices": [
+        "我",
+        "对方"
+      ],
+      "tags": [
+        "谁更可能",
+        "消费习惯"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "neutral",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Who is more likely to fill a cart and then never check out?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-041",
+      "deck": "whos_more",
+      "relationMode": "couple",
+      "intimacyLevel": 2,
+      "type": "whos_more_likely",
+      "prompt": "谁更可能在重大决定前先查很多资料？",
+      "choices": [
+        "我",
+        "对方"
+      ],
+      "tags": [
+        "谁更可能",
+        "决策"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Who is more likely to dig through a lot of research before a big decision?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-042",
+      "deck": "whos_more",
+      "relationMode": "both",
+      "intimacyLevel": 0,
+      "type": "whos_more_likely",
+      "prompt": "谁更可能把「最后一集」拖着不看完？",
+      "choices": [
+        "我",
+        "对方"
+      ],
+      "tags": [
+        "谁更可能",
+        "追剧"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "neutral",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Who is more likely to put off watching the final episode?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-043",
+      "deck": "whos_more",
+      "relationMode": "couple",
+      "intimacyLevel": 1,
+      "type": "whos_more_likely",
+      "prompt": "谁更可能在点菜时先问对方想吃什么？",
+      "choices": [
+        "我",
+        "对方"
+      ],
+      "tags": [
+        "谁更可能",
+        "照顾"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Who is more likely to ask first, when ordering, what the other person wants?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-044",
+      "deck": "whos_more",
+      "relationMode": "both",
+      "intimacyLevel": 0,
+      "type": "whos_more_likely",
+      "prompt": "谁更可能把「收拾一下」变成大扫除？",
+      "choices": [
+        "我",
+        "对方"
+      ],
+      "tags": [
+        "谁更可能",
+        "打扫"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "neutral",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Who is more likely to turn \"just tidy a bit\" into a full deep clean?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-045",
+      "deck": "repair",
+      "relationMode": "couple",
+      "intimacyLevel": 2,
+      "type": "whos_more_likely",
+      "prompt": "谁更可能先发「在吗，我们聊聊」解开僵局？",
+      "choices": [
+        "我",
+        "对方"
+      ],
+      "tags": [
+        "冲突",
+        "谁更可能"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Who is more likely to break a stalemate first with \"You there? Can we talk?\"",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-046",
+      "deck": "either_or",
+      "relationMode": "both",
+      "intimacyLevel": 0,
+      "type": "either_or",
+      "prompt": "宁可：少说话但在一起，还是聊很久但隔着屏幕？",
+      "choices": [
+        "少说话但在一起",
+        "聊很久但隔着屏幕"
+      ],
+      "tags": [
+        "二选一",
+        "陪伴"
+      ],
+      "notes": "both；异地也友好",
+      "followup": null,
+      "audience": "neutral",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Would you rather: say little but be together, or talk for hours across a screen?",
+      "choicesEn": [
+        "Say little but be together",
+        "Talk long across a screen"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-047",
+      "deck": "either_or",
+      "relationMode": "couple",
+      "intimacyLevel": 1,
+      "type": "either_or",
+      "prompt": "纪念日更想：精心计划一天，还是随性走到哪算哪？",
+      "choices": [
+        "精心计划",
+        "随性而行"
+      ],
+      "tags": [
+        "二选一",
+        "纪念日"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "For an anniversary, would you rather plan the day carefully, or wander wherever the day takes you?",
+      "choicesEn": [
+        "Plan it carefully",
+        "Wander as it comes"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-048",
+      "deck": "either_or",
+      "relationMode": "both",
+      "intimacyLevel": 0,
+      "type": "either_or",
+      "prompt": "下雨天更想：窝着看一部老片，还是撑伞去买热食？",
+      "choices": [
+        "窝着看老片",
+        "撑伞买热食"
+      ],
+      "tags": [
+        "二选一",
+        "天气"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "neutral",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "On a rainy day, would you rather nest in with an old film, or take an umbrella out for something warm to eat?",
+      "choicesEn": [
+        "Nest in with an old film",
+        "Umbrella out for hot food"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-049",
+      "deck": "either_or",
+      "relationMode": "couple",
+      "intimacyLevel": 1,
+      "type": "either_or",
+      "prompt": "意见不合后更想先：各自冷静，还是立刻说清楚？",
+      "choices": [
+        "各自冷静",
+        "立刻说清楚"
+      ],
+      "tags": [
+        "二选一",
+        "冲突节奏"
+      ],
+      "notes": "需复审：冲突相关",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": true,
+      "status": "active",
+      "promptEn": "After a disagreement, would you rather cool off separately first, or clear it up right away?",
+      "choicesEn": [
+        "Cool off separately",
+        "Clear it up right away"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-050",
+      "deck": "either_or",
+      "relationMode": "friend",
+      "intimacyLevel": 0,
+      "type": "either_or",
+      "prompt": "周末约你：博物馆慢逛，还是找家馆子深聊？",
+      "choices": [
+        "博物馆慢逛",
+        "馆子深聊"
+      ],
+      "tags": [
+        "二选一",
+        "密友"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "friends",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "For a weekend together: a slow museum wander, or a long talk over a good meal?",
+      "choicesEn": [
+        "Slow museum wander",
+        "Deep talk at a restaurant"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-051",
+      "deck": "either_or",
+      "relationMode": "both",
+      "intimacyLevel": 1,
+      "type": "either_or",
+      "prompt": "旅行更看重：住得舒服，还是玩得尽兴？",
+      "choices": [
+        "住得舒服",
+        "玩得尽兴"
+      ],
+      "tags": [
+        "二选一",
+        "旅行"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "neutral",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "When traveling, do you care more about sleeping well, or making the most of every hour?",
+      "choicesEn": [
+        "Sleeping well",
+        "Making the most of it"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-052",
+      "deck": "either_or",
+      "relationMode": "couple",
+      "intimacyLevel": 2,
+      "type": "either_or",
+      "prompt": "大额消费前：必须一起商量，还是各自有额度内自由？",
+      "choices": [
+        "必须商量",
+        "额度内自由"
+      ],
+      "tags": [
+        "二选一",
+        "金钱"
+      ],
+      "notes": "需复审：金钱敏感",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": true,
+      "status": "active",
+      "promptEn": "Before a big purchase: must you decide together, or each have freedom within a set amount?",
+      "choicesEn": [
+        "Must discuss it",
+        "Freedom within a budget"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-053",
+      "deck": "either_or",
+      "relationMode": "both",
+      "intimacyLevel": 0,
+      "type": "either_or",
+      "prompt": "收到好消息：先告诉对方，还是自己消化一会儿？",
+      "choices": [
+        "先告诉对方",
+        "自己先消化"
+      ],
+      "tags": [
+        "二选一",
+        "分享节奏"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "neutral",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "When good news lands: tell the other person first, or sit with it alone for a while?",
+      "choicesEn": [
+        "Tell the other person first",
+        "Sit with it alone first"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-054",
+      "deck": "either_or",
+      "relationMode": "friend",
+      "intimacyLevel": 1,
+      "type": "either_or",
+      "prompt": "朋友低落时：更想递具体帮助，还是只陪着听？",
+      "choices": [
+        "递具体帮助",
+        "只陪着听"
+      ],
+      "tags": [
+        "二选一",
+        "密友",
+        "支持"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "friends",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "When a friend is low: do you lean toward offering concrete help, or simply listening?",
+      "choicesEn": [
+        "Offer concrete help",
+        "Just listen alongside"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-055",
+      "deck": "either_or",
+      "relationMode": "couple",
+      "intimacyLevel": 1,
+      "type": "either_or",
+      "prompt": "更想被爱的方式像：被稳稳接住，还是被轻轻逗笑？",
+      "choices": [
+        "被稳稳接住",
+        "被轻轻逗笑"
+      ],
+      "tags": [
+        "二选一",
+        "爱的语言"
+      ],
+      "notes": "情侣；非心理学量表口吻",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "The way you most want to be loved feels more like: being steadily held, or gently made to laugh?",
+      "choicesEn": [
+        "Steadily held",
+        "Gently teased into a smile"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-056",
+      "deck": "either_or",
+      "relationMode": "both",
+      "intimacyLevel": 0,
+      "type": "either_or",
+      "prompt": "岛上夜晚更配：一盏小灯，还是干脆关灯听声音？",
+      "choices": [
+        "一盏小灯",
+        "关灯听声音"
+      ],
+      "tags": [
+        "二选一",
+        "氛围",
+        "岛意象"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "neutral",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "What suits an island night better: one small lamp, or lights off and listening to the dark?",
+      "choicesEn": [
+        "One small lamp",
+        "Lights off—listen"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-057",
+      "deck": "either_or",
+      "relationMode": "couple",
+      "intimacyLevel": 2,
+      "type": "either_or",
+      "prompt": "见家长前更在意：礼仪准备，还是双方心意对齐？",
+      "choices": [
+        "礼仪准备",
+        "心意对齐"
+      ],
+      "tags": [
+        "二选一",
+        "家人"
+      ],
+      "notes": "需复审：家庭文化差异",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": true,
+      "status": "active",
+      "promptEn": "Before meeting the parents, do you care more about etiquette prep, or that both of you are aligned in heart?",
+      "choicesEn": [
+        "Etiquette prep",
+        "Hearts aligned"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-058",
+      "deck": "either_or",
+      "relationMode": "friend",
+      "intimacyLevel": 0,
+      "type": "either_or",
+      "prompt": "聊天更享受：东一句西一句乱聊，还是就一个话题深挖？",
+      "choices": [
+        "乱聊也好",
+        "一个话题深挖"
+      ],
+      "tags": [
+        "二选一",
+        "密友"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "friends",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "In conversation, do you enjoy leaping topic to topic more, or digging deep into one?",
+      "choicesEn": [
+        "Wandering chat is fine",
+        "One topic, dug deep"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-059",
+      "deck": "either_or",
+      "relationMode": "both",
+      "intimacyLevel": 1,
+      "type": "either_or",
+      "prompt": "压力大时更想对方：主动问怎么了，还是先给空间？",
+      "choices": [
+        "主动问",
+        "先给空间"
+      ],
+      "tags": [
+        "二选一",
+        "边界"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "neutral",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "When you're under pressure, do you want the other person to ask what's wrong—or give you space first?",
+      "choicesEn": [
+        "Ask first",
+        "Give space first"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-060",
+      "deck": "either_or",
+      "relationMode": "couple",
+      "intimacyLevel": 1,
+      "type": "either_or",
+      "prompt": "未来一年更想优先：一起攒一段经历，还是一起攒一点安全感？",
+      "choices": [
+        "攒经历",
+        "攒安全感"
+      ],
+      "tags": [
+        "二选一",
+        "未来"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Over the next year, would you rather prioritize gathering experiences together—or gathering a little more safety?",
+      "choicesEn": [
+        "Gather experiences",
+        "Gather a sense of safety"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-061",
+      "deck": "either_or",
+      "relationMode": "couple",
+      "intimacyLevel": 1,
+      "type": "either_or",
+      "prompt": "更想对方记住你的：一件小事，还是一个大决定里的态度？",
+      "choices": [
+        "一件小事",
+        "大决定里的态度"
+      ],
+      "tags": [
+        "情侣",
+        "被记住"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Would you rather the other person remember a small thing about you—or how you showed up in a big decision?",
+      "choicesEn": [
+        "A small thing",
+        "Your stance in a big decision"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-062",
+      "deck": "values",
+      "relationMode": "couple",
+      "intimacyLevel": 2,
+      "type": "open_text",
+      "prompt": "关于「钱怎么一起用」，你理想中的底线是什么？",
+      "choices": null,
+      "tags": [
+        "金钱",
+        "边界"
+      ],
+      "notes": "需复审：金钱；L2 牌组优先，慎日更",
+      "followup": "有没有已经达成的默契？",
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": true,
+      "status": "active",
+      "promptEn": "About how money is shared between you—what's your ideal bottom line?",
+      "choicesEn": null,
+      "followupEn": "Is there already an unspoken understanding?"
+    },
+    {
+      "id": "HI-Q-063",
+      "deck": "values",
+      "relationMode": "couple",
+      "intimacyLevel": 2,
+      "type": "single_choice",
+      "prompt": "合租或同居开销，你更倾向？",
+      "choices": [
+        "尽量 AA，清楚分明",
+        "一人多担一些也行，看收入",
+        "共同账户加个人零花"
+      ],
+      "tags": [
+        "金钱",
+        "同居"
+      ],
+      "notes": "需复审：金钱/同居",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": true,
+      "status": "active",
+      "promptEn": "For shared rent or living costs, what do you lean toward?",
+      "choicesEn": [
+        "Mostly split evenly—clear and clean",
+        "One can carry more, depending on income",
+        "A joint pot plus personal pocket money"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-064",
+      "deck": "values",
+      "relationMode": "couple",
+      "intimacyLevel": 2,
+      "type": "open_text",
+      "prompt": "和对方父母意见不一致时，你希望对方怎么站位？",
+      "choices": null,
+      "tags": [
+        "家人",
+        "边界"
+      ],
+      "notes": "需复审：家庭；不宜暗示站队撕父母",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": true,
+      "status": "active",
+      "promptEn": "When you and the other person's parents disagree, how do you hope they stand with you?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-065",
+      "deck": "values",
+      "relationMode": "couple",
+      "intimacyLevel": 2,
+      "type": "single_choice",
+      "prompt": "对「经常加班」这件事，你更能接受哪种相处？",
+      "choices": [
+        "理解忙碌，但要有固定相连的时间",
+        "希望对方主动减少可避免的加班",
+        "看阶段，但需要提前沟通预期"
+      ],
+      "tags": [
+        "工作",
+        "期待"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "When it comes to \"often working late,\" which way of being together can you live with more?",
+      "choicesEn": [
+        "I understand the busyness—but we need fixed time that connects us",
+        "I hope they cut back on overtime that can be avoided",
+        "It depends on the season—but expectations need talking through early"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-066",
+      "deck": "values",
+      "relationMode": "couple",
+      "intimacyLevel": 2,
+      "type": "open_text",
+      "prompt": "「安全感」对你来说，具体长什么样？（请举一个生活例子）",
+      "choices": null,
+      "tags": [
+        "安全感",
+        "具体"
+      ],
+      "notes": "避免空话鸡汤",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "What does \"a sense of safety\" look like for you, concretely? (Give one everyday example.)",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-067",
+      "deck": "values",
+      "relationMode": "couple",
+      "intimacyLevel": 3,
+      "type": "open_text",
+      "prompt": "有没有哪条关系里的原则，是你不太愿意妥协的？",
+      "choices": null,
+      "tags": [
+        "原则",
+        "边界"
+      ],
+      "notes": "需复审：可能触发冲突话题；L3 牌组",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": true,
+      "status": "active",
+      "promptEn": "Is there a principle in the relationship you're not quite willing to bend on?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-068",
+      "deck": "values",
+      "relationMode": "couple",
+      "intimacyLevel": 2,
+      "type": "either_or",
+      "prompt": "买房或租房的优先级，你更接近？",
+      "choices": [
+        "先稳定住处再说其他",
+        "经历与自由更重要，住可以将就"
+      ],
+      "tags": [
+        "金钱",
+        "住房"
+      ],
+      "notes": "需复审：住房焦虑",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": true,
+      "status": "active",
+      "promptEn": "On buying or renting a place, which priority is closer to yours?",
+      "choicesEn": [
+        "Secure a stable home first; the rest can wait",
+        "Experience and freedom matter more—housing can make do"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-069",
+      "deck": "values",
+      "relationMode": "couple",
+      "intimacyLevel": 2,
+      "type": "open_text",
+      "prompt": "如果未来突然多一周共同假期，你最想怎么安排？",
+      "choices": null,
+      "tags": [
+        "未来",
+        "假期"
+      ],
+      "notes": "偏轻价值观/想象",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "If a shared week of leave suddenly appeared, how would you most want to spend it?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-070",
+      "deck": "values",
+      "relationMode": "couple",
+      "intimacyLevel": 2,
+      "type": "single_choice",
+      "prompt": "关于社交软件上的边界，你更认同？",
+      "choices": [
+        "互相关注即可，不必汇报",
+        "重要互动希望对方知情",
+        "各自保留私人空间，信任优先"
+      ],
+      "tags": [
+        "社交边界",
+        "数字生活"
+      ],
+      "notes": "需复审：社交软件嫉妒触发",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": true,
+      "status": "active",
+      "promptEn": "About boundaries on social apps, which feels closer to you?",
+      "choicesEn": [
+        "Following each other is enough—no need to report",
+        "I'd want to know about important interactions",
+        "Each keeps private space—trust comes first"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-071",
+      "deck": "values",
+      "relationMode": "couple",
+      "intimacyLevel": 3,
+      "type": "open_text",
+      "prompt": "当你感到被忽视时，你通常需要对方做什么才算被接住？",
+      "choices": null,
+      "tags": [
+        "需求",
+        "冲突边缘"
+      ],
+      "notes": "L3",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "When you feel overlooked, what does the other person usually need to do for you to feel met?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-072",
+      "deck": "values",
+      "relationMode": "couple",
+      "intimacyLevel": 2,
+      "type": "open_text",
+      "prompt": "「对我们好」和「对家人好」如果暂时难两全，你怎么想？",
+      "choices": null,
+      "tags": [
+        "家人",
+        "价值排序"
+      ],
+      "notes": "需复审：家庭伦理",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": true,
+      "status": "active",
+      "promptEn": "If \"being good to us\" and \"being good to family\" can't both be fully met for a while—how do you think about that?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-073",
+      "deck": "values",
+      "relationMode": "couple",
+      "intimacyLevel": 1,
+      "type": "open_text",
+      "prompt": "你理想中，两个人怎样算「好好过日子」？（请尽量具体）",
+      "choices": null,
+      "tags": [
+        "日常理想",
+        "价值观入门"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "In your ideal, what does \"living well together\" actually look like? (Be as concrete as you can.)",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-074",
+      "deck": "values",
+      "relationMode": "couple",
+      "intimacyLevel": 2,
+      "type": "single_choice",
+      "prompt": "大决定（换工作、搬家等）你希望？",
+      "choices": [
+        "必须高度共识再动",
+        "一人主导也可以，但要充分告知",
+        "先各自想清楚，再约时间对齐"
+      ],
+      "tags": [
+        "决策",
+        "沟通"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "For big decisions (a job change, a move…), what do you hope for?",
+      "choicesEn": [
+        "High consensus before moving",
+        "One can lead—but full disclosure is required",
+        "Each think it through first, then set a time to align"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-075",
+      "deck": "values",
+      "relationMode": "couple",
+      "intimacyLevel": 2,
+      "type": "open_text",
+      "prompt": "彩礼、份子钱、人情往来里，你最在意的是哪一点？",
+      "choices": null,
+      "tags": [
+        "人情",
+        "金钱",
+        "文化"
+      ],
+      "notes": "需复审：彩礼等习俗差异大",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": true,
+      "status": "active",
+      "promptEn": "Among betrothal gifts, wedding envelopes, and the web of favors—what matters most to you?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-076",
+      "deck": "values",
+      "relationMode": "couple",
+      "intimacyLevel": 3,
+      "type": "open_text",
+      "prompt": "如果你们对「要不要孩子」想法不同，你希望用什么方式谈这件事？",
+      "choices": null,
+      "tags": [
+        "生育",
+        "未来"
+      ],
+      "notes": "需复审：生育高敏；客户端应提供跳过",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": true,
+      "status": "active",
+      "promptEn": "If you differ on whether to have children, how would you want that conversation to happen?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-077",
+      "deck": "values",
+      "relationMode": "couple",
+      "intimacyLevel": 1,
+      "type": "open_text",
+      "prompt": "对方哪一种「努力生活」的样子，最让你安心？",
+      "choices": null,
+      "tags": [
+        "欣赏",
+        "价值观软入口"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Which way the other person \"tries at living\" most settles your heart?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-078",
+      "deck": "values",
+      "relationMode": "couple",
+      "intimacyLevel": 2,
+      "type": "either_or",
+      "prompt": "更看重：共同朋友圈热闹，还是二人世界安静？",
+      "choices": [
+        "朋友圈热闹",
+        "二人世界安静"
+      ],
+      "tags": [
+        "社交",
+        "边界"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Do you value more: a lively shared circle of friends, or the quiet of just the two of you?",
+      "choicesEn": [
+        "A lively circle",
+        "Quiet, just the two of us"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-079",
+      "deck": "values",
+      "relationMode": "both",
+      "intimacyLevel": 2,
+      "type": "open_text",
+      "prompt": "你怎么定义一段关系里的「公平」？（可举小事）",
+      "choices": null,
+      "tags": [
+        "公平",
+        "价值观"
+      ],
+      "notes": "both 可答；密友也适用",
+      "followup": null,
+      "audience": "neutral",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "How do you define \"fairness\" in a relationship? (A small example is welcome.)",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-080",
+      "deck": "values",
+      "relationMode": "couple",
+      "intimacyLevel": 2,
+      "type": "open_text",
+      "prompt": "关于「个人空间」，你需要的最小单位是什么？（房间、耳机、一段独处时间…）",
+      "choices": null,
+      "tags": [
+        "边界",
+        "个人空间"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "About \"personal space\"—what's your smallest necessary unit? (A room, headphones, a stretch of alone time…)",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-081",
+      "deck": "long_distance",
+      "relationMode": "couple",
+      "intimacyLevel": 1,
+      "type": "open_text",
+      "prompt": "视频通话时，你最怕对方无意识做什么？",
+      "choices": null,
+      "tags": [
+        "异地",
+        "视频"
+      ],
+      "notes": "轻松可答",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "On a video call, what are you most afraid the other person might do without noticing?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-082",
+      "deck": "long_distance",
+      "relationMode": "couple",
+      "intimacyLevel": 1,
+      "type": "single_choice",
+      "prompt": "异地时你更需要哪种「在场」？",
+      "choices": [
+        "固定时段的通话",
+        "随时能回的短消息",
+        "偶尔的惊喜快递或信件"
+      ],
+      "tags": [
+        "异地",
+        "在场感"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "When you're apart, which kind of \"presence\" do you need more?",
+      "choicesEn": [
+        "Calls at a fixed hour",
+        "Short messages that can be answered anytime",
+        "The occasional surprise package or letter"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-083",
+      "deck": "long_distance",
+      "relationMode": "couple",
+      "intimacyLevel": 1,
+      "type": "open_text",
+      "prompt": "时差或作息错开时，你们怎样算「没有失联」？",
+      "choices": null,
+      "tags": [
+        "异地",
+        "时差"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "When time zones or schedules don't line up, what counts as \"we haven't lost each other\"?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-084",
+      "deck": "long_distance",
+      "relationMode": "couple",
+      "intimacyLevel": 2,
+      "type": "open_text",
+      "prompt": "见面频率如果暂时达不到理想，你希望怎样重新谈预期？",
+      "choices": null,
+      "tags": [
+        "异地",
+        "预期"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "If how often you see each other can't reach the ideal for a while, how would you want to renegotiate the expectation?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-085",
+      "deck": "long_distance",
+      "relationMode": "couple",
+      "intimacyLevel": 1,
+      "type": "either_or",
+      "prompt": "见面那天更想：把行程排满，还是大量留白？",
+      "choices": [
+        "行程排满",
+        "大量留白"
+      ],
+      "tags": [
+        "异地",
+        "见面"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "On a day you meet, would you rather pack the schedule full—or leave wide open space?",
+      "choicesEn": [
+        "Pack it full",
+        "Leave wide open space"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-086",
+      "deck": "long_distance",
+      "relationMode": "couple",
+      "intimacyLevel": 1,
+      "type": "open_text",
+      "prompt": "分别后的二十四小时，什么会让你稍微好过一点？",
+      "choices": null,
+      "tags": [
+        "异地",
+        "离别"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "In the twenty-four hours after parting, what would make it a little easier?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-087",
+      "deck": "long_distance",
+      "relationMode": "couple",
+      "intimacyLevel": 0,
+      "type": "whos_more_likely",
+      "prompt": "谁更可能在视频里先说「你先忙」？",
+      "choices": [
+        "我",
+        "对方"
+      ],
+      "tags": [
+        "异地",
+        "谁更可能"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Who is more likely to say first on a video call, \"You go ahead—I'll let you work\"?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-088",
+      "deck": "long_distance",
+      "relationMode": "couple",
+      "intimacyLevel": 2,
+      "type": "open_text",
+      "prompt": "异地阶段，你怎样判断「我们还在好好连着」？",
+      "choices": null,
+      "tags": [
+        "异地",
+        "安全感"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "In a long-distance stretch, how do you know \"we're still properly connected\"?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-089",
+      "deck": "long_distance",
+      "relationMode": "couple",
+      "intimacyLevel": 1,
+      "type": "single_choice",
+      "prompt": "收到对方「已读不回」时，你第一反应更接近？",
+      "choices": [
+        "对方可能在忙，等一等",
+        "会有点不安，需要确认",
+        "看最近状态再判断"
+      ],
+      "tags": [
+        "异地",
+        "沟通焦虑"
+      ],
+      "notes": "需复审：可能放大焦虑，选项已中性化",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": true,
+      "status": "active",
+      "promptEn": "When you see \"read\" and no reply, what's your first reaction closest to?",
+      "choicesEn": [
+        "They might be busy—I'll wait",
+        "A little unsettled—I need to check",
+        "Depends on how things have been lately"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-090",
+      "deck": "long_distance",
+      "relationMode": "couple",
+      "intimacyLevel": 1,
+      "type": "open_text",
+      "prompt": "有没有一首歌、一条路或一种天气，会让你特别想对方？",
+      "choices": null,
+      "tags": [
+        "异地",
+        "感官"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Is there a song, a road, or a kind of weather that makes you especially miss the other person?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-091",
+      "deck": "long_distance",
+      "relationMode": "couple",
+      "intimacyLevel": 2,
+      "type": "open_text",
+      "prompt": "如果只能选一种「跨城仪式」，你想固定下来的是什么？",
+      "choices": null,
+      "tags": [
+        "异地",
+        "仪式"
+      ],
+      "notes": "贴合产品仪式感",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "If you could keep only one \"cross-city ritual,\" what would you want to make fixed?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-092",
+      "deck": "long_distance",
+      "relationMode": "both",
+      "intimacyLevel": 1,
+      "type": "open_text",
+      "prompt": "距离让沟通变难时，你最想对方理解你的哪一点？",
+      "choices": null,
+      "tags": [
+        "异地",
+        "理解"
+      ],
+      "notes": "both：密友异地也可用",
+      "followup": null,
+      "audience": "neutral",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "When distance makes talking harder, what do you most want the other person to understand about you?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-093",
+      "deck": "long_distance",
+      "relationMode": "couple",
+      "intimacyLevel": 1,
+      "type": "either_or",
+      "prompt": "异地联络更想固定：每晚短聊，还是每周深聊一次？",
+      "choices": [
+        "每晚短聊",
+        "每周深聊"
+      ],
+      "tags": [
+        "异地",
+        "节奏"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "For staying in touch across distance, would you rather fix: a short chat every night, or one deep talk each week?",
+      "choicesEn": [
+        "A short chat every night",
+        "One deep talk each week"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-094",
+      "deck": "repair",
+      "relationMode": "couple",
+      "intimacyLevel": 2,
+      "type": "open_text",
+      "prompt": "吵完以后，怎样对你来说才算「真的和好了」？",
+      "choices": null,
+      "tags": [
+        "冲突",
+        "修复"
+      ],
+      "notes": "需复审",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": true,
+      "status": "active",
+      "promptEn": "After a fight, what counts for you as truly making up?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-095",
+      "deck": "repair",
+      "relationMode": "couple",
+      "intimacyLevel": 2,
+      "type": "single_choice",
+      "prompt": "冷战时你更希望对方？",
+      "choices": [
+        "先递一个缓和信号",
+        "给你明确空间与时限",
+        "用纸条或消息把事说清，不必当面"
+      ],
+      "tags": [
+        "冲突",
+        "冷战"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "During a cold war, what do you hope the other person does?",
+      "choicesEn": [
+        "Offer a softening signal first",
+        "Give you clear space—and a time limit",
+        "Put it in a note or message—no need to face-to-face"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-096",
+      "deck": "repair",
+      "relationMode": "couple",
+      "intimacyLevel": 3,
+      "type": "open_text",
+      "prompt": "有没有一句说过的气话，你其实希望能收回？",
+      "choices": null,
+      "tags": [
+        "冲突",
+        "后悔"
+      ],
+      "notes": "需复审：情绪唤醒高；可跳过",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": true,
+      "status": "active",
+      "promptEn": "Is there a sharp thing you said that you actually wish you could take back?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-097",
+      "deck": "repair",
+      "relationMode": "couple",
+      "intimacyLevel": 2,
+      "type": "open_text",
+      "prompt": "当你需要道歉时，怎样的方式对你更真诚？",
+      "choices": null,
+      "tags": [
+        "道歉",
+        "修复"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "When you need to apologize, what kind of apology feels more sincere to you?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-098",
+      "deck": "repair",
+      "relationMode": "couple",
+      "intimacyLevel": 2,
+      "type": "either_or",
+      "prompt": "争论时更怕：被打断，还是被晾着？",
+      "choices": [
+        "被打断",
+        "被晾着"
+      ],
+      "tags": [
+        "冲突",
+        "沟通"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "In an argument, what do you fear more: being interrupted, or being left hanging?",
+      "choicesEn": [
+        "Being interrupted",
+        "Being left hanging"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-099",
+      "deck": "repair",
+      "relationMode": "couple",
+      "intimacyLevel": 3,
+      "type": "open_text",
+      "prompt": "哪类话题一碰就容易火药味？你们有约定怎么暂停吗？",
+      "choices": null,
+      "tags": [
+        "冲突",
+        "触发点"
+      ],
+      "notes": "L3",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "What kinds of topics turn fiery the moment they come up? Do you have a way you've agreed to pause?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-100",
+      "deck": "repair",
+      "relationMode": "couple",
+      "intimacyLevel": 2,
+      "type": "open_text",
+      "prompt": "和好之后，你还需不需要一点「修复仪式」（散步、一起吃饭等）？需要的话是什么？",
+      "choices": null,
+      "tags": [
+        "修复",
+        "仪式"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "After making up, do you still need a small \"repair ritual\" (a walk, a meal together…)? If so, what is it?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-101",
+      "deck": "repair",
+      "relationMode": "couple",
+      "intimacyLevel": 2,
+      "type": "single_choice",
+      "prompt": "对方指出你的问题时，你更容易？",
+      "choices": [
+        "先防御，再慢慢听进去",
+        "当下能听，但事后需要消化",
+        "很在意语气，内容对也难受"
+      ],
+      "tags": [
+        "冲突",
+        "反馈"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "When the other person points out something about you, you're more likely to…",
+      "choicesEn": [
+        "Defend first—then slowly take it in",
+        "Hear it in the moment—but need to digest later",
+        "Care a lot about the tone; even if they're right, it still hurts"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-102",
+      "deck": "repair",
+      "relationMode": "friend",
+      "intimacyLevel": 2,
+      "type": "open_text",
+      "prompt": "和密友闹别扭时，你通常怎样迈出第一步？",
+      "choices": null,
+      "tags": [
+        "密友",
+        "修复"
+      ],
+      "notes": "密友冲突包",
+      "followup": null,
+      "audience": "friends",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "When things go sideways with a close friend, how do you usually take the first step back?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-103",
+      "deck": "repair",
+      "relationMode": "couple",
+      "intimacyLevel": 3,
+      "type": "open_text",
+      "prompt": "你怎样区分「需要冷静」和「在逃避」？",
+      "choices": null,
+      "tags": [
+        "冲突",
+        "自我觉察"
+      ],
+      "notes": "L3；避免心理学术语堆砌",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "How do you tell the difference between \"needing to cool off\" and \"avoiding\"?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-104",
+      "deck": "repair",
+      "relationMode": "couple",
+      "intimacyLevel": 2,
+      "type": "open_text",
+      "prompt": "如果重来一次最近的小争执，你想改掉自己的哪一步？",
+      "choices": null,
+      "tags": [
+        "冲突",
+        "复盘"
+      ],
+      "notes": "建设性",
+      "followup": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "If you could replay a recent small argument, which of your own steps would you want to change?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-105",
+      "deck": "repair",
+      "relationMode": "both",
+      "intimacyLevel": 1,
+      "type": "open_text",
+      "prompt": "对方怎样说「我有点累了，晚点聊」，你会觉得被尊重而不是被推开？",
+      "choices": null,
+      "tags": [
+        "边界",
+        "沟通"
+      ],
+      "notes": "both；降冲突前置",
+      "followup": null,
+      "audience": "neutral",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "How can the other person say \"I'm a bit tired—let's talk later\" so it feels like respect, not being pushed away?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-106",
+      "deck": "friends_neutral",
+      "relationMode": "friend",
+      "intimacyLevel": 0,
+      "type": "open_text",
+      "prompt": "你们是怎么从「认识」变成「可以互相托底」的？",
+      "choices": null,
+      "tags": [
+        "密友",
+        "起源"
+      ],
+      "notes": "禁止恋爱口吻",
+      "followup": null,
+      "audience": "friends",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "How did you go from \"knowing each other\" to \"someone I can lean on\"?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-107",
+      "deck": "friends_neutral",
+      "relationMode": "friend",
+      "intimacyLevel": 0,
+      "type": "open_text",
+      "prompt": "用一种天气形容这段友谊现在的状态。",
+      "choices": null,
+      "tags": [
+        "密友",
+        "隐喻"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "friends",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Name a kind of weather that describes this friendship as it is now.",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-108",
+      "deck": "friends_neutral",
+      "relationMode": "friend",
+      "intimacyLevel": 1,
+      "type": "open_text",
+      "prompt": "对方做过哪件小事，让你觉得「这朋友处值了」？",
+      "choices": null,
+      "tags": [
+        "密友",
+        "被看见"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "friends",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "What small thing has the other person done that made you think, \"this friendship was worth it\"?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-109",
+      "deck": "friends_neutral",
+      "relationMode": "friend",
+      "intimacyLevel": 0,
+      "type": "single_choice",
+      "prompt": "你们更像哪种搭子？",
+      "choices": [
+        "吃饭聊天搭子",
+        "办事救急搭子",
+        "一起发呆也舒服的搭子"
+      ],
+      "tags": [
+        "密友",
+        "类型"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "friends",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "What kind of partners-in-crime are you two more like?",
+      "choicesEn": [
+        "Meal-and-chat partners",
+        "Errand-and-emergency partners",
+        "Partners who can sit in a daze together and still feel at ease"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-110",
+      "deck": "friends_neutral",
+      "relationMode": "friend",
+      "intimacyLevel": 1,
+      "type": "open_text",
+      "prompt": "有什么话题，你几乎只会跟对方深入聊？",
+      "choices": null,
+      "tags": [
+        "密友",
+        "信任"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "friends",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Is there a topic you almost only go deep on with them?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-111",
+      "deck": "friends_neutral",
+      "relationMode": "friend",
+      "intimacyLevel": 0,
+      "type": "whos_more_likely",
+      "prompt": "谁更可能把约定写成日程表？",
+      "choices": [
+        "我",
+        "对方"
+      ],
+      "tags": [
+        "密友",
+        "谁更可能"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "friends",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Who is more likely to put a plan on the calendar?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-112",
+      "deck": "friends_neutral",
+      "relationMode": "friend",
+      "intimacyLevel": 1,
+      "type": "either_or",
+      "prompt": "友谊里更珍惜：高频联系，还是低频但每次都很真？",
+      "choices": [
+        "高频联系",
+        "低频但真"
+      ],
+      "tags": [
+        "密友",
+        "联系频率"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "friends",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "In friendship, do you treasure more: frequent contact, or rarer contact that always feels real?",
+      "choicesEn": [
+        "Frequent contact",
+        "Rarer—but real"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-113",
+      "deck": "friends_neutral",
+      "relationMode": "friend",
+      "intimacyLevel": 0,
+      "type": "open_text",
+      "prompt": "如果今天是「岛上密友日」，你想一起做件什么小事？",
+      "choices": null,
+      "tags": [
+        "密友",
+        "日常",
+        "岛意象"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "friends",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "If today were \"close-friends day on the island,\" what small thing would you want to do together?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-114",
+      "deck": "friends_neutral",
+      "relationMode": "friend",
+      "intimacyLevel": 2,
+      "type": "open_text",
+      "prompt": "当对方做了让你不爽的事，你通常直接说还是先忍？理想是怎样？",
+      "choices": null,
+      "tags": [
+        "密友",
+        "边界"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "friends",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "When they do something that bothers you, do you usually say it straight—or hold it first? What's the ideal?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-115",
+      "deck": "friends_neutral",
+      "relationMode": "friend",
+      "intimacyLevel": 1,
+      "type": "open_text",
+      "prompt": "对方陷入选择困难时，你更常扮演什么角色？",
+      "choices": null,
+      "tags": [
+        "密友",
+        "支持"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "friends",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "When the other person is stuck choosing, what role do you usually play?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-116",
+      "deck": "friends_neutral",
+      "relationMode": "friend",
+      "intimacyLevel": 0,
+      "type": "single_choice",
+      "prompt": "约出来最容易成功的时间段是？",
+      "choices": [
+        "周末白天",
+        "工作日晚饭后",
+        "得看心情，突然约反而成"
+      ],
+      "tags": [
+        "密友",
+        "约见"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "friends",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "What's the easiest time window for plans to actually happen?",
+      "choicesEn": [
+        "Weekend daytime",
+        "Weeknight after dinner",
+        "Depends on the mood—sudden invites often work better"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-117",
+      "deck": "friends_neutral",
+      "relationMode": "friend",
+      "intimacyLevel": 1,
+      "type": "open_text",
+      "prompt": "你们有没有「只有彼此懂」的梗或黑话？举一个。",
+      "choices": null,
+      "tags": [
+        "密友",
+        "默契"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "friends",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Do you have an inside joke or private slang only the two of you get? Give one.",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-118",
+      "deck": "friends_neutral",
+      "relationMode": "friend",
+      "intimacyLevel": 2,
+      "type": "open_text",
+      "prompt": "友谊里你最在意的边界是什么？（时间、话题、社交场合等）",
+      "choices": null,
+      "tags": [
+        "密友",
+        "边界"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "friends",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "What's the boundary you care about most in friendship? (Time, topics, social settings…)",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-119",
+      "deck": "friends_neutral",
+      "relationMode": "friend",
+      "intimacyLevel": 0,
+      "type": "either_or",
+      "prompt": "更想一起：打卡新地方，还是回访老地方？",
+      "choices": [
+        "打卡新地方",
+        "回访老地方"
+      ],
+      "tags": [
+        "密友",
+        "二选一"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "friends",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Would you rather check in somewhere new together—or revisit an old haunt?",
+      "choicesEn": [
+        "Somewhere new",
+        "An old haunt"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-120",
+      "deck": "friends_neutral",
+      "relationMode": "friend",
+      "intimacyLevel": 1,
+      "type": "open_text",
+      "prompt": "对方怎样的「关心方式」最对你胃口？",
+      "choices": null,
+      "tags": [
+        "密友",
+        "关心"
+      ],
+      "notes": "中性，不暧昧",
+      "followup": null,
+      "audience": "friends",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "What kind of \"caring\" from them sits best with you?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-121",
+      "deck": "friends_neutral",
+      "relationMode": "friend",
+      "intimacyLevel": 0,
+      "type": "whos_more_likely",
+      "prompt": "谁更可能在群里潜水，私聊却很活跃？",
+      "choices": [
+        "我",
+        "对方"
+      ],
+      "tags": [
+        "密友",
+        "社交"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "friends",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Who is more likely to lurk in the group chat—but light up in private messages?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-122",
+      "deck": "friends_neutral",
+      "relationMode": "friend",
+      "intimacyLevel": 2,
+      "type": "open_text",
+      "prompt": "如果很久没联系，怎样重新接上话你觉得自然？",
+      "choices": null,
+      "tags": [
+        "密友",
+        "重连"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "friends",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "If it's been a long while without contact, what feels natural as a way back in?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-123",
+      "deck": "friends_neutral",
+      "relationMode": "friend",
+      "intimacyLevel": 1,
+      "type": "single_choice",
+      "prompt": "分享烦恼时你更希望对方？",
+      "choices": [
+        "先听完再给看法",
+        "可以打断提问帮你理清",
+        "听完后一起吐槽出气"
+      ],
+      "tags": [
+        "密友",
+        "倾听"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "friends",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "When sharing a worry, what do you hope the other person does?",
+      "choicesEn": [
+        "Listen all the way through before offering a view",
+        "Interrupt with questions to help you untangle it",
+        "Hear you out—then vent alongside you"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-124",
+      "deck": "friends_neutral",
+      "relationMode": "friend",
+      "intimacyLevel": 0,
+      "type": "open_text",
+      "prompt": "描述一次你们「明明很累却还是见了面」的经历。",
+      "choices": null,
+      "tags": [
+        "密友",
+        "记忆"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "friends",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Describe a time you were both exhausted—and still showed up to meet.",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-125",
+      "deck": "friends_neutral",
+      "relationMode": "friend",
+      "intimacyLevel": 3,
+      "type": "open_text",
+      "prompt": "有没有因为误会差点散了的时候？后来怎么绕回来的？",
+      "choices": null,
+      "tags": [
+        "密友",
+        "修复"
+      ],
+      "notes": "需复审；可跳过",
+      "followup": null,
+      "audience": "friends",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": true,
+      "status": "active",
+      "promptEn": "Was there a misunderstanding that almost pulled you apart? How did you find your way back?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-126",
+      "deck": "friends_neutral",
+      "relationMode": "friend",
+      "intimacyLevel": 1,
+      "type": "open_text",
+      "prompt": "对方哪句随口的话，你记了很久？",
+      "choices": null,
+      "tags": [
+        "密友",
+        "话语"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "friends",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Which offhand line from them have you held onto for a long time?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-127",
+      "deck": "friends_neutral",
+      "relationMode": "friend",
+      "intimacyLevel": 0,
+      "type": "either_or",
+      "prompt": "聊天工具更依赖：长语音，还是短文字连发？",
+      "choices": [
+        "长语音",
+        "短文字连发"
+      ],
+      "tags": [
+        "密友",
+        "沟通介质"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "friends",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "For chatting, do you lean on long voice notes more—or bursts of short texts?",
+      "choicesEn": [
+        "Long voice notes",
+        "Bursts of short texts"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-128",
+      "deck": "friends_neutral",
+      "relationMode": "friend",
+      "intimacyLevel": 2,
+      "type": "open_text",
+      "prompt": "在「讲义气」和「讲道理」之间，你们这段友谊更偏哪边？举例。",
+      "choices": null,
+      "tags": [
+        "密友",
+        "价值"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "friends",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Between \"loyalty\" and \"reason,\" which way does this friendship lean? Give an example.",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-129",
+      "deck": "friends_neutral",
+      "relationMode": "friend",
+      "intimacyLevel": 1,
+      "type": "whos_more_likely",
+      "prompt": "谁更可能记住对方不吃什么、不能碰什么？",
+      "choices": [
+        "我",
+        "对方"
+      ],
+      "tags": [
+        "密友",
+        "细心"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "friends",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Who is more likely to remember what the other person won't eat—or can't touch?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-130",
+      "deck": "friends_neutral",
+      "relationMode": "friend",
+      "intimacyLevel": 0,
+      "type": "open_text",
+      "prompt": "如果给这段友谊取一个「岛名」或代号，你会取什么？",
+      "choices": null,
+      "tags": [
+        "密友",
+        "命名",
+        "领地感"
+      ],
+      "notes": "强化半个岛意象",
+      "followup": null,
+      "audience": "friends",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "If you gave this friendship an \"island name\" or code name, what would it be?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-131",
+      "deck": "friends_neutral",
+      "relationMode": "both",
+      "intimacyLevel": 0,
+      "type": "open_text",
+      "prompt": "今天有什么小事，你想留在这座岛的记录里？",
+      "choices": null,
+      "tags": [
+        "中性",
+        "记录",
+        "岛意象"
+      ],
+      "notes": "通用日更",
+      "followup": null,
+      "audience": "neutral",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "What small thing from today do you want kept in this island's record?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-132",
+      "deck": "friends_neutral",
+      "relationMode": "both",
+      "intimacyLevel": 0,
+      "type": "single_choice",
+      "prompt": "此刻更想要的节奏是？",
+      "choices": [
+        "慢一点，留白多一点",
+        "快一点，把事推进去",
+        "乱一点也没关系，热闹就好"
+      ],
+      "tags": [
+        "中性",
+        "节奏"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "neutral",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "What pace do you want more of right now?",
+      "choicesEn": [
+        "Slower—more open space",
+        "Faster—push things forward",
+        "A little messy is fine—as long as it's lively"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-133",
+      "deck": "friends_neutral",
+      "relationMode": "both",
+      "intimacyLevel": 1,
+      "type": "open_text",
+      "prompt": "对方哪个习惯，一开始不适应，后来却觉得挺有趣？",
+      "choices": null,
+      "tags": [
+        "中性",
+        "习惯"
+      ],
+      "notes": "both：避免恋爱词",
+      "followup": null,
+      "audience": "neutral",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Which of their habits felt odd at first—and later started to feel kind of charming?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-134",
+      "deck": "friends_neutral",
+      "relationMode": "both",
+      "intimacyLevel": 0,
+      "type": "whos_more_likely",
+      "prompt": "谁更可能把「下次一定」真的排进下一次？",
+      "choices": [
+        "我",
+        "对方"
+      ],
+      "tags": [
+        "中性",
+        "靠谱"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "neutral",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Who is more likely to actually put \"next time for sure\" on the next calendar?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-135",
+      "deck": "friends_neutral",
+      "relationMode": "both",
+      "intimacyLevel": 1,
+      "type": "either_or",
+      "prompt": "更想被记住为：靠谱的人，还是有趣的人？",
+      "choices": [
+        "靠谱",
+        "有趣"
+      ],
+      "tags": [
+        "中性",
+        "自我"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "neutral",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Would you rather be remembered as: the reliable one, or the interesting one?",
+      "choicesEn": [
+        "Reliable",
+        "Interesting"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-136",
+      "deck": "friends_neutral",
+      "relationMode": "both",
+      "intimacyLevel": 0,
+      "type": "open_text",
+      "prompt": "用一种交通工具比喻你们的相处节奏（地铁、自行车、渡船…）。",
+      "choices": null,
+      "tags": [
+        "中性",
+        "隐喻"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "neutral",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Name a kind of transport that matches your rhythm together (subway, bicycle, ferry…).",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-137",
+      "deck": "friends_neutral",
+      "relationMode": "friend",
+      "intimacyLevel": 2,
+      "type": "open_text",
+      "prompt": "当对方交了新朋友或进入新圈子，你通常心情如何？希望怎样被安放？",
+      "choices": null,
+      "tags": [
+        "密友",
+        "边界"
+      ],
+      "notes": "需复审：朋友圈变动敏感；中性处理",
+      "followup": null,
+      "audience": "friends",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": true,
+      "status": "active",
+      "promptEn": "When they make new friends or step into a new circle, how do you usually feel—and how do you hope to be held in that?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-138",
+      "deck": "friends_neutral",
+      "relationMode": "both",
+      "intimacyLevel": 1,
+      "type": "open_text",
+      "prompt": "什么样的沉默是舒服的？什么样的沉默让你想确认一下？",
+      "choices": null,
+      "tags": [
+        "中性",
+        "沉默",
+        "边界"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "neutral",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "What kind of silence is comfortable? What kind makes you want to check in?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-139",
+      "deck": "friends_neutral",
+      "relationMode": "friend",
+      "intimacyLevel": 1,
+      "type": "single_choice",
+      "prompt": "送礼或心意上你们更偏向？",
+      "choices": [
+        "实用就好",
+        "仪式感一点更好",
+        "心意到了，形式随意"
+      ],
+      "tags": [
+        "密友",
+        "礼物"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "friends",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "When it comes to gifts or gestures of care, which way do you lean?",
+      "choicesEn": [
+        "Useful is enough",
+        "A little ceremony is better",
+        "The thought is what matters—form is free"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-140",
+      "deck": "friends_neutral",
+      "relationMode": "both",
+      "intimacyLevel": 0,
+      "type": "open_text",
+      "prompt": "如果今天只能交换一个「岛上情报」，你想告诉对方什么？",
+      "choices": null,
+      "tags": [
+        "中性",
+        "分享",
+        "岛意象"
+      ],
+      "notes": "高完成率",
+      "followup": null,
+      "audience": "neutral",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "If today you could trade only one piece of \"island intel,\" what would you tell them?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-141",
+      "deck": "friends_neutral",
+      "relationMode": "friend",
+      "intimacyLevel": 2,
+      "type": "open_text",
+      "prompt": "友谊里「互相成就」对你意味着什么？有没有过具体例子？",
+      "choices": null,
+      "tags": [
+        "密友",
+        "成长"
+      ],
+      "notes": "避免鸡汤空话，要求举例",
+      "followup": null,
+      "audience": "friends",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "What does \"lifting each other up\" mean to you in friendship? Has there been a concrete example?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-142",
+      "deck": "friends_neutral",
+      "relationMode": "both",
+      "intimacyLevel": 1,
+      "type": "either_or",
+      "prompt": "更想一起度过：一个计划好的夜晚，还是一个意外的空隙？",
+      "choices": [
+        "计划好的夜晚",
+        "意外的空隙"
+      ],
+      "tags": [
+        "中性",
+        "时间"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "neutral",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Would you rather share: a planned evening, or an unexpected pocket of time?",
+      "choicesEn": [
+        "A planned evening",
+        "An unexpected pocket"
+      ],
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-143",
+      "deck": "friends_neutral",
+      "relationMode": "friend",
+      "intimacyLevel": 0,
+      "type": "open_text",
+      "prompt": "「你来了，岛才完整」如果用在友谊上，你想到的画面是什么？",
+      "choices": null,
+      "tags": [
+        "密友",
+        "品牌",
+        "slogan"
+      ],
+      "notes": "品牌向；非恋爱改写",
+      "followup": null,
+      "audience": "friends",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "\"You arrived—and the island became whole.\" If that line were about friendship, what image comes to mind?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-144",
+      "deck": "friends_neutral",
+      "relationMode": "friend",
+      "intimacyLevel": 1,
+      "type": "open_text",
+      "prompt": "你们之间有没有「不用解释也很懂」的表情包或反应？",
+      "choices": null,
+      "tags": [
+        "密友",
+        "默契"
+      ],
+      "notes": "",
+      "followup": null,
+      "audience": "friends",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "Is there a sticker or a reaction between you that needs no explanation—you just get it?",
+      "choicesEn": null,
+      "followupEn": null
+    },
+    {
+      "id": "HI-Q-145",
+      "deck": "friends_neutral",
+      "relationMode": "both",
+      "intimacyLevel": 0,
+      "type": "single_choice",
+      "prompt": "揭晓答案后，你更想？",
+      "choices": [
+        "先笑一会儿",
+        "认真追问一句",
+        "安静对照，各自消化"
+      ],
+      "tags": [
+        "中性",
+        "揭晓后行为"
+      ],
+      "notes": "产品机制友好",
+      "followup": null,
+      "audience": "neutral",
+      "nsfwFlag": false,
+      "dailyEligible": true,
+      "needsReview": false,
+      "status": "active",
+      "promptEn": "After the answers are revealed, what do you want more?",
+      "choicesEn": [
+        "Laugh for a moment first",
+        "Ask one sincere follow-up",
+        "Quietly compare notes—each digest alone"
+      ],
+      "followupEn": null
+    }
+  ]
+}

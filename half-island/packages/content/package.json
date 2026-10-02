@@ -1,0 +1,14 @@
+{
+  "name": "@half-island/content",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "半个岛题库机读导出（源自 half-island-question-bank-v1.md）",
+  "exports": {
+    "./decks/v1.json": "./decks/v1.json"
+  },
+  "scripts": {
+    "lint": "node -e \"JSON.parse(require('fs').readFileSync('decks/v1.json','utf8')); console.log('v1.json ok')\"",
+    "typecheck": "pnpm lint"
+  }
+}

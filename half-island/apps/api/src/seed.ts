@@ -35,6 +35,7 @@ function main(): void {
     DELETE FROM events;
     DELETE FROM nudges;
     DELETE FROM pair_prompt_history;
+    DELETE FROM answer_translations;
     DELETE FROM answers;
     DELETE FROM assignments;
     DELETE FROM prompts;

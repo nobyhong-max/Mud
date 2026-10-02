@@ -1,7 +1,7 @@
 {
   "version": "v1",
   "brand": "半个岛",
-  "source": "docs/half-island-question-bank-v1.md §6 CSV",
+  "source": "docs/half-island-question-bank-v1.md §6 CSV + bilingual EN overlay",
   "count": 145,
   "deckOnlyIds": [
     "HI-Q-026",
@@ -61,7 +61,10 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "What small thing today made you suddenly feel you weren't alone on this island?",
+      "choicesEn": null,
+      "followupEn": "What did you want to say to the other person in that moment?"
     },
     {
       "id": "HI-Q-002",
@@ -81,7 +84,10 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Right now, outside the window or in this room—what detail do you wish the other person could see too?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-003",
@@ -105,7 +111,14 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "When do you most often think of the other person?",
+      "choicesEn": [
+        "Just after waking",
+        "In the quiet gap after finishing something",
+        "Before turning out the light at night"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-004",
@@ -128,7 +141,13 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Today, would you rather sit quietly side by side, or go out and walk a while?",
+      "choicesEn": [
+        "Sit quietly side by side",
+        "Go out for a walk"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-005",
@@ -148,7 +167,10 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Which ordinary thing has the other person done lately that you quietly filed away?",
+      "choicesEn": null,
+      "followupEn": "Have you ever said it out loud?"
     },
     {
       "id": "HI-Q-006",
@@ -172,7 +194,14 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Which kind of \"island ordinary\" are you two more like?",
+      "choicesEn": [
+        "Each doing your own thing, glancing up now and then",
+        "Always looking for a thread of conversation",
+        "One sets the pace; the other follows"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-007",
@@ -192,7 +221,10 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "If you had to name today-as-us with a flavor, what would you choose—and why?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-008",
@@ -215,7 +247,13 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Who is more likely to say \"leaving now\" and only actually leave half an hour later?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-009",
@@ -235,7 +273,10 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "When was the last time something small made you both laugh out loud?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-010",
@@ -259,7 +300,14 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Which state is your energy closest to today?",
+      "choicesEn": [
+        "Tide just out—need to ease down",
+        "Sun just right—want to do something",
+        "Wind a bit strong—need each other to hold steady"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-011",
@@ -279,7 +327,10 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "What kind of message from the other person makes you reply almost without thinking?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-012",
@@ -302,7 +353,13 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Would you rather tuck \"today\" into a casual photo, or a one-line note?",
+      "choicesEn": [
+        "A photo",
+        "A one-liner"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-013",
@@ -322,7 +379,10 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "If tonight gave you twenty extra minutes that belonged only to the two of you, how would you spend them?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-014",
@@ -345,7 +405,13 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Who is more likely to write a long to-do list—then start with the easiest item?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-015",
@@ -365,7 +431,10 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Is there a little signal or catchphrase only the two of you understand?",
+      "choicesEn": null,
+      "followupEn": "How did it come about?"
     },
     {
       "id": "HI-Q-016",
@@ -389,7 +458,14 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "What do you need more from the other person today?",
+      "choicesEn": [
+        "A simple \"I'm here\"",
+        "A concrete hand with something",
+        "Quiet company—no need for many words"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-017",
@@ -409,7 +485,10 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Describe an ordinary moment that feels deeply \"us\" (it doesn't have to be dramatic).",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-018",
@@ -432,7 +511,13 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "On a weekend morning, would you rather linger in bed talking, or get up early to hunt for food?",
+      "choicesEn": [
+        "Linger in bed talking",
+        "Get up early and forage"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-019",
@@ -452,7 +537,10 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Has a meal or a drink lately brought the other person to mind?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-020",
@@ -472,7 +560,10 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Describe the other person today in three characters (cheeky is fine; empty praise is not).",
+      "choicesEn": null,
+      "followupEn": "Why those three?"
     },
     {
       "id": "HI-Q-021",
@@ -496,7 +587,14 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "How do you most want the other person to meet you where you are today?",
+      "choicesEn": [
+        "\"You've worked hard\" is enough",
+        "Tease you with a nickname",
+        "Ask, sincerely, \"Are you okay?\""
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-022",
@@ -516,7 +614,10 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Among the things within reach of your seat right now, which one most resembles your mood today?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-023",
@@ -539,7 +640,13 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Who is more likely to linger an extra two minutes at the mirror before leaving?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-024",
@@ -562,7 +669,13 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Who is more likely to notice first when the other person changes a haircut or puts on something new?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-025",
@@ -585,7 +698,13 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Who is more likely to leave a package at the door \"for tomorrow\"?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-026",
@@ -608,7 +727,13 @@
       "nsfwFlag": false,
       "dailyEligible": false,
       "needsReview": true,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Who is more likely to go quiet for a long time before a disagreement?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-027",
@@ -631,7 +756,13 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Who is more likely to keep changing the order when getting takeout?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-028",
@@ -654,7 +785,13 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Who is more likely to remember a wish the other person mentioned in passing?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-029",
@@ -677,7 +814,13 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Who is more likely to be lost and still insist \"just a little farther\"?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-030",
@@ -701,7 +844,13 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Who is more likely to say \"we'll only stay a bit\" at a gathering—and still be talking late?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-031",
@@ -724,7 +873,13 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Who is more likely to say first, \"We should really talk about this\"?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-032",
@@ -747,7 +902,13 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Who is more likely to set a string of alarms just to get up?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-033",
@@ -770,7 +931,13 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Who is more likely to whisper a running critique of the plot in a movie theater?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-034",
@@ -794,7 +961,13 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Who is more likely to bookmark a pile of guides—then decide on the day to wing it?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-035",
@@ -817,7 +990,13 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Who is more likely to notice first that something is missing from the house or room?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-036",
@@ -840,7 +1019,13 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Who is more likely to keep anniversaries in the heart—and pretend not to make a fuss?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-037",
@@ -863,7 +1048,13 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Who is more likely to forward a funny video the moment they see it?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-038",
@@ -887,7 +1078,13 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Who is more likely, when the other person is low, to simply stay—rather than rush in with solutions?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-039",
@@ -910,7 +1107,13 @@
       "nsfwFlag": false,
       "dailyEligible": false,
       "needsReview": true,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Who is more likely to order a dish they don't love just to match the other person's taste?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-040",
@@ -933,7 +1136,13 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Who is more likely to fill a cart and then never check out?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-041",
@@ -956,7 +1165,13 @@
       "nsfwFlag": false,
       "dailyEligible": false,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Who is more likely to dig through a lot of research before a big decision?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-042",
@@ -979,7 +1194,13 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Who is more likely to put off watching the final episode?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-043",
@@ -1002,7 +1223,13 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Who is more likely to ask first, when ordering, what the other person wants?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-044",
@@ -1025,7 +1252,13 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Who is more likely to turn \"just tidy a bit\" into a full deep clean?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-045",
@@ -1048,7 +1281,13 @@
       "nsfwFlag": false,
       "dailyEligible": false,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Who is more likely to break a stalemate first with \"You there? Can we talk?\"",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-046",
@@ -1071,7 +1310,13 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Would you rather: say little but be together, or talk for hours across a screen?",
+      "choicesEn": [
+        "Say little but be together",
+        "Talk long across a screen"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-047",
@@ -1094,7 +1339,13 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "For an anniversary, would you rather plan the day carefully, or wander wherever the day takes you?",
+      "choicesEn": [
+        "Plan it carefully",
+        "Wander as it comes"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-048",
@@ -1117,7 +1368,13 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "On a rainy day, would you rather nest in with an old film, or take an umbrella out for something warm to eat?",
+      "choicesEn": [
+        "Nest in with an old film",
+        "Umbrella out for hot food"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-049",
@@ -1140,7 +1397,13 @@
       "nsfwFlag": false,
       "dailyEligible": false,
       "needsReview": true,
-      "status": "active"
+      "status": "active",
+      "promptEn": "After a disagreement, would you rather cool off separately first, or clear it up right away?",
+      "choicesEn": [
+        "Cool off separately",
+        "Clear it up right away"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-050",
@@ -1163,7 +1426,13 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "For a weekend together: a slow museum wander, or a long talk over a good meal?",
+      "choicesEn": [
+        "Slow museum wander",
+        "Deep talk at a restaurant"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-051",
@@ -1186,7 +1455,13 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "When traveling, do you care more about sleeping well, or making the most of every hour?",
+      "choicesEn": [
+        "Sleeping well",
+        "Making the most of it"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-052",
@@ -1209,7 +1484,13 @@
       "nsfwFlag": false,
       "dailyEligible": false,
       "needsReview": true,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Before a big purchase: must you decide together, or each have freedom within a set amount?",
+      "choicesEn": [
+        "Must discuss it",
+        "Freedom within a budget"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-053",
@@ -1232,7 +1513,13 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "When good news lands: tell the other person first, or sit with it alone for a while?",
+      "choicesEn": [
+        "Tell the other person first",
+        "Sit with it alone first"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-054",
@@ -1256,7 +1543,13 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "When a friend is low: do you lean toward offering concrete help, or simply listening?",
+      "choicesEn": [
+        "Offer concrete help",
+        "Just listen alongside"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-055",
@@ -1279,7 +1572,13 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "The way you most want to be loved feels more like: being steadily held, or gently made to laugh?",
+      "choicesEn": [
+        "Steadily held",
+        "Gently teased into a smile"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-056",
@@ -1303,7 +1602,13 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "What suits an island night better: one small lamp, or lights off and listening to the dark?",
+      "choicesEn": [
+        "One small lamp",
+        "Lights off—listen"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-057",
@@ -1326,7 +1631,13 @@
       "nsfwFlag": false,
       "dailyEligible": false,
       "needsReview": true,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Before meeting the parents, do you care more about etiquette prep, or that both of you are aligned in heart?",
+      "choicesEn": [
+        "Etiquette prep",
+        "Hearts aligned"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-058",
@@ -1349,7 +1660,13 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "In conversation, do you enjoy leaping topic to topic more, or digging deep into one?",
+      "choicesEn": [
+        "Wandering chat is fine",
+        "One topic, dug deep"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-059",
@@ -1372,7 +1689,13 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "When you're under pressure, do you want the other person to ask what's wrong—or give you space first?",
+      "choicesEn": [
+        "Ask first",
+        "Give space first"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-060",
@@ -1395,7 +1718,13 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Over the next year, would you rather prioritize gathering experiences together—or gathering a little more safety?",
+      "choicesEn": [
+        "Gather experiences",
+        "Gather a sense of safety"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-061",
@@ -1418,7 +1747,13 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Would you rather the other person remember a small thing about you—or how you showed up in a big decision?",
+      "choicesEn": [
+        "A small thing",
+        "Your stance in a big decision"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-062",
@@ -1438,7 +1773,10 @@
       "nsfwFlag": false,
       "dailyEligible": false,
       "needsReview": true,
-      "status": "active"
+      "status": "active",
+      "promptEn": "About how money is shared between you—what's your ideal bottom line?",
+      "choicesEn": null,
+      "followupEn": "Is there already an unspoken understanding?"
     },
     {
       "id": "HI-Q-063",
@@ -1462,7 +1800,14 @@
       "nsfwFlag": false,
       "dailyEligible": false,
       "needsReview": true,
-      "status": "active"
+      "status": "active",
+      "promptEn": "For shared rent or living costs, what do you lean toward?",
+      "choicesEn": [
+        "Mostly split evenly—clear and clean",
+        "One can carry more, depending on income",
+        "A joint pot plus personal pocket money"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-064",
@@ -1482,7 +1827,10 @@
       "nsfwFlag": false,
       "dailyEligible": false,
       "needsReview": true,
-      "status": "active"
+      "status": "active",
+      "promptEn": "When you and the other person's parents disagree, how do you hope they stand with you?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-065",
@@ -1506,7 +1854,14 @@
       "nsfwFlag": false,
       "dailyEligible": false,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "When it comes to \"often working late,\" which way of being together can you live with more?",
+      "choicesEn": [
+        "I understand the busyness—but we need fixed time that connects us",
+        "I hope they cut back on overtime that can be avoided",
+        "It depends on the season—but expectations need talking through early"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-066",
@@ -1526,7 +1881,10 @@
       "nsfwFlag": false,
       "dailyEligible": false,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "What does \"a sense of safety\" look like for you, concretely? (Give one everyday example.)",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-067",
@@ -1546,7 +1904,10 @@
       "nsfwFlag": false,
       "dailyEligible": false,
       "needsReview": true,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Is there a principle in the relationship you're not quite willing to bend on?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-068",
@@ -1569,7 +1930,13 @@
       "nsfwFlag": false,
       "dailyEligible": false,
       "needsReview": true,
-      "status": "active"
+      "status": "active",
+      "promptEn": "On buying or renting a place, which priority is closer to yours?",
+      "choicesEn": [
+        "Secure a stable home first; the rest can wait",
+        "Experience and freedom matter more—housing can make do"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-069",
@@ -1589,7 +1956,10 @@
       "nsfwFlag": false,
       "dailyEligible": false,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "If a shared week of leave suddenly appeared, how would you most want to spend it?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-070",
@@ -1613,7 +1983,14 @@
       "nsfwFlag": false,
       "dailyEligible": false,
       "needsReview": true,
-      "status": "active"
+      "status": "active",
+      "promptEn": "About boundaries on social apps, which feels closer to you?",
+      "choicesEn": [
+        "Following each other is enough—no need to report",
+        "I'd want to know about important interactions",
+        "Each keeps private space—trust comes first"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-071",
@@ -1633,7 +2010,10 @@
       "nsfwFlag": false,
       "dailyEligible": false,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "When you feel overlooked, what does the other person usually need to do for you to feel met?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-072",
@@ -1653,7 +2033,10 @@
       "nsfwFlag": false,
       "dailyEligible": false,
       "needsReview": true,
-      "status": "active"
+      "status": "active",
+      "promptEn": "If \"being good to us\" and \"being good to family\" can't both be fully met for a while—how do you think about that?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-073",
@@ -1673,7 +2056,10 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "In your ideal, what does \"living well together\" actually look like? (Be as concrete as you can.)",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-074",
@@ -1697,7 +2083,14 @@
       "nsfwFlag": false,
       "dailyEligible": false,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "For big decisions (a job change, a move…), what do you hope for?",
+      "choicesEn": [
+        "High consensus before moving",
+        "One can lead—but full disclosure is required",
+        "Each think it through first, then set a time to align"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-075",
@@ -1718,7 +2111,10 @@
       "nsfwFlag": false,
       "dailyEligible": false,
       "needsReview": true,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Among betrothal gifts, wedding envelopes, and the web of favors—what matters most to you?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-076",
@@ -1738,7 +2134,10 @@
       "nsfwFlag": false,
       "dailyEligible": false,
       "needsReview": true,
-      "status": "active"
+      "status": "active",
+      "promptEn": "If you differ on whether to have children, how would you want that conversation to happen?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-077",
@@ -1758,7 +2157,10 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Which way the other person \"tries at living\" most settles your heart?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-078",
@@ -1781,7 +2183,13 @@
       "nsfwFlag": false,
       "dailyEligible": false,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Do you value more: a lively shared circle of friends, or the quiet of just the two of you?",
+      "choicesEn": [
+        "A lively circle",
+        "Quiet, just the two of us"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-079",
@@ -1801,7 +2209,10 @@
       "nsfwFlag": false,
       "dailyEligible": false,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "How do you define \"fairness\" in a relationship? (A small example is welcome.)",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-080",
@@ -1821,7 +2232,10 @@
       "nsfwFlag": false,
       "dailyEligible": false,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "About \"personal space\"—what's your smallest necessary unit? (A room, headphones, a stretch of alone time…)",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-081",
@@ -1841,7 +2255,10 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "On a video call, what are you most afraid the other person might do without noticing?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-082",
@@ -1865,7 +2282,14 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "When you're apart, which kind of \"presence\" do you need more?",
+      "choicesEn": [
+        "Calls at a fixed hour",
+        "Short messages that can be answered anytime",
+        "The occasional surprise package or letter"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-083",
@@ -1885,7 +2309,10 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "When time zones or schedules don't line up, what counts as \"we haven't lost each other\"?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-084",
@@ -1905,7 +2332,10 @@
       "nsfwFlag": false,
       "dailyEligible": false,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "If how often you see each other can't reach the ideal for a while, how would you want to renegotiate the expectation?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-085",
@@ -1928,7 +2358,13 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "On a day you meet, would you rather pack the schedule full—or leave wide open space?",
+      "choicesEn": [
+        "Pack it full",
+        "Leave wide open space"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-086",
@@ -1948,7 +2384,10 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "In the twenty-four hours after parting, what would make it a little easier?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-087",
@@ -1971,7 +2410,13 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Who is more likely to say first on a video call, \"You go ahead—I'll let you work\"?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-088",
@@ -1991,7 +2436,10 @@
       "nsfwFlag": false,
       "dailyEligible": false,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "In a long-distance stretch, how do you know \"we're still properly connected\"?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-089",
@@ -2015,7 +2463,14 @@
       "nsfwFlag": false,
       "dailyEligible": false,
       "needsReview": true,
-      "status": "active"
+      "status": "active",
+      "promptEn": "When you see \"read\" and no reply, what's your first reaction closest to?",
+      "choicesEn": [
+        "They might be busy—I'll wait",
+        "A little unsettled—I need to check",
+        "Depends on how things have been lately"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-090",
@@ -2035,7 +2490,10 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Is there a song, a road, or a kind of weather that makes you especially miss the other person?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-091",
@@ -2055,7 +2513,10 @@
       "nsfwFlag": false,
       "dailyEligible": false,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "If you could keep only one \"cross-city ritual,\" what would you want to make fixed?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-092",
@@ -2075,7 +2536,10 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "When distance makes talking harder, what do you most want the other person to understand about you?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-093",
@@ -2098,7 +2562,13 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "For staying in touch across distance, would you rather fix: a short chat every night, or one deep talk each week?",
+      "choicesEn": [
+        "A short chat every night",
+        "One deep talk each week"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-094",
@@ -2118,7 +2588,10 @@
       "nsfwFlag": false,
       "dailyEligible": false,
       "needsReview": true,
-      "status": "active"
+      "status": "active",
+      "promptEn": "After a fight, what counts for you as truly making up?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-095",
@@ -2142,7 +2615,14 @@
       "nsfwFlag": false,
       "dailyEligible": false,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "During a cold war, what do you hope the other person does?",
+      "choicesEn": [
+        "Offer a softening signal first",
+        "Give you clear space—and a time limit",
+        "Put it in a note or message—no need to face-to-face"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-096",
@@ -2162,7 +2642,10 @@
       "nsfwFlag": false,
       "dailyEligible": false,
       "needsReview": true,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Is there a sharp thing you said that you actually wish you could take back?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-097",
@@ -2182,7 +2665,10 @@
       "nsfwFlag": false,
       "dailyEligible": false,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "When you need to apologize, what kind of apology feels more sincere to you?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-098",
@@ -2205,7 +2691,13 @@
       "nsfwFlag": false,
       "dailyEligible": false,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "In an argument, what do you fear more: being interrupted, or being left hanging?",
+      "choicesEn": [
+        "Being interrupted",
+        "Being left hanging"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-099",
@@ -2225,7 +2717,10 @@
       "nsfwFlag": false,
       "dailyEligible": false,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "What kinds of topics turn fiery the moment they come up? Do you have a way you've agreed to pause?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-100",
@@ -2245,7 +2740,10 @@
       "nsfwFlag": false,
       "dailyEligible": false,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "After making up, do you still need a small \"repair ritual\" (a walk, a meal together…)? If so, what is it?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-101",
@@ -2269,7 +2767,14 @@
       "nsfwFlag": false,
       "dailyEligible": false,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "When the other person points out something about you, you're more likely to…",
+      "choicesEn": [
+        "Defend first—then slowly take it in",
+        "Hear it in the moment—but need to digest later",
+        "Care a lot about the tone; even if they're right, it still hurts"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-102",
@@ -2289,7 +2794,10 @@
       "nsfwFlag": false,
       "dailyEligible": false,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "When things go sideways with a close friend, how do you usually take the first step back?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-103",
@@ -2309,7 +2817,10 @@
       "nsfwFlag": false,
       "dailyEligible": false,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "How do you tell the difference between \"needing to cool off\" and \"avoiding\"?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-104",
@@ -2329,7 +2840,10 @@
       "nsfwFlag": false,
       "dailyEligible": false,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "If you could replay a recent small argument, which of your own steps would you want to change?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-105",
@@ -2349,7 +2863,10 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "How can the other person say \"I'm a bit tired—let's talk later\" so it feels like respect, not being pushed away?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-106",
@@ -2369,7 +2886,10 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "How did you go from \"knowing each other\" to \"someone I can lean on\"?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-107",
@@ -2389,7 +2909,10 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Name a kind of weather that describes this friendship as it is now.",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-108",
@@ -2409,7 +2932,10 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "What small thing has the other person done that made you think, \"this friendship was worth it\"?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-109",
@@ -2433,7 +2959,14 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "What kind of partners-in-crime are you two more like?",
+      "choicesEn": [
+        "Meal-and-chat partners",
+        "Errand-and-emergency partners",
+        "Partners who can sit in a daze together and still feel at ease"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-110",
@@ -2453,7 +2986,10 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Is there a topic you almost only go deep on with them?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-111",
@@ -2476,7 +3012,13 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Who is more likely to put a plan on the calendar?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-112",
@@ -2499,7 +3041,13 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "In friendship, do you treasure more: frequent contact, or rarer contact that always feels real?",
+      "choicesEn": [
+        "Frequent contact",
+        "Rarer—but real"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-113",
@@ -2520,7 +3068,10 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "If today were \"close-friends day on the island,\" what small thing would you want to do together?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-114",
@@ -2540,7 +3091,10 @@
       "nsfwFlag": false,
       "dailyEligible": false,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "When they do something that bothers you, do you usually say it straight—or hold it first? What's the ideal?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-115",
@@ -2560,7 +3114,10 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "When the other person is stuck choosing, what role do you usually play?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-116",
@@ -2584,7 +3141,14 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "What's the easiest time window for plans to actually happen?",
+      "choicesEn": [
+        "Weekend daytime",
+        "Weeknight after dinner",
+        "Depends on the mood—sudden invites often work better"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-117",
@@ -2604,7 +3168,10 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Do you have an inside joke or private slang only the two of you get? Give one.",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-118",
@@ -2624,7 +3191,10 @@
       "nsfwFlag": false,
       "dailyEligible": false,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "What's the boundary you care about most in friendship? (Time, topics, social settings…)",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-119",
@@ -2647,7 +3217,13 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Would you rather check in somewhere new together—or revisit an old haunt?",
+      "choicesEn": [
+        "Somewhere new",
+        "An old haunt"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-120",
@@ -2667,7 +3243,10 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "What kind of \"caring\" from them sits best with you?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-121",
@@ -2690,7 +3269,13 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Who is more likely to lurk in the group chat—but light up in private messages?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-122",
@@ -2710,7 +3295,10 @@
       "nsfwFlag": false,
       "dailyEligible": false,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "If it's been a long while without contact, what feels natural as a way back in?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-123",
@@ -2734,7 +3322,14 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "When sharing a worry, what do you hope the other person does?",
+      "choicesEn": [
+        "Listen all the way through before offering a view",
+        "Interrupt with questions to help you untangle it",
+        "Hear you out—then vent alongside you"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-124",
@@ -2754,7 +3349,10 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Describe a time you were both exhausted—and still showed up to meet.",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-125",
@@ -2774,7 +3372,10 @@
       "nsfwFlag": false,
       "dailyEligible": false,
       "needsReview": true,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Was there a misunderstanding that almost pulled you apart? How did you find your way back?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-126",
@@ -2794,7 +3395,10 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Which offhand line from them have you held onto for a long time?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-127",
@@ -2817,7 +3421,13 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "For chatting, do you lean on long voice notes more—or bursts of short texts?",
+      "choicesEn": [
+        "Long voice notes",
+        "Bursts of short texts"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-128",
@@ -2837,7 +3447,10 @@
       "nsfwFlag": false,
       "dailyEligible": false,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Between \"loyalty\" and \"reason,\" which way does this friendship lean? Give an example.",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-129",
@@ -2860,7 +3473,13 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Who is more likely to remember what the other person won't eat—or can't touch?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-130",
@@ -2881,7 +3500,10 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "If you gave this friendship an \"island name\" or code name, what would it be?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-131",
@@ -2902,7 +3524,10 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "What small thing from today do you want kept in this island's record?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-132",
@@ -2926,7 +3551,14 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "What pace do you want more of right now?",
+      "choicesEn": [
+        "Slower—more open space",
+        "Faster—push things forward",
+        "A little messy is fine—as long as it's lively"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-133",
@@ -2946,7 +3578,10 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Which of their habits felt odd at first—and later started to feel kind of charming?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-134",
@@ -2969,7 +3604,13 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Who is more likely to actually put \"next time for sure\" on the next calendar?",
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-135",
@@ -2992,7 +3633,13 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Would you rather be remembered as: the reliable one, or the interesting one?",
+      "choicesEn": [
+        "Reliable",
+        "Interesting"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-136",
@@ -3012,7 +3659,10 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Name a kind of transport that matches your rhythm together (subway, bicycle, ferry…).",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-137",
@@ -3032,7 +3682,10 @@
       "nsfwFlag": false,
       "dailyEligible": false,
       "needsReview": true,
-      "status": "active"
+      "status": "active",
+      "promptEn": "When they make new friends or step into a new circle, how do you usually feel—and how do you hope to be held in that?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-138",
@@ -3053,7 +3706,10 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "What kind of silence is comfortable? What kind makes you want to check in?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-139",
@@ -3077,7 +3733,14 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "When it comes to gifts or gestures of care, which way do you lean?",
+      "choicesEn": [
+        "Useful is enough",
+        "A little ceremony is better",
+        "The thought is what matters—form is free"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-140",
@@ -3098,7 +3761,10 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "If today you could trade only one piece of \"island intel,\" what would you tell them?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-141",
@@ -3118,7 +3784,10 @@
       "nsfwFlag": false,
       "dailyEligible": false,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "What does \"lifting each other up\" mean to you in friendship? Has there been a concrete example?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-142",
@@ -3141,7 +3810,13 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Would you rather share: a planned evening, or an unexpected pocket of time?",
+      "choicesEn": [
+        "A planned evening",
+        "An unexpected pocket"
+      ],
+      "followupEn": null
     },
     {
       "id": "HI-Q-143",
@@ -3162,7 +3837,10 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "\"You arrived—and the island became whole.\" If that line were about friendship, what image comes to mind?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-144",
@@ -3182,7 +3860,10 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "Is there a sticker or a reaction between you that needs no explanation—you just get it?",
+      "choicesEn": null,
+      "followupEn": null
     },
     {
       "id": "HI-Q-145",
@@ -3206,7 +3887,14 @@
       "nsfwFlag": false,
       "dailyEligible": true,
       "needsReview": false,
-      "status": "active"
+      "status": "active",
+      "promptEn": "After the answers are revealed, what do you want more?",
+      "choicesEn": [
+        "Laugh for a moment first",
+        "Ask one sincere follow-up",
+        "Quietly compare notes—each digest alone"
+      ],
+      "followupEn": null
     }
   ]
 }

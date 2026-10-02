@@ -7,13 +7,13 @@
       </select>
     </label>
     <nav class="nav-row">
-      <router-link to="/invite">邀请</router-link>
-      <router-link to="/today">今日</router-link>
-      <router-link to="/answer">作答</router-link>
-      <router-link to="/waiting">等待</router-link>
-      <router-link to="/reveal">揭晓</router-link>
-      <router-link to="/memory">回忆</router-link>
-      <router-link to="/decks">牌组</router-link>
+      <router-link to="/invite">邀请 / Invite</router-link>
+      <router-link to="/today">今日 / Today</router-link>
+      <router-link to="/answer">作答 / Answer</router-link>
+      <router-link to="/waiting">等待 / Waiting</router-link>
+      <router-link to="/reveal">揭晓 / Reveal</router-link>
+      <router-link to="/memory">回忆 / Memory</router-link>
+      <router-link to="/decks">牌组 / Decks</router-link>
     </nav>
   </div>
 </template>

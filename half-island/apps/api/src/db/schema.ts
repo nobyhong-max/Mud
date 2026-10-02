@@ -28,13 +28,16 @@ export function migrate(db: DatabaseSync): void {
       id TEXT PRIMARY KEY,
       type TEXT NOT NULL,
       prompt TEXT NOT NULL,
+      prompt_en TEXT,
       choices_json TEXT,
+      choices_en_json TEXT,
       intimacy_level INTEGER NOT NULL DEFAULT 0,
       audience TEXT NOT NULL CHECK (audience IN ('couple', 'friends', 'neutral')),
       relation_mode TEXT NOT NULL CHECK (relation_mode IN ('couple', 'friend', 'both')),
       deck TEXT NOT NULL DEFAULT 'daily_bits',
       tags_json TEXT,
       followup TEXT,
+      followup_en TEXT,
       daily_eligible INTEGER NOT NULL DEFAULT 1,
       needs_review INTEGER NOT NULL DEFAULT 0,
       nsfw_flag INTEGER NOT NULL DEFAULT 0,
@@ -87,6 +90,16 @@ export function migrate(db: DatabaseSync): void {
       payload_json TEXT,
       created_at TEXT NOT NULL
     );
+
+    CREATE TABLE IF NOT EXISTS answer_translations (
+      cache_key TEXT PRIMARY KEY,
+      answer_id TEXT,
+      source_lang TEXT NOT NULL,
+      zh TEXT NOT NULL,
+      en TEXT NOT NULL,
+      needs_review INTEGER NOT NULL DEFAULT 1,
+      created_at TEXT NOT NULL
+    );
   `);
 
   const cols = (table: string) =>
@@ -111,11 +124,28 @@ export function migrate(db: DatabaseSync): void {
     ["deck", "ALTER TABLE prompts ADD COLUMN deck TEXT NOT NULL DEFAULT 'daily_bits'"],
     ["tags_json", "ALTER TABLE prompts ADD COLUMN tags_json TEXT"],
     ["followup", "ALTER TABLE prompts ADD COLUMN followup TEXT"],
+    ["followup_en", "ALTER TABLE prompts ADD COLUMN followup_en TEXT"],
+    ["prompt_en", "ALTER TABLE prompts ADD COLUMN prompt_en TEXT"],
+    ["choices_en_json", "ALTER TABLE prompts ADD COLUMN choices_en_json TEXT"],
     ["daily_eligible", "ALTER TABLE prompts ADD COLUMN daily_eligible INTEGER NOT NULL DEFAULT 1"],
     ["needs_review", "ALTER TABLE prompts ADD COLUMN needs_review INTEGER NOT NULL DEFAULT 0"],
   ] as const) {
     if (!promptCols.includes(name)) db.exec(sql);
   }
+
+  db.exec(`
+    CREATE TABLE IF NOT EXISTS answer_translations (
+      cache_key TEXT PRIMARY KEY,
+      answer_id TEXT,
+      source_lang TEXT NOT NULL,
+      zh TEXT NOT NULL,
+      en TEXT NOT NULL,
+      needs_review INTEGER NOT NULL DEFAULT 1,
+      created_at TEXT NOT NULL
+    );
+    CREATE INDEX IF NOT EXISTS idx_answer_translations_answer
+      ON answer_translations(answer_id);
+  `);
 
   const asgCols = cols("assignments");
   if (!asgCols.includes("revealed_at")) {

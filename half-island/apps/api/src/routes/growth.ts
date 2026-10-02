@@ -4,7 +4,7 @@ import type {
   RelationMode,
   SoftPaywallInfo,
 } from "@half-island/shared";
-import { DECK_TITLES } from "@half-island/shared";
+import { DECK_TITLES, DECK_TITLES_EN } from "@half-island/shared";
 import { getDb } from "../db/client.js";
 import { id, shanghaiDateKey } from "../lib/ids.js";
 import { trackEvent } from "../services/events.js";
@@ -107,6 +107,7 @@ export async function growthRoutes(app: FastifyInstance): Promise<void> {
         return {
           id: deckId,
           title: DECK_TITLES[deckId] ?? deckId,
+          titleEn: DECK_TITLES_EN[deckId] ?? deckId,
           count: info.count,
           locked,
           relationModes: [...info.modes] as RelationMode[],

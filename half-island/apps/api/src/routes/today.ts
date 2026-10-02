@@ -15,6 +15,7 @@ import {
   nextStreak,
   partnerId,
 } from "../services/reveal.js";
+import { translateToBilingual } from "../services/translate.js";
 
 export async function todayRoutes(app: FastifyInstance): Promise<void> {
   app.get("/prompts", async (req) => {
@@ -101,6 +102,7 @@ export async function todayRoutes(app: FastifyInstance): Promise<void> {
       selfRow,
       partnerRow,
       revealedAt: asg.revealed_at ? String(asg.revealed_at) : null,
+      db,
     });
 
     return {
@@ -153,7 +155,10 @@ export async function todayRoutes(app: FastifyInstance): Promise<void> {
       .prepare(`SELECT * FROM answers WHERE assignment_id = ? AND user_id = ?`)
       .get(assignmentId, partner) as Record<string, unknown> | undefined;
     if (!row) return reply.code(404).send({ error: "partner_answer_missing" });
-    return { answer: mapAnswer(row) };
+    const promptRow = db
+      .prepare("SELECT * FROM prompts WHERE id = ?")
+      .get(String(asg.prompt_id)) as Record<string, unknown>;
+    return { answer: mapAnswer(row, { db, prompt: mapPrompt(promptRow) }) };
   });
 
   app.post<{
@@ -189,6 +194,7 @@ export async function todayRoutes(app: FastifyInstance): Promise<void> {
       .get(assignmentId, userId) as { id: string } | undefined;
 
     const createdAt = new Date().toISOString();
+    const answerId = existing?.id ?? id("ans");
     if (existing) {
       db.prepare(
         `UPDATE answers SET body = ?, choice_index = ?, created_at = ? WHERE id = ?`,
@@ -197,8 +203,25 @@ export async function todayRoutes(app: FastifyInstance): Promise<void> {
       db.prepare(
         `INSERT INTO answers (id, assignment_id, user_id, body, choice_index, created_at)
          VALUES (?, ?, ?, ?, ?, ?)`,
-      ).run(id("ans"), assignmentId, userId, body.trim(), choiceIndex ?? null, createdAt);
+      ).run(answerId, assignmentId, userId, body.trim(), choiceIndex ?? null, createdAt);
     }
+
+    const promptRow = db
+      .prepare("SELECT * FROM prompts WHERE id = ?")
+      .get(String(asg.prompt_id)) as Record<string, unknown>;
+    const prompt = mapPrompt(promptRow);
+    const idx = choiceIndex ?? null;
+    const choicePair =
+      idx !== null && prompt.choices?.[idx] && prompt.choicesEn?.[idx]
+        ? { zh: prompt.choices[idx]!, en: prompt.choicesEn[idx]! }
+        : null;
+
+    // 预填双语缓存，揭晓时同步读取
+    await translateToBilingual(body.trim(), {
+      db,
+      answerId,
+      choicePair,
+    });
 
     const count = (
       db
@@ -289,6 +312,7 @@ export async function todayRoutes(app: FastifyInstance): Promise<void> {
         selfRow,
         partnerRow,
         revealedAt,
+        db,
       });
 
       return { reveal, streak };
@@ -312,8 +336,10 @@ export async function todayRoutes(app: FastifyInstance): Promise<void> {
       const rows = db
         .prepare(
           `SELECT a.id AS assignment_id, a.date_key, a.revealed_at, a.kind,
-                  p.prompt, p.deck, p.followup,
-                  sa.body AS self_body, pa.body AS partner_body
+                  p.prompt, p.prompt_en, p.deck, p.followup, p.followup_en,
+                  p.choices_json, p.choices_en_json,
+                  sa.id AS self_id, sa.body AS self_body, sa.choice_index AS self_choice,
+                  pa.id AS partner_id, pa.body AS partner_body, pa.choice_index AS partner_choice
            FROM assignments a
            JOIN prompts p ON p.id = a.prompt_id
            JOIN answers sa ON sa.assignment_id = a.id AND sa.user_id = ?
@@ -327,18 +353,64 @@ export async function todayRoutes(app: FastifyInstance): Promise<void> {
         /** 已揭晓对免费用户永久可回看 */
         freeRevealArchive: true as const,
         streak: pair.streak,
-        items: rows.map((r) => ({
-          assignmentId: String(r.assignment_id),
-          dateKey: String(r.date_key),
-          prompt: String(r.prompt),
-          selfAnswer: String(r.self_body),
-          partnerAnswer: String(r.partner_body),
-          revealedAt: String(r.revealed_at),
-          relationshipType: pair.relationship_type,
-          deck: String(r.deck ?? "daily_bits"),
-          followup: r.followup ? String(r.followup) : null,
-          kind: String(r.kind ?? "daily"),
-        })),
+        items: rows.map((r) => {
+          const prompt = mapPrompt({
+            id: "mem",
+            type: "open_text",
+            prompt: r.prompt,
+            prompt_en: r.prompt_en,
+            choices_json: r.choices_json,
+            choices_en_json: r.choices_en_json,
+            intimacy_level: 0,
+            audience: "neutral",
+            relation_mode: "both",
+            deck: r.deck,
+            tags_json: "[]",
+            followup: r.followup,
+            followup_en: r.followup_en,
+            daily_eligible: 1,
+            nsfw_flag: 0,
+            status: "active",
+          });
+          const self = mapAnswer(
+            {
+              id: r.self_id,
+              assignment_id: r.assignment_id,
+              user_id: userId,
+              body: r.self_body,
+              choice_index: r.self_choice,
+              created_at: r.revealed_at,
+            },
+            { db, prompt },
+          );
+          const partner = mapAnswer(
+            {
+              id: r.partner_id,
+              assignment_id: r.assignment_id,
+              user_id: "partner",
+              body: r.partner_body,
+              choice_index: r.partner_choice,
+              created_at: r.revealed_at,
+            },
+            { db, prompt },
+          );
+          return {
+            assignmentId: String(r.assignment_id),
+            dateKey: String(r.date_key),
+            prompt: String(r.prompt),
+            promptEn: r.prompt_en ? String(r.prompt_en) : String(r.prompt),
+            selfAnswer: String(r.self_body),
+            partnerAnswer: String(r.partner_body),
+            selfBilingual: self.bilingual,
+            partnerBilingual: partner.bilingual,
+            revealedAt: String(r.revealed_at),
+            relationshipType: pair.relationship_type,
+            deck: String(r.deck ?? "daily_bits"),
+            followup: r.followup ? String(r.followup) : null,
+            followupEn: r.followup_en ? String(r.followup_en) : null,
+            kind: String(r.kind ?? "daily"),
+          };
+        }),
       };
     },
   );

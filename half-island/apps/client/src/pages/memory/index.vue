@@ -3,15 +3,18 @@
     <SessionBar />
     <div class="page-main top">
       <h1 class="brand">半个岛</h1>
-      <p class="slogan">回忆墙 · 已揭晓的飞地</p>
+      <p class="slogan">
+        {{ dual(UI_COPY.memory.zh, UI_COPY.memory.en) }} · 已揭晓的飞地 / Revealed enclave
+      </p>
       <div class="wave" />
       <p class="meta">
-        连线 {{ streak }} 天 · 已揭晓回看永久免费
+        连线 {{ streak }} 天 · 已揭晓回看永久免费 / Streak {{ streak }} · archive free forever
       </p>
 
       <p v-if="error" class="muted">{{ error }}</p>
       <p v-else-if="!items.length" class="muted">
         还没有揭晓记录。先完成今日题，把另一半半岛拼上来。
+        / No reveals yet — finish today's prompt first.
       </p>
       <ul v-else class="list">
         <li v-for="item in items" :key="item.assignmentId" class="card-ish">
@@ -20,11 +23,25 @@
             <span class="deck">{{ item.deck }}</span>
           </div>
           <p class="q">{{ item.prompt }}</p>
+          <p v-if="item.promptEn && item.promptEn !== item.prompt" class="q-en">
+            {{ item.promptEn }}
+          </p>
           <div class="pair">
-            <p><span class="who">你</span>{{ item.selfAnswer }}</p>
-            <p><span class="who">TA</span>{{ item.partnerAnswer }}</p>
+            <div class="ans">
+              <span class="who">{{ dual(UI_COPY.you.zh, UI_COPY.you.en) }}</span>
+              <BilingualAnswer :text="item.selfBilingual" :fallback="item.selfAnswer" />
+            </div>
+            <div class="ans">
+              <span class="who">{{ dual(UI_COPY.partner.zh, UI_COPY.partner.en) }}</span>
+              <BilingualAnswer :text="item.partnerBilingual" :fallback="item.partnerAnswer" />
+            </div>
           </div>
-          <p v-if="item.followup" class="fu">追问：{{ item.followup }}</p>
+          <p v-if="item.followup" class="fu">
+            追问 / Follow-up：{{ item.followup }}
+            <span v-if="item.followupEn && item.followupEn !== item.followup" class="fu-en">
+              {{ item.followupEn }}
+            </span>
+          </p>
         </li>
       </ul>
     </div>
@@ -35,7 +52,9 @@
 import { onMounted, ref, watch } from "vue";
 import type { MemoryItem } from "@half-island/shared";
 import { api } from "../../api/client";
+import BilingualAnswer from "../../components/BilingualAnswer.vue";
 import SessionBar from "../../components/SessionBar.vue";
+import { dual, UI_COPY } from "../../i18n";
 import { session } from "../../session";
 
 const items = ref<MemoryItem[]>([]);
@@ -49,7 +68,7 @@ async function load(): Promise<void> {
     items.value = data.items;
     streak.value = data.streak;
   } catch (e) {
-    error.value = e instanceof Error ? e.message : "加载失败";
+    error.value = e instanceof Error ? e.message : "加载失败 / Failed to load";
   }
 }
 
@@ -76,7 +95,6 @@ watch(() => [session.userId, session.pairId], load);
   gap: 1.35rem;
 }
 .card-ish {
-  /* 回忆条目是阅读容器，弱边线而非厚卡片 */
   border-top: 1px solid rgba(201, 166, 107, 0.28);
   padding-top: 0.85rem;
   animation: rise 0.55s ease both;
@@ -88,30 +106,44 @@ watch(() => [session.userId, session.pairId], load);
   font-size: 0.78rem;
 }
 .q {
-  margin: 0.35rem 0 0.55rem;
+  margin: 0.35rem 0 0.15rem;
   font-size: 1.05rem;
   line-height: 1.45;
+}
+.q-en {
+  margin: 0 0 0.55rem;
+  font-size: 0.9rem;
+  opacity: 0.7;
+  font-style: italic;
+  line-height: 1.4;
 }
 .pair {
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: 0.55rem;
   font-size: 0.95rem;
   padding-left: 0.7rem;
   border-left: 2px solid rgba(201, 166, 107, 0.4);
 }
-.pair p {
-  margin: 0;
+.ans {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
 }
 .who {
   display: inline-block;
   min-width: 1.6rem;
   opacity: 0.55;
-  margin-right: 0.35rem;
+  font-size: 0.82rem;
 }
 .fu {
   margin: 0.55rem 0 0;
   font-size: 0.86rem;
   opacity: 0.7;
+}
+.fu-en {
+  display: block;
+  margin-top: 0.2rem;
+  font-style: italic;
 }
 </style>

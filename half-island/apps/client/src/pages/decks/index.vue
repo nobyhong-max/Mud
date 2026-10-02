@@ -3,12 +3,18 @@
     <SessionBar />
     <div class="page-main top">
       <h1 class="brand">半个岛</h1>
-      <p class="slogan">主题牌组 · 软门槛</p>
+      <p class="slogan">
+        {{ dual(UI_COPY.decks.zh, UI_COPY.decks.en) }} · 软门槛 / Soft paywall
+      </p>
       <div class="wave" />
       <p class="soft">{{ paywallMsg }}</p>
 
       <button class="ghost" :disabled="busy" @click="toggle">
-        {{ premium ? "关闭演示会员" : "假开通双人会员（无扣款）" }}
+        {{
+          premium
+            ? "关闭演示会员 / Turn off demo premium"
+            : "假开通双人会员（无扣款） / Fake unlock premium (no charge)"
+        }}
       </button>
 
       <p v-if="error" class="muted">{{ error }}</p>
@@ -16,16 +22,19 @@
         <li v-for="d in decks" :key="d.id">
           <div>
             <p class="title">{{ d.title }}</p>
-            <p class="sub">{{ d.count }} 题 · {{ d.locked ? "需会员" : "可进入" }}</p>
+            <p class="sub">
+              {{ d.titleEn }} · {{ d.count }} 题 ·
+              {{ d.locked ? "需会员 / Premium" : "可进入 / Open" }}
+            </p>
           </div>
           <button :disabled="busy" @click="openDeck(d)">
-            {{ d.locked ? "查看门槛" : "抽一题" }}
+            {{ d.locked ? "查看门槛 / See gate" : "抽一题 / Draw" }}
           </button>
         </li>
       </ul>
       <p v-if="extraPrompt" class="extra">
-        加练题：{{ extraPrompt }}
-        <router-link to="/answer">去作答需自行带 assignment（演示以今日为主）</router-link>
+        加练题 / Extra：{{ extraPrompt }}
+        <span v-if="extraPromptEn" class="extra-en">{{ extraPromptEn }}</span>
       </p>
     </div>
   </div>
@@ -36,6 +45,7 @@ import { onMounted, ref, watch } from "vue";
 import type { DeckSummary } from "@half-island/shared";
 import { api } from "../../api/client";
 import SessionBar from "../../components/SessionBar.vue";
+import { dual, UI_COPY } from "../../i18n";
 import { session } from "../../session";
 
 const decks = ref<DeckSummary[]>([]);
@@ -44,6 +54,7 @@ const paywallMsg = ref("");
 const error = ref("");
 const busy = ref(false);
 const extraPrompt = ref("");
+const extraPromptEn = ref("");
 
 async function load(): Promise<void> {
   error.value = "";
@@ -53,7 +64,7 @@ async function load(): Promise<void> {
     premium.value = data.paywall.premium;
     paywallMsg.value = data.paywall.message;
   } catch (e) {
-    error.value = e instanceof Error ? e.message : "加载失败";
+    error.value = e instanceof Error ? e.message : "加载失败 / Failed to load";
   }
 }
 
@@ -69,7 +80,7 @@ async function toggle(): Promise<void> {
     paywallMsg.value = res.paywall.message;
     await load();
   } catch (e) {
-    error.value = e instanceof Error ? e.message : "失败";
+    error.value = e instanceof Error ? e.message : "失败 / Failed";
   } finally {
     busy.value = false;
   }
@@ -79,10 +90,12 @@ async function openDeck(d: DeckSummary): Promise<void> {
   busy.value = true;
   error.value = "";
   extraPrompt.value = "";
+  extraPromptEn.value = "";
   try {
     if (d.locked) {
       await api.paywall(session.pairId, session.userId);
-      error.value = "主题牌组需双人会员。每日免费揭晓与回忆墙不受影响。";
+      error.value =
+        "主题牌组需双人会员。每日免费揭晓与回忆墙不受影响。 / Theme decks need premium; daily reveal & memory stay free.";
       return;
     }
     const res = await api.startDeck({
@@ -91,9 +104,10 @@ async function openDeck(d: DeckSummary): Promise<void> {
       deckId: d.id,
     });
     extraPrompt.value = res.prompt.prompt;
+    extraPromptEn.value = res.prompt.promptEn || "";
   } catch (e) {
     const err = e as Error & { data?: { message?: string } };
-    error.value = err.data?.message || err.message || "无法开始";
+    error.value = err.data?.message || err.message || "无法开始 / Cannot start";
     await load();
   } finally {
     busy.value = false;
@@ -147,5 +161,11 @@ watch(() => [session.userId, session.pairId], load);
   font-size: 0.95rem;
   opacity: 0.85;
   line-height: 1.45;
+}
+.extra-en {
+  display: block;
+  margin-top: 0.25rem;
+  font-style: italic;
+  opacity: 0.75;
 }
 </style>

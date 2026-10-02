@@ -7,6 +7,7 @@ export async function healthRoutes(app: FastifyInstance): Promise<void> {
     service: "half-island-api",
     brand: "半个岛",
     slogan: "你来了，岛才完整。",
+    sloganEn: "You arrive — the island becomes whole.",
     phase: "2",
     time: new Date().toISOString(),
   }));

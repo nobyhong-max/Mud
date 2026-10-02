@@ -3,7 +3,7 @@
     <SessionBar />
     <div class="page-main">
       <h1 class="brand">半个岛</h1>
-      <p class="slogan">另一半还在路上。</p>
+      <p class="slogan">另一半还在路上。 / The other half is still on the way.</p>
       <div class="island-silhouette" aria-hidden="true" />
       <div class="wave" />
 
@@ -16,15 +16,22 @@
       <p class="prompt-text waiting">
         你已写好。岛的另一岸亮起来时，就能揭晓——在那之前，对方的答案对你不可见。
       </p>
-      <p class="muted">{{ status || "检查中…" }}</p>
+      <p class="prompt-en">
+        You've written. When their shore lights up, you can reveal — until then, their answer stays hidden.
+      </p>
+      <p class="muted">{{ status || "检查中… / Checking…" }}</p>
       <p v-if="nudgeMsg" class="nudge">{{ nudgeMsg }}</p>
       <div class="row">
-        <button :disabled="busy" @click="refresh">刷新状态</button>
+        <button :disabled="busy" @click="refresh">
+          刷新状态 / Refresh
+        </button>
         <button class="ghost" :disabled="busy || nudgeLeft === 0" @click="nudge">
-          轻轻戳一下{{ nudgeLeft !== null ? `（剩 ${nudgeLeft}）` : "" }}
+          轻轻戳一下{{ nudgeLeft !== null ? `（剩 ${nudgeLeft}）` : "" }} / Nudge
         </button>
       </div>
-      <router-link class="btn ghost" to="/today">回今日</router-link>
+      <router-link class="btn ghost" to="/today">
+        {{ dual(UI_COPY.today.zh, UI_COPY.today.en) }}
+      </router-link>
     </div>
   </div>
 </template>
@@ -34,6 +41,7 @@ import { onMounted, onUnmounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import { api } from "../../api/client";
 import SessionBar from "../../components/SessionBar.vue";
+import { dual, UI_COPY } from "../../i18n";
 import { session } from "../../session";
 
 const router = useRouter();
@@ -48,19 +56,19 @@ async function refresh(): Promise<void> {
   try {
     const data = await api.today(session.pairId, session.userId);
     if (data.reveal.phase === "pending_self") {
-      status.value = "你还没作答。";
+      status.value = "你还没作答。 / You haven't answered yet.";
       await router.push("/answer");
     } else if (
       data.reveal.phase === "ready_to_reveal" ||
       data.reveal.phase === "revealed"
     ) {
-      status.value = "两座半岛可以拼上了。";
+      status.value = "两座半岛可以拼上了。 / Ready to join.";
       await router.push("/reveal");
     } else {
-      status.value = "仍在等待对方落笔…";
+      status.value = "仍在等待对方落笔… / Still waiting for them…";
     }
   } catch (e) {
-    status.value = e instanceof Error ? e.message : "失败";
+    status.value = e instanceof Error ? e.message : "失败 / Failed";
   } finally {
     busy.value = false;
   }
@@ -76,7 +84,7 @@ async function nudge(): Promise<void> {
     nudgeMsg.value = res.message;
     nudgeLeft.value = res.remaining;
   } catch (e) {
-    nudgeMsg.value = e instanceof Error ? e.message : "催促失败";
+    nudgeMsg.value = e instanceof Error ? e.message : "催促失败 / Nudge failed";
     nudgeLeft.value = 0;
   } finally {
     busy.value = false;
@@ -121,6 +129,13 @@ onUnmounted(() => {
 }
 .waiting {
   opacity: 0.93;
+}
+.prompt-en {
+  margin: -0.5rem 0 0.5rem;
+  font-size: 0.92rem;
+  opacity: 0.7;
+  font-style: italic;
+  line-height: 1.45;
 }
 .row {
   display: flex;

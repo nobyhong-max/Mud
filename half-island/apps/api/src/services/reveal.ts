@@ -10,14 +10,20 @@ import type {
   Reveal,
   RevealPhase,
 } from "@half-island/shared";
+import type { DatabaseSync } from "node:sqlite";
+import { translateToBilingualSync } from "./translate.js";
 
 export function mapPrompt(row: Record<string, unknown>): DailyPrompt {
   return {
     id: String(row.id),
     type: row.type as PromptType,
     prompt: String(row.prompt),
+    promptEn: row.prompt_en ? String(row.prompt_en) : String(row.prompt),
     choices: row.choices_json
       ? (JSON.parse(String(row.choices_json)) as string[])
+      : null,
+    choicesEn: row.choices_en_json
+      ? (JSON.parse(String(row.choices_en_json)) as string[])
       : null,
     intimacyLevel: Number(row.intimacy_level) as IntimacyLevel,
     audience: row.audience as PromptAudience,
@@ -25,6 +31,7 @@ export function mapPrompt(row: Record<string, unknown>): DailyPrompt {
     deck: String(row.deck ?? "daily_bits"),
     tags: row.tags_json ? (JSON.parse(String(row.tags_json)) as string[]) : [],
     followup: row.followup ? String(row.followup) : null,
+    followupEn: row.followup_en ? String(row.followup_en) : null,
     dailyEligible: Boolean(row.daily_eligible ?? 1),
     nsfwFlag: Boolean(row.nsfw_flag),
     status: row.status as DailyPrompt["status"],
@@ -45,17 +52,47 @@ export function mapAssignment(row: Record<string, unknown>): Assignment {
   };
 }
 
-export function mapAnswer(row: Record<string, unknown>): Answer {
+export function mapAnswer(
+  row: Record<string, unknown>,
+  opts: {
+    db?: DatabaseSync | null;
+    prompt?: DailyPrompt | null;
+  } = {},
+): Answer {
+  const body = String(row.body);
+  const choiceIndex =
+    row.choice_index === null || row.choice_index === undefined
+      ? null
+      : Number(row.choice_index);
+
+  let choicePair: { zh: string; en: string } | null = null;
+  if (
+    choiceIndex !== null &&
+    opts.prompt?.choices &&
+    opts.prompt.choicesEn &&
+    opts.prompt.choices[choiceIndex] &&
+    opts.prompt.choicesEn[choiceIndex]
+  ) {
+    choicePair = {
+      zh: opts.prompt.choices[choiceIndex]!,
+      en: opts.prompt.choicesEn[choiceIndex]!,
+    };
+  }
+
+  const bilingual = translateToBilingualSync(body, {
+    db: opts.db ?? null,
+    answerId: String(row.id),
+    choicePair,
+  });
+
   return {
     id: String(row.id),
     assignmentId: String(row.assignment_id),
     userId: String(row.user_id),
-    body: String(row.body),
-    choiceIndex:
-      row.choice_index === null || row.choice_index === undefined
-        ? null
-        : Number(row.choice_index),
+    body,
+    choiceIndex,
     createdAt: String(row.created_at),
+    bilingual,
   };
 }
 
@@ -90,11 +127,14 @@ export function buildReveal(opts: {
   selfRow: Record<string, unknown> | undefined;
   partnerRow: Record<string, unknown> | undefined;
   revealedAt: string | null;
+  db?: DatabaseSync | null;
 }): Reveal {
   const both = Boolean(opts.selfRow && opts.partnerRow);
   // partner body only when both answered — never leak otherwise
   const partnerAnswer =
-    both && opts.partnerRow ? mapAnswer(opts.partnerRow) : null;
+    both && opts.partnerRow
+      ? mapAnswer(opts.partnerRow, { db: opts.db, prompt: opts.prompt })
+      : null;
 
   return {
     assignmentId: opts.assignmentId,
@@ -104,7 +144,9 @@ export function buildReveal(opts: {
       Boolean(opts.partnerRow),
       opts.status,
     ),
-    selfAnswer: opts.selfRow ? mapAnswer(opts.selfRow) : null,
+    selfAnswer: opts.selfRow
+      ? mapAnswer(opts.selfRow, { db: opts.db, prompt: opts.prompt })
+      : null,
     partnerAnswer: both ? partnerAnswer : null,
     selfAnsweredAt: opts.selfRow ? String(opts.selfRow.created_at) : null,
     partnerAnsweredAt:

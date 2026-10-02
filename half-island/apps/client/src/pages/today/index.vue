@@ -2,9 +2,9 @@
   <div class="page">
     <SessionBar />
     <div class="page-main">
-      <p class="eyebrow">今日 · {{ dateKey || "—" }}</p>
+      <p class="eyebrow">{{ dual(UI_COPY.today.zh, UI_COPY.today.en) }} · {{ dateKey || "—" }}</p>
       <h1 class="brand">半个岛</h1>
-      <p class="slogan">你来了，岛才完整。</p>
+      <p class="slogan">{{ dual(UI_COPY.slogan.zh, UI_COPY.slogan.en) }}</p>
       <div class="island-silhouette" aria-hidden="true" />
       <div class="wave" />
 
@@ -14,6 +14,9 @@
           {{ relationshipLabel }} · 连线 {{ streak }} 天 · {{ phaseLabel }}
         </p>
         <p class="prompt-text">{{ reveal.prompt.prompt }}</p>
+        <p v-if="reveal.prompt.promptEn && reveal.prompt.promptEn !== reveal.prompt.prompt" class="prompt-en">
+          {{ reveal.prompt.promptEn }}
+        </p>
         <p class="tag">
           {{ reveal.prompt.deck }} · {{ reveal.prompt.relationMode }} · L{{
             reveal.prompt.intimacyLevel
@@ -21,30 +24,34 @@
         </p>
         <div class="actions">
           <router-link v-if="reveal.phase === 'pending_self'" class="btn" to="/answer">
-            去作答
+            {{ dual(UI_COPY.goAnswer.zh, UI_COPY.goAnswer.en) }}
           </router-link>
           <router-link
             v-else-if="reveal.phase === 'pending_partner'"
             class="btn"
             to="/waiting"
           >
-            等待对方
+            {{ dual(UI_COPY.waitPartner.zh, UI_COPY.waitPartner.en) }}
           </router-link>
           <router-link
             v-else-if="reveal.phase === 'ready_to_reveal' || reveal.phase === 'revealed'"
             class="btn"
             to="/reveal"
           >
-            {{ reveal.phase === "revealed" ? "查看揭晓" : "一起揭晓" }}
+            {{
+              reveal.phase === "revealed"
+                ? dual(UI_COPY.viewReveal.zh, UI_COPY.viewReveal.en)
+                : dual(UI_COPY.revealTogether.zh, UI_COPY.revealTogether.en)
+            }}
           </router-link>
         </div>
         <p class="soft">{{ softNote }}</p>
         <div class="links">
-          <router-link to="/decks">主题牌组</router-link>
-          <router-link to="/memory">回忆墙</router-link>
+          <router-link to="/decks">{{ dual(UI_COPY.decks.zh, UI_COPY.decks.en) }}</router-link>
+          <router-link to="/memory">{{ dual(UI_COPY.memory.zh, UI_COPY.memory.en) }}</router-link>
         </div>
       </template>
-      <p v-else class="muted">潮水正在拢岸…</p>
+      <p v-else class="muted">潮水正在拢岸… / Tide gathering at the shore…</p>
     </div>
   </div>
 </template>
@@ -54,6 +61,7 @@ import { computed, onMounted, ref, watch } from "vue";
 import type { Reveal } from "@half-island/shared";
 import { api } from "../../api/client";
 import SessionBar from "../../components/SessionBar.vue";
+import { dual, UI_COPY } from "../../i18n";
 import { session } from "../../session";
 
 const reveal = ref<Reveal | null>(null);
@@ -61,22 +69,24 @@ const dateKey = ref("");
 const streak = ref(0);
 const relationshipType = ref("");
 const error = ref("");
-const softNote = ref("每日一题揭晓永久免费。");
+const softNote = ref("每日一题揭晓永久免费。 / Daily reveal stays free.");
 
 const relationshipLabel = computed(() =>
-  relationshipType.value === "friends" ? "密友岛" : "情侣岛",
+  relationshipType.value === "friends"
+    ? "密友岛 / Friends island"
+    : "情侣岛 / Couple island",
 );
 
 const phaseLabel = computed(() => {
   switch (reveal.value?.phase) {
     case "pending_self":
-      return "就差你作答";
+      return "就差你作答 / Your turn";
     case "pending_partner":
-      return "对方还在路上";
+      return "对方还在路上 / Waiting for them";
     case "ready_to_reveal":
-      return "可以揭晓了";
+      return "可以揭晓了 / Ready to reveal";
     case "revealed":
-      return "已揭晓";
+      return "已揭晓 / Revealed";
     default:
       return "";
   }
@@ -93,7 +103,7 @@ async function load(): Promise<void> {
     relationshipType.value = data.relationshipType;
     softNote.value = data.paywall?.message ?? softNote.value;
   } catch (e) {
-    error.value = e instanceof Error ? e.message : "加载失败";
+    error.value = e instanceof Error ? e.message : "加载失败 / Failed to load";
   }
 }
 
@@ -113,6 +123,13 @@ watch(() => [session.userId, session.pairId], load);
   margin: 0;
   opacity: 0.78;
   font-size: 0.95rem;
+}
+.prompt-en {
+  margin: -0.35rem 0 0;
+  font-size: 0.95rem;
+  opacity: 0.72;
+  line-height: 1.45;
+  font-style: italic;
 }
 .tag {
   margin: 0;

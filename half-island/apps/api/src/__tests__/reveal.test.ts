@@ -15,6 +15,10 @@ import {
   mapPrompt,
   nextStreak,
 } from "../services/reveal.js";
+import {
+  detectSourceLang,
+  translateToBilingualSync,
+} from "../services/translate.js";
 
 function withTempDb(fn: () => void): void {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), "hi-test-"));
@@ -36,71 +40,147 @@ test("canReadPartnerAnswer requires both answers", () => {
 });
 
 test("buildReveal never leaks partner body before both answered", () => {
-  const prompt = mapPrompt({
-    id: "HI-Q-001",
-    type: "open_text",
-    prompt: "测试题",
-    choices_json: null,
-    intimacy_level: 0,
-    audience: "neutral",
-    relation_mode: "both",
-    deck: "daily_bits",
-    tags_json: "[]",
-    followup: null,
-    daily_eligible: 1,
-    nsfw_flag: 0,
-    status: "active",
-  });
+  withTempDb(() => {
+    const db = getDb();
+    const prompt = mapPrompt({
+      id: "HI-Q-001",
+      type: "open_text",
+      prompt: "测试题",
+      prompt_en: "Test prompt",
+      choices_json: null,
+      choices_en_json: null,
+      intimacy_level: 0,
+      audience: "neutral",
+      relation_mode: "both",
+      deck: "daily_bits",
+      tags_json: "[]",
+      followup: null,
+      followup_en: null,
+      daily_eligible: 1,
+      nsfw_flag: 0,
+      status: "active",
+    });
 
-  const self = {
-    id: "a1",
-    assignment_id: "asg1",
-    user_id: "u1",
-    body: "我的答案秘密",
-    choice_index: null,
-    created_at: "2026-01-01T00:00:00Z",
-  };
-  const partner = {
-    id: "a2",
-    assignment_id: "asg1",
-    user_id: "u2",
-    body: "对方不该提前看见",
-    choice_index: null,
-    created_at: "2026-01-01T01:00:00Z",
-  };
+    assert.equal(prompt.promptEn, "Test prompt");
 
-  const onlySelf = buildReveal({
-    assignmentId: "asg1",
-    prompt,
-    status: "answered_partial",
-    selfRow: self,
-    partnerRow: undefined,
-    revealedAt: null,
-  });
-  assert.equal(onlySelf.phase, "pending_partner");
-  assert.equal(onlySelf.partnerAnswer, null);
+    const self = {
+      id: "a1",
+      assignment_id: "asg1",
+      user_id: "u1",
+      body: "我的答案秘密",
+      choice_index: null,
+      created_at: "2026-01-01T00:00:00Z",
+    };
+    const partner = {
+      id: "a2",
+      assignment_id: "asg1",
+      user_id: "u2",
+      body: "对方不该提前看见",
+      choice_index: null,
+      created_at: "2026-01-01T01:00:00Z",
+    };
 
-  // Even if partner row is somehow present but we only pass one — still null when not both
-  const leakedAttempt = buildReveal({
-    assignmentId: "asg1",
-    prompt,
-    status: "answered_partial",
-    selfRow: self,
-    partnerRow: undefined,
-    revealedAt: null,
-  });
-  assert.equal(leakedAttempt.partnerAnswer, null);
+    const onlySelf = buildReveal({
+      assignmentId: "asg1",
+      prompt,
+      status: "answered_partial",
+      selfRow: self,
+      partnerRow: undefined,
+      revealedAt: null,
+      db,
+    });
+    assert.equal(onlySelf.phase, "pending_partner");
+    assert.equal(onlySelf.partnerAnswer, null);
+    assert.ok(onlySelf.selfAnswer?.bilingual);
+    assert.equal(onlySelf.selfAnswer?.bilingual.zh, "我的答案秘密");
 
-  const both = buildReveal({
-    assignmentId: "asg1",
-    prompt,
-    status: "ready_to_reveal",
-    selfRow: self,
-    partnerRow: partner,
-    revealedAt: null,
+    const leakedAttempt = buildReveal({
+      assignmentId: "asg1",
+      prompt,
+      status: "answered_partial",
+      selfRow: self,
+      partnerRow: undefined,
+      revealedAt: null,
+      db,
+    });
+    assert.equal(leakedAttempt.partnerAnswer, null);
+
+    const both = buildReveal({
+      assignmentId: "asg1",
+      prompt,
+      status: "ready_to_reveal",
+      selfRow: self,
+      partnerRow: partner,
+      revealedAt: null,
+      db,
+    });
+    assert.equal(both.phase, "ready_to_reveal");
+    assert.equal(both.partnerAnswer?.body, "对方不该提前看见");
+    assert.ok(both.partnerAnswer?.bilingual);
+    assert.equal(both.partnerAnswer?.bilingual.zh, "对方不该提前看见");
   });
-  assert.equal(both.phase, "ready_to_reveal");
-  assert.equal(both.partnerAnswer?.body, "对方不该提前看见");
+});
+
+test("bilingual choice answers use curated EN without stub", () => {
+  withTempDb(() => {
+    const db = getDb();
+    const prompt = mapPrompt({
+      id: "HI-Q-008",
+      type: "whos_more_likely",
+      prompt: "谁更可能…",
+      prompt_en: "Who is more likely…",
+      choices_json: JSON.stringify(["我", "对方"]),
+      choices_en_json: JSON.stringify(["I", "the other person"]),
+      intimacy_level: 0,
+      audience: "neutral",
+      relation_mode: "both",
+      deck: "whos_more",
+      tags_json: "[]",
+      followup: null,
+      followup_en: null,
+      daily_eligible: 1,
+      nsfw_flag: 0,
+      status: "active",
+    });
+
+    const both = buildReveal({
+      assignmentId: "asg2",
+      prompt,
+      status: "revealed",
+      selfRow: {
+        id: "a1",
+        assignment_id: "asg2",
+        user_id: "u1",
+        body: "我",
+        choice_index: 0,
+        created_at: "t",
+      },
+      partnerRow: {
+        id: "a2",
+        assignment_id: "asg2",
+        user_id: "u2",
+        body: "对方",
+        choice_index: 1,
+        created_at: "t",
+      },
+      revealedAt: "t",
+      db,
+    });
+
+    assert.equal(both.selfAnswer?.bilingual.en, "I");
+    assert.equal(both.partnerAnswer?.bilingual.en, "the other person");
+    assert.equal(both.selfAnswer?.bilingual.needsReview, false);
+    assert.equal(both.partnerAnswer?.bilingual.needsReview, false);
+  });
+});
+
+test("detectSourceLang + translate stub / bilingual dedupe", () => {
+  assert.equal(detectSourceLang("今天很好"), "zh");
+  assert.equal(detectSourceLang("hello world"), "en");
+  const bi = translateToBilingualSync("今天很好\nA quiet day");
+  assert.equal(bi.zh, "今天很好");
+  assert.equal(bi.en, "A quiet day");
+  assert.equal(bi.needsReview, false);
 });
 
 test("nextStreak Asia/Shanghai consecutive days", () => {
@@ -154,11 +234,22 @@ test("friends pair never picks couple-only prompts", () => {
   });
 });
 
-test("deck v1 has 145 prompts and no L4", () => {
+test("deck v1 has 145 bilingual prompts and no L4", () => {
   const deck = loadDeckV1();
   assert.equal(deck.count, 145);
   assert.equal(deck.prompts.length, 145);
   assert.ok(deck.prompts.every((p) => p.intimacyLevel <= 3 && !p.nsfwFlag));
   assert.ok(deck.prompts.some((p) => p.relationMode === "friend"));
   assert.ok(deck.prompts.some((p) => p.relationMode === "couple"));
+  assert.ok(
+    deck.prompts.every((p) => typeof p.promptEn === "string" && p.promptEn.length > 0),
+    "every prompt needs promptEn",
+  );
+  for (const p of deck.prompts) {
+    if (p.choices) {
+      assert.ok(p.choicesEn && p.choicesEn.length === p.choices.length, p.id);
+    } else {
+      assert.equal(p.choicesEn, null, p.id);
+    }
+  }
 });

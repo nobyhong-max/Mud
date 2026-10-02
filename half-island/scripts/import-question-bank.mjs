@@ -105,13 +105,16 @@ const prompts = rows.map((row) => {
     intimacyLevel: level,
     type: TYPE_MAP[row.type.trim()],
     prompt: row.prompt.trim(),
+    promptEn: null,
     choices: choices.length ? choices : null,
+    choicesEn: null,
     tags: (row.tags || "")
       .split(",")
       .map((t) => t.trim())
       .filter(Boolean),
     notes,
     followup: (row.followup || "").trim() || null,
+    followupEn: null,
     audience: AUDIENCE_MAP[row.relation_mode.trim()],
     nsfwFlag: false,
     dailyEligible,
@@ -120,10 +123,24 @@ const prompts = rows.map((row) => {
   };
 });
 
+const enOverlayPath = path.join(root, "packages/content/decks/v1-en.json");
+if (fs.existsSync(enOverlayPath)) {
+  const en = JSON.parse(fs.readFileSync(enOverlayPath, "utf8"));
+  for (const p of prompts) {
+    const e = en[p.id];
+    if (!e) continue;
+    p.promptEn = e.promptEn || null;
+    p.choicesEn = e.choicesEn ?? null;
+    p.followupEn = e.followupEn ?? null;
+  }
+} else {
+  console.warn("v1-en.json missing — promptEn will be null until overlay added");
+}
+
 const out = {
   version: "v1",
   brand: "半个岛",
-  source: "docs/half-island-question-bank-v1.md §6 CSV",
+  source: "docs/half-island-question-bank-v1.md §6 CSV + bilingual EN overlay",
   count: prompts.length,
   deckOnlyIds,
   prompts,

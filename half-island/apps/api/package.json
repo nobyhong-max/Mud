@@ -13,10 +13,11 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@half-island/shared": "workspace:*",
+    "@fastify/cors": "^11.0.1",
     "@half-island/content": "workspace:*",
-    "fastify": "^5.2.1",
-    "@fastify/cors": "^11.0.1"
+    "@half-island/shared": "workspace:*",
+    "@vitalets/google-translate-api": "^9.2.1",
+    "fastify": "^5.2.1"
   },
   "devDependencies": {
     "@types/node": "^22.13.10",

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#0d1a12" />
+  <title>掘地建造 · 老二的小游戏</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="app">
+    <header>
+      <div>
+        <h1>掘地建造</h1>
+        <div class="sub">2D 方块沙盒 · 挖方块 · 盖房子</div>
+      </div>
+      <div class="toolbar">
+        <button type="button" id="btn-mode" data-mode="mine">挖掘</button>
+        <button type="button" id="btn-save" class="primary">保存</button>
+        <button type="button" id="btn-new">新地图</button>
+      </div>
+    </header>
+
+    <div id="stage-wrap">
+      <canvas id="game" aria-label="游戏画面"></canvas>
+    </div>
+
+    <div id="controls">
+      <div id="joystick" aria-label="移动摇杆">
+        <div class="base">
+          <div class="knob"></div>
+        </div>
+      </div>
+
+      <div id="hotbar" aria-label="物品栏">
+        <div class="slot" data-slot="0"><span class="label">泥土</span><span class="count">0</span></div>
+        <div class="slot" data-slot="1"><span class="label">石头</span><span class="count">0</span></div>
+        <div class="slot" data-slot="2"><span class="label">原木</span><span class="count">0</span></div>
+        <div class="slot" data-slot="3"><span class="label">草方</span><span class="count">0</span></div>
+        <div class="slot" data-slot="4"><span class="label">树叶</span><span class="count">0</span></div>
+      </div>
+
+      <div class="right-pad">
+        <button type="button" id="btn-mode-mobile">模式</button>
+        <button type="button" id="btn-jump">跳跃</button>
+      </div>
+    </div>
+
+    <p class="help">
+      电脑：A/D 或方向键移动，W/空格跳跃，鼠标按住挖掘/放置，F 切换模式，1–5 选物品栏。
+      手机：左摇杆移动，右侧跳跃，点画面按住挖掘或放置（先点「模式」切换）。
+    </p>
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

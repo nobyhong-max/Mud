@@ -1,0 +1,121 @@
+import { Block, WORLD_H, WORLD_W } from "./constants.js";
+import { isCave, mulberry32, surfaceHeight } from "./noise.js";
+
+export class World {
+  constructor(seed) {
+    this.seed = seed >>> 0;
+    this.blocks = new Uint8Array(WORLD_W * WORLD_H);
+    this.generate();
+  }
+
+  idx(x, y) {
+    return y * WORLD_W + x;
+  }
+
+  inBounds(x, y) {
+    return x >= 0 && x < WORLD_W && y >= 0 && y < WORLD_H;
+  }
+
+  getBlock(x, y) {
+    if (!this.inBounds(x, y)) return Block.STONE;
+    return this.blocks[this.idx(x, y)];
+  }
+
+  setBlock(x, y, id) {
+    if (!this.inBounds(x, y)) return;
+    this.blocks[this.idx(x, y)] = id;
+  }
+
+  isSolid(x, y) {
+    const id = this.getBlock(x, y);
+    return id !== Block.AIR;
+  }
+
+  generate() {
+    this.blocks.fill(Block.AIR);
+    const rand = mulberry32(this.seed);
+
+    for (let x = 0; x < WORLD_W; x++) {
+      const surface = surfaceHeight(x, this.seed);
+      for (let y = 0; y < WORLD_H; y++) {
+        let id = Block.AIR;
+        if (y >= surface) {
+          if (y === surface) id = Block.GRASS;
+          else if (y < surface + 5) id = Block.DIRT;
+          else id = Block.STONE;
+        }
+        if (id === Block.STONE && isCave(x, y, this.seed)) {
+          id = Block.AIR;
+        }
+        this.setBlock(x, y, id);
+      }
+    }
+
+    for (let x = 4; x < WORLD_W - 4; x++) {
+      if (rand() > 0.988) {
+        const surface = surfaceHeight(x, this.seed);
+        const trunkH = 4 + Math.floor(rand() * 3);
+        for (let ty = 0; ty < trunkH; ty++) {
+          const y = surface - 1 - ty;
+          if (y > 2) this.setBlock(x, y, Block.WOOD);
+        }
+        const top = surface - trunkH;
+        for (let lx = -2; lx <= 2; lx++) {
+          for (let ly = -2; ly <= 1; ly++) {
+            if (Math.abs(lx) + Math.abs(ly) > 3) continue;
+            if (lx === 0 && ly >= 0) continue;
+            const bx = x + lx;
+            const by = top + ly;
+            if (this.getBlock(bx, by) === Block.AIR) {
+              this.setBlock(bx, by, Block.LEAVES);
+            }
+          }
+        }
+      }
+    }
+
+    const spawnX = Math.floor(WORLD_W * 0.25);
+    const spawnSurface = surfaceHeight(spawnX, this.seed);
+    for (let dx = -2; dx <= 2; dx++) {
+      for (let dy = 0; dy <= 6; dy++) {
+        const bx = spawnX + dx;
+        const by = spawnSurface + dy;
+        if (by >= spawnSurface && by < spawnSurface + 4) {
+          this.setBlock(bx, by, Block.AIR);
+        }
+      }
+    }
+  }
+
+  /** Apply sparse edits from save: [[x,y,id], ...] */
+  applyEdits(edits) {
+    if (!edits) return;
+    for (const [x, y, id] of edits) {
+      if (this.inBounds(x, y)) this.setBlock(x, y, id);
+    }
+  }
+
+  collectEdits(baseline) {
+    const out = [];
+    for (let i = 0; i < this.blocks.length; i++) {
+      if (this.blocks[i] !== baseline[i]) {
+        const x = i % WORLD_W;
+        const y = (i / WORLD_W) | 0;
+        out.push([x, y, this.blocks[i]]);
+      }
+    }
+    return out;
+  }
+
+  static baseline(seed) {
+    const w = new World(seed);
+    return w.blocks.slice();
+  }
+}
+
+export function worldToTile(wx, wy, tileSize) {
+  return {
+    tx: Math.floor(wx / tileSize),
+    ty: Math.floor(wy / tileSize),
+  };
+}

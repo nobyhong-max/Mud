@@ -1,4 +1,4 @@
-import { GRAVITY, JUMP_V, MAX_FALL, MOVE_SPEED, TILE, WORLD_H, WORLD_W } from "./constants.js";
+import { FLY_SPEED, GRAVITY, JUMP_V, MAX_FALL, MOVE_SPEED, TILE, WORLD_H, WORLD_W } from "./constants.js";
 
 export class Player {
   constructor(x, y) {
@@ -10,21 +10,38 @@ export class Player {
     this.vy = 0;
     this.onGround = false;
     this.facing = 1;
-  }
-
-  aabb() {
-    return { x: this.x, y: this.y, w: this.w, h: this.h };
+    this.flying = false;
   }
 
   center() {
     return { x: this.x + this.w * 0.5, y: this.y + this.h * 0.5 };
   }
 
-  update(world, input) {
+  footTileY() {
+    return Math.floor((this.y + this.h - 1) / TILE);
+  }
+
+  update(world, input, opts = {}) {
+    const { creative = false, flyToggle = false } = opts;
     let move = 0;
     if (input.left) move -= 1;
     if (input.right) move += 1;
     if (move !== 0) this.facing = move;
+
+    if (creative) {
+      if (flyToggle) this.flying = !this.flying;
+      if (this.flying) {
+        this.vx = move * FLY_SPEED;
+        let vy = 0;
+        if (input.jump || input.flyUp) vy -= FLY_SPEED;
+        if (input.flyDown) vy += FLY_SPEED;
+        this.vy = vy;
+        this.x += this.vx;
+        this.y += this.vy;
+        this.clampWorld();
+        return;
+      }
+    }
 
     this.vx = move * MOVE_SPEED;
     if (input.jump && this.onGround) {
@@ -33,10 +50,12 @@ export class Player {
     }
 
     this.vy = Math.min(this.vy + GRAVITY, MAX_FALL);
-
     this.moveAxis(world, "x", this.vx);
     this.moveAxis(world, "y", this.vy);
+    this.clampWorld();
+  }
 
+  clampWorld() {
     const maxX = WORLD_W * TILE - this.w;
     const maxY = WORLD_H * TILE - this.h;
     this.x = Math.max(0, Math.min(this.x, maxX));
@@ -48,9 +67,7 @@ export class Player {
     if (axis === "x") this.x += delta;
     else this.y += delta;
 
-    const tiles = this.overlappingTiles(world);
-    for (const { tx, ty } of tiles) {
-      if (!world.isSolid(tx, ty)) continue;
+    for (const { tx, ty } of this.overlappingSolidTiles(world)) {
       if (axis === "x") {
         if (delta > 0) this.x = tx * TILE - this.w - 0.01;
         else this.x = (tx + 1) * TILE + 0.01;
@@ -76,7 +93,7 @@ export class Player {
     }
   }
 
-  overlappingTiles(world) {
+  overlappingSolidTiles(world) {
     const x0 = Math.floor(this.x / TILE);
     const x1 = Math.floor((this.x + this.w - 0.001) / TILE);
     const y0 = Math.floor(this.y / TILE);
@@ -90,14 +107,17 @@ export class Player {
     return out;
   }
 
-  intersectsTile(tx, ty) {
+  /** Placement collision — allows block directly under feet / adjacent. */
+  blocksPlacement(tx, ty) {
     const bx = tx * TILE;
     const by = ty * TILE;
+    const bodyBottom = this.y + this.h - 8;
+    const margin = 1;
     return (
-      this.x < bx + TILE &&
-      this.x + this.w > bx &&
-      this.y < by + TILE &&
-      this.y + this.h > by
+      bx + TILE > this.x + margin &&
+      bx < this.x + this.w - margin &&
+      by + TILE > this.y + margin &&
+      by < bodyBottom
     );
   }
 }

@@ -4,19 +4,36 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="theme-color" content="#0d1a12" />
-  <title>掘地建造 · 老二的小游戏</title>
+  <meta name="theme-color" content="#1a1a1a" />
+  <title>我的世界 · 掘地建造 2D</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <div id="app">
+  <div id="main-menu">
+    <div class="menu-bg"></div>
+    <div class="menu-panel">
+      <h1 class="mc-title">我的世界</h1>
+      <p class="mc-subtitle">掘地建造 · 2D 粉丝向玩法（非官方）</p>
+      <div class="menu-actions">
+        <button type="button" class="menu-btn" data-start="survival">单人游戏 · 生存</button>
+        <button type="button" class="menu-btn" data-start="creative">单人游戏 · 创造</button>
+        <button type="button" class="menu-btn secondary" data-start="survival" data-continue="1">继续本地存档</button>
+      </div>
+      <p class="menu-hint">合成下界门：黑曜石框内空 ≥4×5 · 打火石点燃 · 走进传送门</p>
+    </div>
+  </div>
+
+  <div id="app" hidden>
     <header>
       <div>
         <h1>掘地建造</h1>
-        <div class="sub">2D 方块沙盒 · 挖方块 · 盖房子</div>
+        <div class="sub">2D 方块沙盒</div>
       </div>
       <div class="toolbar">
         <button type="button" id="btn-mode" data-mode="mine">挖掘</button>
+        <button type="button" id="btn-craft">工作台</button>
+        <button type="button" id="btn-equip">装备</button>
+        <button type="button" id="btn-fly" class="creative-only">飞行</button>
         <button type="button" id="btn-save" class="primary">保存</button>
         <button type="button" id="btn-new">新地图</button>
       </div>
@@ -37,20 +54,36 @@
         <div class="slot" data-slot="0"><span class="label">泥土</span><span class="count">0</span></div>
         <div class="slot" data-slot="1"><span class="label">石头</span><span class="count">0</span></div>
         <div class="slot" data-slot="2"><span class="label">原木</span><span class="count">0</span></div>
-        <div class="slot" data-slot="3"><span class="label">草方</span><span class="count">0</span></div>
-        <div class="slot" data-slot="4"><span class="label">树叶</span><span class="count">0</span></div>
+        <div class="slot" data-slot="3"><span class="label">木镐</span><span class="count">0</span></div>
+        <div class="slot" data-slot="4"><span class="label">火</span><span class="count">0</span></div>
       </div>
 
       <div class="right-pad">
         <button type="button" id="btn-mode-mobile">模式</button>
+        <button type="button" id="btn-mode-use">使用</button>
         <button type="button" id="btn-jump">跳跃</button>
       </div>
     </div>
 
     <p class="help">
-      电脑：A/D 或方向键移动，W/空格跳跃，鼠标按住挖掘/放置，F 切换模式，1–5 选物品栏。
-      手机：左摇杆移动，右侧跳跃，点画面按住挖掘或放置（先点「模式」切换）。
+      挖掘/放置/使用 三模式切换 · 装备栏可穿护甲与工具（影响挖掘速度）· 创造模式 R/飞行键 · 存档键 laoer-juedi-v2
     </p>
+  </div>
+
+  <div id="modal-craft" class="modal" aria-hidden="true">
+    <div class="modal-card">
+      <header><h2>工作台 · 合成</h2><button type="button" class="close">×</button></header>
+      <div id="craft-recipes" class="recipe-list"></div>
+    </div>
+  </div>
+
+  <div id="modal-equip" class="modal" aria-hidden="true">
+    <div class="modal-card">
+      <header><h2>装备</h2><button type="button" class="close">×</button></header>
+      <div id="equip-slots"></div>
+      <p class="modal-sub">背包可装备物品：</p>
+      <div id="equip-inventory" class="recipe-list"></div>
+    </div>
   </div>
 
   <script type="module" src="js/main.js"></script>

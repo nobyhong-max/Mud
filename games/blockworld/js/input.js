@@ -3,27 +3,25 @@ export class Input {
     this.left = false;
     this.right = false;
     this.jump = false;
+    this.flyDown = false;
     this.mine = false;
     this.place = false;
+    this.use = false;
     this.mode = "mine";
-    this.pointerWorld = { x: 0, y: 0, active: false };
+    this.pointer = { viewX: 0, viewY: 0, active: false, down: false };
     this.keys = new Set();
     this.hotbarKey = undefined;
     this.jumpHeld = false;
+    this.flyToggleEdge = false;
+    this.canvas = canvas;
 
     window.addEventListener("keydown", (e) => this.onKey(e, true));
     window.addEventListener("keyup", (e) => this.onKey(e, false));
 
-    canvas.addEventListener("pointerdown", (e) => this.onPointer(e, canvas, true));
-    canvas.addEventListener("pointermove", (e) => this.onPointer(e, canvas, false));
-    canvas.addEventListener("pointerup", () => {
-      this.mine = false;
-      this.place = false;
-    });
-    canvas.addEventListener("pointercancel", () => {
-      this.mine = false;
-      this.place = false;
-    });
+    canvas.addEventListener("pointerdown", (e) => this.onPointer(e, true));
+    canvas.addEventListener("pointermove", (e) => this.onPointer(e, false));
+    canvas.addEventListener("pointerup", (e) => this.onPointerUp(e));
+    canvas.addEventListener("pointercancel", (e) => this.onPointerUp(e));
 
     this.joystick = { active: false, ox: 0, oy: 0, x: 0, y: 0 };
     if (joystickEl) this.bindJoystick(joystickEl);
@@ -43,13 +41,15 @@ export class Input {
 
   onKey(e, down) {
     const k = e.key.toLowerCase();
-    if (["arrowleft", "a", "arrowright", "d", " ", "w", "arrowup", "1", "2", "3", "4", "5", "f"].includes(k)) {
+    if (["arrowleft", "a", "arrowright", "d", " ", "w", "arrowup", "shift", "1", "2", "3", "4", "5", "f", "e", "r"].includes(k)) {
       e.preventDefault();
     }
     if (down) this.keys.add(k);
     else this.keys.delete(k);
 
     if (k === "f" && down) this.mode = this.mode === "mine" ? "place" : "mine";
+    if (k === "e" && down) this.use = true;
+    if (k === "r" && down) this.flyToggleEdge = true;
     if (k >= "1" && k <= "5" && down) this.hotbarKey = Number(k) - 1;
   }
 
@@ -97,34 +97,55 @@ export class Input {
       }
       this.joystick.x = dx / maxR;
       this.joystick.y = dy / maxR;
-      if (knob) {
-        knob.style.transform = `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px))`;
-      }
+      if (knob) knob.style.transform = `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px))`;
     };
   }
 
-  onPointer(e, canvas, isDown) {
-    const rect = canvas.getBoundingClientRect();
-    this.pointerWorld.x = ((e.clientX - rect.left) / rect.width) * canvas.width;
-    this.pointerWorld.y = ((e.clientY - rect.top) / rect.height) * canvas.height;
-    this.pointerWorld.active = true;
+  onPointer(e, isDown) {
+    if (this.uiBlocked) return;
+    e.preventDefault();
+    this.canvas.setPointerCapture?.(e.pointerId);
+    const rect = this.canvas.getBoundingClientRect();
+    this.pointer.viewX = e.clientX - rect.left;
+    this.pointer.viewY = e.clientY - rect.top;
+    this.pointer.active = true;
     if (isDown) {
-      if (this.mode === "place") this.place = true;
-      else this.mine = true;
+      this.pointer.down = true;
+      this.syncActionFlags();
     }
+  }
+
+  onPointerUp(e) {
+    if (this.canvas.hasPointerCapture?.(e.pointerId)) this.canvas.releasePointerCapture(e.pointerId);
+    this.pointer.down = false;
+    this.mine = false;
+    this.place = false;
+    this.use = false;
+  }
+
+  syncActionFlags() {
+    this.mine = this.mode === "mine" && this.pointer.down;
+    this.place = this.mode === "place" && this.pointer.down;
+    this.use = this.mode === "use" && this.pointer.down;
+  }
+
+  setMode(mode) {
+    this.mode = mode;
+    this.syncActionFlags();
   }
 
   poll() {
     this.left = this.keys.has("arrowleft") || this.keys.has("a") || this.joystick.x < -0.25;
     this.right = this.keys.has("arrowright") || this.keys.has("d") || this.joystick.x > 0.25;
-    this.jump =
-      this.jumpHeld ||
-      this.keys.has(" ") ||
-      this.keys.has("w") ||
-      this.keys.has("arrowup");
+    this.jump = this.jumpHeld || this.keys.has(" ") || this.keys.has("w") || this.keys.has("arrowup");
+    this.flyDown = this.keys.has("shift");
+    if (this.pointer.down) this.syncActionFlags();
 
     const hk = this.hotbarKey;
+    const flyToggle = this.flyToggleEdge;
     this.hotbarKey = undefined;
-    return { hotbarKey: hk };
+    this.flyToggleEdge = false;
+    this.use = this.use || (this.keys.has("e") && this.mode === "use");
+    return { hotbarKey: hk, flyToggle };
   }
 }

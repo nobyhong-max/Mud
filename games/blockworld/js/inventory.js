@@ -1,4 +1,4 @@
-import { Block, HOTBAR_TYPES } from "./constants.js";
+import { Block, HOTBAR_DEFAULT, Item, isBlock } from "./constants.js";
 
 export class Inventory {
   constructor() {
@@ -7,28 +7,37 @@ export class Inventory {
       [Block.STONE]: 8,
       [Block.WOOD]: 8,
       [Block.GRASS]: 4,
-      [Block.LEAVES]: 4,
+      [Block.OBSIDIAN]: 0,
+      [Block.CRAFTING_TABLE]: 0,
+      [Item.FLINT_STEEL]: 0,
+      [Item.WOOD_PICK]: 1,
     };
-    this.hotbar = HOTBAR_TYPES.map((t) => t);
+    this.hotbar = HOTBAR_DEFAULT.map((t) => t);
     this.selected = 0;
   }
 
-  add(blockId, n = 1) {
-    if (!blockId || blockId === Block.AIR) return;
-    this.counts[blockId] = (this.counts[blockId] || 0) + n;
+  add(id, n = 1) {
+    if (!id) return;
+    this.counts[id] = (this.counts[id] || 0) + n;
   }
 
-  canPlace(blockId) {
-    return (this.counts[blockId] || 0) > 0;
+  has(id, n = 1) {
+    return (this.counts[id] || 0) >= n;
   }
 
-  use(blockId) {
-    if (!this.canPlace(blockId)) return false;
-    this.counts[blockId]--;
+  canPlace(id, creative) {
+    if (creative && isBlock(id)) return true;
+    return (this.counts[id] || 0) > 0;
+  }
+
+  use(id, creative) {
+    if (creative && isBlock(id)) return true;
+    if (!this.canPlace(id, false)) return false;
+    this.counts[id]--;
     return true;
   }
 
-  selectedBlock() {
+  selectedStack() {
     return this.hotbar[this.selected] || Block.DIRT;
   }
 
@@ -36,9 +45,10 @@ export class Inventory {
     if (index >= 0 && index < this.hotbar.length) this.selected = index;
   }
 
-  cycle(delta) {
-    const n = this.hotbar.length;
-    this.selected = (this.selected + delta + n) % n;
+  assignHotbar(index, id) {
+    if (index >= 0 && index < this.hotbar.length && id) {
+      this.hotbar[index] = id;
+    }
   }
 
   toJSON() {

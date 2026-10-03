@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#1a1a1a" />
+  <title>我的世界 · 掘地建造 3D</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
+    }
+  }
+  </script>
+</head>
+<body>
+  <div id="main-menu">
+    <div class="menu-bg"></div>
+    <div class="menu-panel">
+      <h1 class="mc-title">我的世界</h1>
+      <p class="mc-subtitle">掘地建造 · 3D 体素沙盒（粉丝向，非官方）</p>
+      <div class="menu-actions">
+        <button type="button" class="menu-btn" data-start="survival">单人游戏 · 生存</button>
+        <button type="button" class="menu-btn" data-start="creative">单人游戏 · 创造</button>
+        <button type="button" class="menu-btn secondary" data-start="survival" data-continue="1">继续本地存档</button>
+      </div>
+      <p class="menu-hint">黑曜石框内空 ≥4×5 · 打火石点燃 · 分块无限地形 · 存档 laoer-juedi-3d-v1</p>
+    </div>
+  </div>
+
+  <div id="app" hidden>
+    <header>
+      <div>
+        <h1>掘地建造 3D</h1>
+        <div class="sub" id="hud-info">主世界</div>
+      </div>
+      <div class="toolbar">
+        <button type="button" id="btn-mode" data-mode="mine">挖掘</button>
+        <button type="button" id="btn-craft">工作台</button>
+        <button type="button" id="btn-equip">装备</button>
+        <button type="button" id="btn-fly" class="creative-only">飞行</button>
+        <button type="button" id="btn-view">视角</button>
+        <button type="button" id="btn-save" class="primary">保存</button>
+        <button type="button" id="btn-new">新地图</button>
+      </div>
+    </header>
+
+    <div id="stage-wrap">
+      <div id="look-zone" aria-hidden="true"></div>
+      <div id="hud-toast"></div>
+      <p class="tap-hint">点画面锁定鼠标 · V 切换第一/第三人称</p>
+    </div>
+
+    <div id="controls">
+      <div id="joystick" aria-label="移动摇杆">
+        <div class="base">
+          <div class="knob"></div>
+        </div>
+      </div>
+
+      <div id="hotbar" aria-label="物品栏">
+        <div class="slot" data-slot="0"><span class="label">泥土</span><span class="count">0</span></div>
+        <div class="slot" data-slot="1"><span class="label">石头</span><span class="count">0</span></div>
+        <div class="slot" data-slot="2"><span class="label">原木</span><span class="count">0</span></div>
+        <div class="slot" data-slot="3"><span class="label">木镐</span><span class="count">0</span></div>
+        <div class="slot" data-slot="4"><span class="label">火</span><span class="count">0</span></div>
+      </div>
+
+      <div class="right-pad">
+        <button type="button" id="btn-mode-mobile">模式</button>
+        <button type="button" id="btn-mode-use">使用</button>
+        <button type="button" id="btn-mine-mobile">挖掘</button>
+        <button type="button" id="btn-place-mobile">放置</button>
+        <button type="button" id="btn-jump">跳跃</button>
+      </div>
+    </div>
+
+    <p class="help">
+      WASD 移动 · 空格跳 · Shift 潜行（飞行时下降）· 1–5 快捷栏 · 分块加载卸载 · 移动端右侧环视 + 挖掘/放置键
+    </p>
+  </div>
+
+  <div id="modal-craft" class="modal" aria-hidden="true">
+    <div class="modal-card">
+      <header><h2>工作台 · 合成</h2><button type="button" class="close">×</button></header>
+      <div id="craft-recipes" class="recipe-list"></div>
+    </div>
+  </div>
+
+  <div id="modal-equip" class="modal" aria-hidden="true">
+    <div class="modal-card">
+      <header><h2>装备</h2><button type="button" class="close">×</button></header>
+      <div id="equip-slots"></div>
+      <p class="modal-sub">背包可装备物品：</p>
+      <div id="equip-inventory" class="recipe-list"></div>
+    </div>
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

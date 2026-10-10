@@ -26,7 +26,7 @@ body {
     radial-gradient(1200px 600px at 20% -10%, rgba(227, 179, 76, 0.08), transparent 50%),
     linear-gradient(180deg, #10261d 0%, #0a1813 100%);
   color: var(--paper);
-  font-family: "Noto Sans SC", "WenQuanYi Micro Hei", "Droid Sans Fallback", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "WenQuanYi Micro Hei", "Droid Sans Fallback", sans-serif;
 }
 
 button,

@@ -87,11 +87,11 @@ export function resolveVisionLabel(label) {
 
 export function parseVisionPayload(payload, threshold = 0.5) {
   if (!payload || typeof payload !== "object") {
-    throw new Error("识别结果必须是 JSON 对象");
+    throw new Error("识别结果必须是对象");
   }
   const detections = payload.detections || payload.cards || [];
   if (!Array.isArray(detections)) {
-    throw new Error("detections 必须是数组");
+    throw new Error("识别列表必须是数组");
   }
   const cut = payload.threshold ?? threshold;
   const accepted = [];
@@ -155,12 +155,12 @@ export function ingestVisionPayload(state, payload, options = {}) {
   return {
     ...parsed,
     applied,
-    message: `已合并 ${applied.length} 张识别结果，跳过 ${parsed.skipped.length} 条`,
+    message: `已合并 ${applied.length} 张识别牌面，跳过 ${parsed.skipped.length} 条`,
   };
 }
 
 export async function recognizeImage(_fileOrUrl) {
-  throw new Error("YOLO 图像识别模块尚未接入。请手动点选记牌，或导入 detections JSON。");
+  throw new Error("图像识别模块尚未接入。请手动点选记牌，或导入识别结果文件。");
 }
 
 export function createVisionBridge(getState) {

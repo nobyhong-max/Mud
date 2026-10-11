@@ -1,0 +1,543 @@
+{
+  "version": "pack-festival_qixi-v1",
+  "brand": "半个岛",
+  "packId": "festival_qixi",
+  "targetCount": 20,
+  "count": 20,
+  "notes": "Merged into core v1.json via question-bank v1.1; dailyEligible=false.",
+  "prompts": [
+    {
+      "id": "HI-Q-281",
+      "deck": "festival_qixi",
+      "relationMode": "couple",
+      "intimacyLevel": 1,
+      "type": "open_text",
+      "prompt": "如果今晚只能共度一件小事，你会选什么？",
+      "promptEn": "If you could share only one small thing tonight, what would it be?",
+      "choices": null,
+      "choicesEn": null,
+      "tags": [
+        "节日",
+        "七夕"
+      ],
+      "notes": "节日牌组；默认可非日更",
+      "followup": "为什么是这件事？",
+      "followupEn": "Why that one?",
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": false,
+      "status": "active"
+    },
+    {
+      "id": "HI-Q-282",
+      "deck": "festival_qixi",
+      "relationMode": "both",
+      "intimacyLevel": 0,
+      "type": "either_or",
+      "prompt": "七夕夜更想：出门走走，还是窝着聊天？",
+      "promptEn": "On Qixi night: a walk outside, or stay in and talk?",
+      "choices": [
+        "出门走走",
+        "窝着聊天"
+      ],
+      "choicesEn": [
+        "Go for a walk",
+        "Stay in and talk"
+      ],
+      "tags": [
+        "节日",
+        "七夕"
+      ],
+      "notes": "节日牌组",
+      "followup": null,
+      "followupEn": null,
+      "audience": "neutral",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": false,
+      "status": "active"
+    },
+    {
+      "id": "HI-Q-283",
+      "deck": "festival_qixi",
+      "relationMode": "couple",
+      "intimacyLevel": 2,
+      "type": "open_text",
+      "prompt": "有没有一句你想说、但节日喧闹里很难说出口的话？",
+      "promptEn": "Is there something you want to say that gets lost in the holiday noise?",
+      "choices": null,
+      "choicesEn": null,
+      "tags": [
+        "节日",
+        "七夕",
+        "柔软"
+      ],
+      "notes": "节日牌组",
+      "followup": "如果对方先开口，你会怎样接？",
+      "followupEn": "If they spoke first, how would you answer?",
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": false,
+      "status": "active"
+    },
+    {
+      "id": "HI-Q-284",
+      "deck": "festival_qixi",
+      "relationMode": "couple",
+      "intimacyLevel": 0,
+      "type": "single_choice",
+      "prompt": "更想用哪种方式过这个「飞地夜」？",
+      "promptEn": "How do you want to spend this enclave night?",
+      "choices": [
+        "低调仪式，两个人懂就好",
+        "小小布置一下桌面或窗台",
+        "和平日一样，但多一句真心话"
+      ],
+      "choicesEn": [
+        "A quiet ritual only you two get",
+        "A small setup on the table or sill",
+        "Like any day—plus one honest sentence"
+      ],
+      "tags": [
+        "节日",
+        "七夕"
+      ],
+      "notes": "节日牌组",
+      "followup": null,
+      "followupEn": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": false,
+      "status": "active"
+    },
+    {
+      "id": "HI-Q-285",
+      "deck": "festival_qixi",
+      "relationMode": "both",
+      "intimacyLevel": 0,
+      "type": "whos_more_likely",
+      "prompt": "谁更可能把七夕过成「普通但认真的一天」？",
+      "promptEn": "Who is more likely to make Qixi an ordinary day—done with care?",
+      "choices": [
+        "我",
+        "对方"
+      ],
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "tags": [
+        "节日",
+        "七夕",
+        "谁更可能"
+      ],
+      "notes": "节日牌组",
+      "followup": null,
+      "followupEn": null,
+      "audience": "neutral",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": false,
+      "status": "active"
+    },
+    {
+      "id": "HI-Q-286",
+      "deck": "festival_qixi",
+      "relationMode": "couple",
+      "intimacyLevel": 1,
+      "type": "open_text",
+      "prompt": "如果把鹊桥想成你们的连线，桥上最需要补哪一块板？",
+      "promptEn": "If the magpie bridge were your connection, which plank most needs fixing?",
+      "choices": null,
+      "choicesEn": null,
+      "tags": [
+        "节日",
+        "七夕",
+        "隐喻"
+      ],
+      "notes": "文艺；节日牌组",
+      "followup": null,
+      "followupEn": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": false,
+      "status": "active"
+    },
+    {
+      "id": "HI-Q-287",
+      "deck": "festival_qixi",
+      "relationMode": "couple",
+      "intimacyLevel": 0,
+      "type": "either_or",
+      "prompt": "更想收到：一封短信道歉或感谢，还是一份具体的小行动？",
+      "promptEn": "Rather receive a short note of thanks or apology, or one concrete small action?",
+      "choices": [
+        "短信道歉或感谢",
+        "具体小行动"
+      ],
+      "choicesEn": [
+        "A short note",
+        "A concrete small action"
+      ],
+      "tags": [
+        "节日",
+        "七夕"
+      ],
+      "notes": "节日牌组",
+      "followup": null,
+      "followupEn": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": false,
+      "status": "active"
+    },
+    {
+      "id": "HI-Q-288",
+      "deck": "festival_qixi",
+      "relationMode": "both",
+      "intimacyLevel": 1,
+      "type": "open_text",
+      "prompt": "节日营销很吵时，你们怎样守住自己的节奏？",
+      "promptEn": "When holiday marketing gets loud, how do you two keep your own pace?",
+      "choices": null,
+      "choicesEn": null,
+      "tags": [
+        "节日",
+        "七夕",
+        "边界"
+      ],
+      "notes": "both；反消费主义轻触",
+      "followup": null,
+      "followupEn": null,
+      "audience": "neutral",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": false,
+      "status": "active"
+    },
+    {
+      "id": "HI-Q-289",
+      "deck": "festival_qixi",
+      "relationMode": "couple",
+      "intimacyLevel": 1,
+      "type": "single_choice",
+      "prompt": "今晚更想强调的是？",
+      "promptEn": "Tonight you most want to emphasize…",
+      "choices": [
+        "我们还在同一座岛",
+        "谢谢你一直在",
+        "明天也请多指教"
+      ],
+      "choicesEn": [
+        "We're still on the same island",
+        "Thank you for staying",
+        "Please keep teaching me tomorrow too"
+      ],
+      "tags": [
+        "节日",
+        "七夕"
+      ],
+      "notes": "节日牌组",
+      "followup": null,
+      "followupEn": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": false,
+      "status": "active"
+    },
+    {
+      "id": "HI-Q-290",
+      "deck": "festival_qixi",
+      "relationMode": "couple",
+      "intimacyLevel": 0,
+      "type": "open_text",
+      "prompt": "用一种传统甜食或时令水果，形容此刻的你们。",
+      "promptEn": "Describe you-two right now as a traditional sweet or seasonal fruit.",
+      "choices": null,
+      "choicesEn": null,
+      "tags": [
+        "节日",
+        "七夕",
+        "感官"
+      ],
+      "notes": "节日牌组",
+      "followup": null,
+      "followupEn": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": false,
+      "status": "active"
+    },
+    {
+      "id": "HI-Q-291",
+      "deck": "festival_qixi",
+      "relationMode": "both",
+      "intimacyLevel": 0,
+      "type": "either_or",
+      "prompt": "更想：看一夜星空（或城市灯火），还是早睡把夜留给明天？",
+      "promptEn": "Rather stay up for stars (or city lights), or sleep early and leave the night to tomorrow?",
+      "choices": [
+        "看一夜星空或灯火",
+        "早睡留给明天"
+      ],
+      "choicesEn": [
+        "Stay up for stars or lights",
+        "Sleep early for tomorrow"
+      ],
+      "tags": [
+        "节日",
+        "七夕"
+      ],
+      "notes": "节日牌组",
+      "followup": null,
+      "followupEn": null,
+      "audience": "neutral",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": false,
+      "status": "active"
+    },
+    {
+      "id": "HI-Q-292",
+      "deck": "festival_qixi",
+      "relationMode": "couple",
+      "intimacyLevel": 2,
+      "type": "open_text",
+      "prompt": "一年里最像「你们的七夕」的日子，其实是哪一天？为什么？",
+      "promptEn": "Which day of the year is secretly your real Qixi—and why?",
+      "choices": null,
+      "choicesEn": null,
+      "tags": [
+        "节日",
+        "七夕",
+        "专属"
+      ],
+      "notes": "节日牌组；L2",
+      "followup": null,
+      "followupEn": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": false,
+      "status": "active"
+    },
+    {
+      "id": "HI-Q-293",
+      "deck": "festival_qixi",
+      "relationMode": "couple",
+      "intimacyLevel": 1,
+      "type": "whos_more_likely",
+      "prompt": "谁更可能把节日礼物拖到最后一天仍选得很准？",
+      "promptEn": "Who is more likely to leave the gift to the last day—and still choose well?",
+      "choices": [
+        "我",
+        "对方"
+      ],
+      "choicesEn": [
+        "I",
+        "the other person"
+      ],
+      "tags": [
+        "节日",
+        "七夕",
+        "谁更可能"
+      ],
+      "notes": "节日牌组",
+      "followup": null,
+      "followupEn": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": false,
+      "status": "active"
+    },
+    {
+      "id": "HI-Q-294",
+      "deck": "festival_qixi",
+      "relationMode": "both",
+      "intimacyLevel": 0,
+      "type": "open_text",
+      "prompt": "如果不买东西也算过节，你们的「过法」会是什么？",
+      "promptEn": "If celebrating without buying anything still counts—what's your way?",
+      "choices": null,
+      "choicesEn": null,
+      "tags": [
+        "节日",
+        "七夕",
+        "非消费"
+      ],
+      "notes": "节日牌组；both",
+      "followup": null,
+      "followupEn": null,
+      "audience": "neutral",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": false,
+      "status": "active"
+    },
+    {
+      "id": "HI-Q-295",
+      "deck": "festival_qixi",
+      "relationMode": "couple",
+      "intimacyLevel": 1,
+      "type": "open_text",
+      "prompt": "写一句只在今晚有效的「岛规」。",
+      "promptEn": "Write one island rule that only applies tonight.",
+      "choices": null,
+      "choicesEn": null,
+      "tags": [
+        "节日",
+        "七夕",
+        "岛规"
+      ],
+      "notes": "节日牌组；好玩",
+      "followup": null,
+      "followupEn": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": false,
+      "status": "active"
+    },
+    {
+      "id": "HI-Q-296",
+      "deck": "festival_qixi",
+      "relationMode": "couple",
+      "intimacyLevel": 0,
+      "type": "single_choice",
+      "prompt": "更想把今夜收进？",
+      "promptEn": "How do you want to keep tonight?",
+      "choices": [
+        "一张并排的影子或天空",
+        "一句语音备忘",
+        "什么都不留，只留感觉"
+      ],
+      "choicesEn": [
+        "A photo of side-by-side shadows or sky",
+        "One voice memo",
+        "Keep nothing but the feeling"
+      ],
+      "tags": [
+        "节日",
+        "七夕",
+        "记忆"
+      ],
+      "notes": "节日牌组",
+      "followup": null,
+      "followupEn": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": false,
+      "status": "active"
+    },
+    {
+      "id": "HI-Q-297",
+      "deck": "festival_qixi",
+      "relationMode": "both",
+      "intimacyLevel": 1,
+      "type": "open_text",
+      "prompt": "节日里最想避开的压力是什么？对方怎样能帮你挡一点？",
+      "promptEn": "What holiday pressure do you most want to dodge—and how can they help block a bit?",
+      "choices": null,
+      "choicesEn": null,
+      "tags": [
+        "节日",
+        "七夕",
+        "压力"
+      ],
+      "notes": "节日牌组；both",
+      "followup": null,
+      "followupEn": null,
+      "audience": "neutral",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": false,
+      "status": "active"
+    },
+    {
+      "id": "HI-Q-298",
+      "deck": "festival_qixi",
+      "relationMode": "couple",
+      "intimacyLevel": 2,
+      "type": "open_text",
+      "prompt": "如果牛郎织女也用「先答后揭」，你猜他们今晚会问对方什么？",
+      "promptEn": "If the Weaver Girl and Cowherd also did answer-then-reveal, what might they ask tonight?",
+      "choices": null,
+      "choicesEn": null,
+      "tags": [
+        "节日",
+        "七夕",
+        "玩梗"
+      ],
+      "notes": "节日牌组；自指机制轻梗",
+      "followup": null,
+      "followupEn": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": false,
+      "status": "active"
+    },
+    {
+      "id": "HI-Q-299",
+      "deck": "festival_qixi",
+      "relationMode": "couple",
+      "intimacyLevel": 1,
+      "type": "either_or",
+      "prompt": "更想：认真过一次节日，还是把认真留给明天的日常？",
+      "promptEn": "Rather take the holiday seriously once, or save seriousness for tomorrow's ordinary day?",
+      "choices": [
+        "认真过一次节日",
+        "认真留给日常"
+      ],
+      "choicesEn": [
+        "Take the holiday seriously",
+        "Save seriousness for ordinary days"
+      ],
+      "tags": [
+        "节日",
+        "七夕"
+      ],
+      "notes": "节日牌组",
+      "followup": null,
+      "followupEn": null,
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": false,
+      "status": "active"
+    },
+    {
+      "id": "HI-Q-300",
+      "deck": "festival_qixi",
+      "relationMode": "couple",
+      "intimacyLevel": 0,
+      "type": "open_text",
+      "prompt": "今夜结束前，你想留给这座岛的一句台词是什么？",
+      "promptEn": "Before tonight ends, what line do you want to leave on this island?",
+      "choices": null,
+      "choicesEn": null,
+      "tags": [
+        "节日",
+        "七夕",
+        "收束"
+      ],
+      "notes": "节日牌组；品牌收束",
+      "followup": "愿意让对方也听见吗？",
+      "followupEn": "Are you willing to let them hear it too?",
+      "audience": "couple",
+      "nsfwFlag": false,
+      "dailyEligible": false,
+      "needsReview": false,
+      "status": "active"
+    }
+  ]
+}

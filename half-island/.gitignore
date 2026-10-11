@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.turbo/
+*.log
+.env
+.env.local
+.DS_Store
+*.db
+*.db-journal
+apps/api/data/
+.vite/
+coverage/

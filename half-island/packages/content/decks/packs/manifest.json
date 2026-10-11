@@ -1,0 +1,23 @@
+{
+  "brand": "半个岛",
+  "coreDeck": "v1",
+  "coreCount": 300,
+  "targetTotal": 300,
+  "packs": [
+    {
+      "id": "festival_qixi",
+      "file": "festival_qixi.json",
+      "title": "七夕飞地",
+      "titleEn": "Qixi enclave",
+      "targetCount": 20,
+      "count": 20,
+      "mergedIntoCore": true,
+      "dailyEligibleDefault": false,
+      "relationModes": [
+        "couple",
+        "both"
+      ],
+      "notes": "v1.1 已扩满并合并入核心 CSV / v1.json"
+    }
+  ]
+}

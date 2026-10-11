@@ -1,3 +1,11 @@
 .DS_Store
 node_modules
 *.log
+
+# 半个岛本地依赖与数据
+half-island/node_modules/
+half-island/**/node_modules/
+half-island/**/dist/
+half-island/apps/api/data/
+half-island/**/.env
+half-island/**/.env.local

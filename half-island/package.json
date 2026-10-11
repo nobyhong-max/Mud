@@ -1,0 +1,21 @@
+{
+  "name": "half-island",
+  "version": "0.1.0",
+  "private": true,
+  "description": "半个岛 — 双人每日一题 MVP 脚手架（Phase 0）",
+  "scripts": {
+    "dev": "pnpm -r --parallel --filter @half-island/api --filter @half-island/client run dev",
+    "dev:api": "pnpm --filter @half-island/api dev",
+    "dev:client": "pnpm --filter @half-island/client dev",
+    "build": "pnpm --filter @half-island/shared build && pnpm --filter @half-island/api build && pnpm --filter @half-island/client build",
+    "lint": "pnpm -r run lint",
+    "seed": "pnpm --filter @half-island/api seed",
+    "test": "pnpm --filter @half-island/api test",
+    "import:deck": "node scripts/import-question-bank.mjs",
+    "typecheck": "pnpm -r run typecheck"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@10.33.3"
+}

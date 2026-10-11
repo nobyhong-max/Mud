@@ -89,7 +89,7 @@ function main(): void {
   console.log(
     `  pairs: couple=${pairs[0]!.invite_code} / friends=${pairs[1]!.invite_code}`,
   );
-  console.log(`  prompts: ${deck.count}（题库 v1）`);
+  console.log(`  prompts: ${deck.count}（题库 v1.1）`);
   console.log(`  today: ${dateKey}`);
   console.log(`  sample invite: ${inviteCode()}`);
   closeDb();

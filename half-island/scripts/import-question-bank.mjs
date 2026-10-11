@@ -12,7 +12,7 @@ const root = path.resolve(__dirname, "..");
 
 const mdPath =
   process.argv[2] ||
-  "/cursor/stores/self/docs/half-island-question-bank-v1.md";
+  "/cursor/stores/self/docs/half-island-question-bank-v1.1.md";
 
 const TYPE_MAP = {
   open: "open_text",
@@ -96,7 +96,8 @@ const prompts = rows.map((row) => {
     level <= 1 &&
     !deckOnlyIds.includes(id) &&
     !needsReview &&
-    !notes.includes("L3");
+    !notes.includes("L3") &&
+    row.deck.trim() !== "festival_qixi";
 
   return {
     id,
@@ -140,7 +141,7 @@ if (fs.existsSync(enOverlayPath)) {
 const out = {
   version: "v1",
   brand: "半个岛",
-  source: "docs/half-island-question-bank-v1.md §6 CSV + bilingual EN overlay",
+  source: "docs/half-island-question-bank-v1.1.md §6 CSV + bilingual EN overlay",
   count: prompts.length,
   deckOnlyIds,
   prompts,

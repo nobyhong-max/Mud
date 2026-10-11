@@ -1,23 +1,23 @@
-# 题库扩容管线（→ ≥300）
+# 题库扩容管线（v1.1 ≥300）
 
-> v1 核心包：`../v1.json` = **145** 题（L0–L3，含密友）。  
-> 目标总量：`DECK_PACK_TARGETS.targetTotal` = **300**。  
-> **不**在此目录批量发明未审题；运营包经审校后再 `import` 合并。
+> 核心包：`../v1.json` = **300** 题（L0–L3，含密友 + `festival_qixi`）。  
+> 源真：Project docs `half-island-question-bank-v1.1.md` §6 CSV + `../v1-en.json`。  
+> 重建：`node scripts/build-question-bank-v1.1.mjs` 或 `pnpm import:deck`。
 
 ## 目录约定
 
 | 文件 | 用途 |
 |------|------|
-| `../v1.json` + `../v1-en.json` | 日更主库（已入库） |
-| `festival_qixi.stub.json` | 七夕运营包占位（结构 + 少量样例，目标 20 题） |
-| `manifest.json` | 包清单：id / 目标题数 / relation 配比 / 是否已合并 |
+| `../v1.json` + `../v1-en.json` | 日更主库（已入库；节日题 `dailyEligible=false`） |
+| `festival_qixi.json` | 七夕运营包 **20** 题（已合并入核心） |
+| `manifest.json` | 包清单：id / 题数 / relation 配比 / 是否已合并 |
 
 ## 导入步骤
 
-1. 在 Project docs 增补题库 CSV（或 v1.1 md），**禁止**抄竞品题干。  
-2. `node scripts/import-question-bank.mjs` 重生 `v1.json`，或扩展脚本合并 `packs/*.json`。  
-3. `pnpm seed` → `SELECT COUNT(*) FROM prompts` 验收。  
-4. 日更仍过滤 `intimacy_level < 4` 且 `nsfw_flag = 0`。
+1. 编辑 `half-island-question-bank-v1.1.md` CSV 或 `scripts/data/v1.1-expansion-*.json`，**禁止**抄竞品题干。  
+2. `node scripts/build-question-bank-v1.1.mjs`（或 `node scripts/import-question-bank.mjs <v1.1.md>`）重生 `v1.json`。  
+3. `pnpm seed` → `SELECT COUNT(*) FROM prompts` 验收 ≥300。  
+4. 日更仍过滤 `intimacy_level < 4` 且 `nsfw_flag = 0`；`festival_qixi` 不进日更。
 
 ## 配比建议（扩到 300 时）
 

@@ -62,7 +62,7 @@ pnpm dev    # API :8787 · Client :5173
 - 深链：`/invite?code=`
 
 ### 题库扩容管线
-- 核心仍 145；目标 ≥300 见 `packages/content/decks/packs/`（`festival_qixi` stub，勿未审批量入库）
+- 题库 v1.1：**300** 题（含 `festival_qixi` 20 题）；源真见 Project docs `half-island-question-bank-v1.1.md`
 
 ### 简易 Admin
 - `GET/PATCH /admin/prompts`（上下架；默认 token `dev-admin`）

@@ -273,11 +273,11 @@ export const DECK_TITLES_EN: Record<string, string> = {
   festival_qixi: "Qixi enclave",
 };
 
-/** 运营包扩容管线：v1=145 → 目标 ≥300；packs/ 下按包增量导入 */
+/** 运营包扩容管线：v1.1 核心 ≥300；festival_qixi 已合并 */
 export const DECK_PACK_TARGETS = {
-  coreV1: 145,
+  coreV1: 300,
   targetTotal: 300,
-  festivalQixiStub: 20,
+  festivalQixi: 20,
 } as const;
 
 export const RELATIONSHIP_STAGE_LABELS: Record<

@@ -976,5 +976,1084 @@
       "Quietly compare notes—each digest alone"
     ],
     "followupEn": null
+  },
+  "HI-Q-146": {
+    "promptEn": "Which moment today did you suddenly want to send to the other person exactly as it was?",
+    "choicesEn": null,
+    "followupEn": "Would you send it as one sentence, or one image?"
+  },
+  "HI-Q-147": {
+    "promptEn": "Tonight: tell the whole day, or set it down gently?",
+    "choicesEn": [
+      "Tell the whole day",
+      "Set it down gently"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-148": {
+    "promptEn": "Which kind of \"I'm here\" from them steadies you most?",
+    "choicesEn": [
+      "A text saying \"I'm here\"",
+      "The sound of the door",
+      "Familiar footsteps drawing near"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-149": {
+    "promptEn": "Was there something tiny today that became just right because of the other person?",
+    "choicesEn": null,
+    "followupEn": null
+  },
+  "HI-Q-150": {
+    "promptEn": "If today-as-you-two were a shoreline—smooth, winding, or tidal?",
+    "choicesEn": null,
+    "followupEn": "When the tide rises, do you want to step closer or back?"
+  },
+  "HI-Q-151": {
+    "promptEn": "Who is more likely to say \"anything's fine\" and then study the menu for half an hour?",
+    "choicesEn": [
+      "I",
+      "the other person"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-152": {
+    "promptEn": "Did you quietly pocket one expression or tone of theirs today?",
+    "choicesEn": null,
+    "followupEn": "Will you tell them?"
+  },
+  "HI-Q-153": {
+    "promptEn": "What island weather do you need right now?",
+    "choicesEn": [
+      "Clear: good for getting things done",
+      "Overcast: good for zoning out",
+      "Light rain: good for slow talk"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-154": {
+    "promptEn": "Would you rather they finish listening first, or hand you a glass of water first?",
+    "choicesEn": [
+      "Listen first",
+      "Water first"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-155": {
+    "promptEn": "Which corner you passed today would be good to revisit together someday?",
+    "choicesEn": null,
+    "followupEn": null
+  },
+  "HI-Q-156": {
+    "promptEn": "Is there a sentence you didn't send today that was really meant for them?",
+    "choicesEn": null,
+    "followupEn": "Will you say it now?"
+  },
+  "HI-Q-157": {
+    "promptEn": "How do you two usually mark the end of a day?",
+    "choicesEn": [
+      "Say good night",
+      "Share a photo or voice note",
+      "Quiet on your own, knowing the other is there"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-158": {
+    "promptEn": "Which small chore or gesture of theirs softens something in you?",
+    "choicesEn": null,
+    "followupEn": null
+  },
+  "HI-Q-159": {
+    "promptEn": "Who is more likely to turn \"five minutes\" into an hour?",
+    "choicesEn": [
+      "I",
+      "the other person"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-160": {
+    "promptEn": "If you could keep only one sound of \"us\" from today, which would it be?",
+    "choicesEn": null,
+    "followupEn": null
+  },
+  "HI-Q-161": {
+    "promptEn": "Start the day with the same song, or end it with the same warm drink?",
+    "choicesEn": [
+      "Same song to begin",
+      "Same warm drink to end"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-162": {
+    "promptEn": "When you're too busy to talk properly, how do you want them to show up?",
+    "choicesEn": [
+      "A short \"I'm here—no rush\"",
+      "Just take one task off your plate",
+      "Wait quietly until you're free"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-163": {
+    "promptEn": "What \"not a big deal\" from today is still worth two sentences with them?",
+    "choicesEn": null,
+    "followupEn": null
+  },
+  "HI-Q-164": {
+    "promptEn": "Name a small delight you'd like to share with them but haven't found the moment for.",
+    "choicesEn": null,
+    "followupEn": "When would be a good time?"
+  },
+  "HI-Q-165": {
+    "promptEn": "Right now, the distance from your seat to the door feels more like…",
+    "choicesEn": [
+      "Want to step out for air",
+      "Want to sit a bit longer",
+      "Either way—depends on them"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-166": {
+    "promptEn": "Which way of them coming back makes the island feel a little more whole?",
+    "choicesEn": null,
+    "followupEn": null
+  },
+  "HI-Q-167": {
+    "promptEn": "Who is more likely to stick \"tomorrow\" on the fridge or a to-do note?",
+    "choicesEn": [
+      "I",
+      "the other person"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-168": {
+    "promptEn": "Tonight: watch the same show side by side, or each scroll and swap screens now and then?",
+    "choicesEn": [
+      "Same show together",
+      "Each on your own, swapping screens"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-169": {
+    "promptEn": "Which vehicle is today-as-you—metro, slow boat, or shared bike? Why?",
+    "choicesEn": null,
+    "followupEn": null
+  },
+  "HI-Q-170": {
+    "promptEn": "Last time they made you feel quietly kept in mind—how?",
+    "choicesEn": null,
+    "followupEn": "Did you answer that care?"
+  },
+  "HI-Q-171": {
+    "promptEn": "What message density feels better for you today?",
+    "choicesEn": [
+      "Sparse, each line landing",
+      "Frequent, like presence",
+      "Whenever—reply when free"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-172": {
+    "promptEn": "If today-as-you got a nickname only you two understand, what would it be?",
+    "choicesEn": null,
+    "followupEn": null
+  },
+  "HI-Q-173": {
+    "promptEn": "What's on your desk or in your bag that most resembles \"you today\"?",
+    "choicesEn": null,
+    "followupEn": null
+  },
+  "HI-Q-174": {
+    "promptEn": "Would you rather they remember a small habit of yours, or a phrase you often say?",
+    "choicesEn": [
+      "A small habit",
+      "A catchphrase"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-175": {
+    "promptEn": "Who is more likely to turn an \"oh, by the way\" into something done properly?",
+    "choicesEn": [
+      "I",
+      "the other person"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-176": {
+    "promptEn": "Was there a nearly-missed tender moment today?",
+    "choicesEn": null,
+    "followupEn": null
+  },
+  "HI-Q-177": {
+    "promptEn": "What kind of space would you place this bond in?",
+    "choicesEn": [
+      "Living room: open and easy",
+      "Study: quiet, side by side",
+      "Balcony: half-open, with wind"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-178": {
+    "promptEn": "On a late overtime or commute night, what do you most want to see on the other side of the screen?",
+    "choicesEn": null,
+    "followupEn": "How do you usually reply?"
+  },
+  "HI-Q-179": {
+    "promptEn": "Describe the other person today as one object (not three adjectives).",
+    "choicesEn": null,
+    "followupEn": "Why that object?"
+  },
+  "HI-Q-180": {
+    "promptEn": "If the island tonight had only one lamp, which small thing would you light?",
+    "choicesEn": null,
+    "followupEn": null
+  },
+  "HI-Q-181": {
+    "promptEn": "Who is more likely to keep swapping the charger until both phones die?",
+    "choicesEn": [
+      "I",
+      "the other person"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-182": {
+    "promptEn": "Who is more likely to remember they hate cilantro—and still ask once more?",
+    "choicesEn": [
+      "I",
+      "the other person"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-183": {
+    "promptEn": "Who is more likely to keep \"next hangout\" as the same sentence three months later?",
+    "choicesEn": [
+      "I",
+      "the other person"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-184": {
+    "promptEn": "Who is more likely to buy the biggest popcorn and leave half of it?",
+    "choicesEn": [
+      "I",
+      "the other person"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-185": {
+    "promptEn": "Who is more likely to put the anniversary on a calendar—then pretend it just came to mind?",
+    "choicesEn": [
+      "I",
+      "the other person"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-186": {
+    "promptEn": "Who is more likely to turn \"one more round\" into the whole night?",
+    "choicesEn": [
+      "I",
+      "the other person"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-187": {
+    "promptEn": "Who is more likely to search for the nearest pharmacy when the other has a cold?",
+    "choicesEn": [
+      "I",
+      "the other person"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-188": {
+    "promptEn": "Who is more likely to rant in a short essay and send it to you?",
+    "choicesEn": [
+      "I",
+      "the other person"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-189": {
+    "promptEn": "Who is more likely to say \"I'm not cold\" and then reach for a jacket?",
+    "choicesEn": [
+      "I",
+      "the other person"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-190": {
+    "promptEn": "Who is more likely to write takeout notes like a gentle instruction manual?",
+    "choicesEn": [
+      "I",
+      "the other person"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-191": {
+    "promptEn": "Who is more likely to turn \"tidy the photos\" into a quarterly project?",
+    "choicesEn": [
+      "I",
+      "the other person"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-192": {
+    "promptEn": "Who is more likely to notice first when the other's tone is off?",
+    "choicesEn": [
+      "I",
+      "the other person"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-193": {
+    "promptEn": "Who is more likely to quietly send a late-night snack link on an overtime night?",
+    "choicesEn": [
+      "I",
+      "the other person"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-194": {
+    "promptEn": "Who is more likely to hear \"five minutes on the map\" as \"we're basically there\"?",
+    "choicesEn": [
+      "I",
+      "the other person"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-195": {
+    "promptEn": "Who is more likely to jot a few points before an important talk?",
+    "choicesEn": [
+      "I",
+      "the other person"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-196": {
+    "promptEn": "Who is more likely to open the package and leave the box forever?",
+    "choicesEn": [
+      "I",
+      "the other person"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-197": {
+    "promptEn": "Who is more likely to take a casual \"I could eat that\" and actually find the place?",
+    "choicesEn": [
+      "I",
+      "the other person"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-198": {
+    "promptEn": "Who is more likely to DM \"you okay?\" when the group chat goes quiet?",
+    "choicesEn": [
+      "I",
+      "the other person"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-199": {
+    "promptEn": "Who is more likely to say \"I'm leaving\" three times and still stand there?",
+    "choicesEn": [
+      "I",
+      "the other person"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-200": {
+    "promptEn": "Who is more likely to tilt the shared umbrella more toward the other in the rain?",
+    "choicesEn": [
+      "I",
+      "the other person"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-201": {
+    "promptEn": "Who is more likely to pin \"wake early\"—then hit snooze first?",
+    "choicesEn": [
+      "I",
+      "the other person"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-202": {
+    "promptEn": "Who is more likely to quietly add the other's favorite to the cart at the store?",
+    "choicesEn": [
+      "I",
+      "the other person"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-203": {
+    "promptEn": "Who is more likely to say \"I'm fine\" lightly—and need a second question?",
+    "choicesEn": [
+      "I",
+      "the other person"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-204": {
+    "promptEn": "Who is more likely to fill Maps with saves and rarely open them?",
+    "choicesEn": [
+      "I",
+      "the other person"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-205": {
+    "promptEn": "Who is more likely to quietly refill the other's cup with hot water?",
+    "choicesEn": [
+      "I",
+      "the other person"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-206": {
+    "promptEn": "Rather arrive ten minutes early and wait, or show up exactly on time out of breath?",
+    "choicesEn": [
+      "Early and waiting",
+      "On-time and breathless"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-207": {
+    "promptEn": "Weekend: polish the home until it shines, or leave a little mess and flop together?",
+    "choicesEn": [
+      "Polish until it shines",
+      "Leave a little mess"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-208": {
+    "promptEn": "For chatting: voice call, or slow typing?",
+    "choicesEn": [
+      "Voice call",
+      "Slow typing"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-209": {
+    "promptEn": "After friction: talk it through in person, or cool off then set a time?",
+    "choicesEn": [
+      "Talk through now",
+      "Cool off, then schedule"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-210": {
+    "promptEn": "Friend night chat: go deep on one thing, or ramble until sleepy?",
+    "choicesEn": [
+      "Go deep on one thing",
+      "Ramble until sleepy"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-211": {
+    "promptEn": "Travel style: packed itinerary, or decide the next stop on arrival?",
+    "choicesEn": [
+      "Packed itinerary",
+      "Decide on arrival"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-212": {
+    "promptEn": "Anniversary: a carefully planned day, or a small surprise on an ordinary day?",
+    "choicesEn": [
+      "Carefully planned day",
+      "Small surprise on an ordinary day"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-213": {
+    "promptEn": "When stressed: want them to rant with you, or help map the next step?",
+    "choicesEn": [
+      "Rant with you",
+      "Help map the next step"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-214": {
+    "promptEn": "Shared living: does who washes dishes first matter more, or who speaks up first?",
+    "choicesEn": [
+      "Who washes first",
+      "Who speaks up first"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-215": {
+    "promptEn": "Rainy outing: one shared umbrella, or each in a raincoat staying dry?",
+    "choicesEn": [
+      "Shared umbrella",
+      "Each in a raincoat"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-216": {
+    "promptEn": "Before sleep: align tomorrow's plan, or deliberately skip work talk?",
+    "choicesEn": [
+      "Align tomorrow",
+      "Skip work talk"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-217": {
+    "promptEn": "To celebrate: a lively group meal, or a quiet good meal for two?",
+    "choicesEn": [
+      "Lively group meal",
+      "Quiet good meal for two"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-218": {
+    "promptEn": "Photos: carefully composed for Moments, or candid shots only for each other?",
+    "choicesEn": [
+      "Composed for Moments",
+      "Candid, only for each other"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-219": {
+    "promptEn": "Night before meeting family: rehearse topics, or sleep well and wing it?",
+    "choicesEn": [
+      "Rehearse topics",
+      "Sleep well and wing it"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-220": {
+    "promptEn": "Weekend morning: open the curtains, or stay in dark mode?",
+    "choicesEn": [
+      "Open the curtains",
+      "Stay in dark mode"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-221": {
+    "promptEn": "Rather be remembered for a favorite shop, or for a wind that scares you?",
+    "choicesEn": [
+      "Favorite shop",
+      "A wind that scares you"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-222": {
+    "promptEn": "Apology style you prefer: clarify the facts, or warm the bond first?",
+    "choicesEn": [
+      "Clarify the facts",
+      "Warm the bond first"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-223": {
+    "promptEn": "Gifts: useful every day, or a \"useless\" trinket only you two get?",
+    "choicesEn": [
+      "Useful every day",
+      "Useless trinket only you get"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-224": {
+    "promptEn": "When they're low: rush over, or ask \"company or space\" first?",
+    "choicesEn": [
+      "Rush over",
+      "Ask company or space first"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-225": {
+    "promptEn": "On the island: more side-by-side silence, or endless jokes?",
+    "choicesEn": [
+      "Side-by-side silence",
+      "Endless jokes"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-226": {
+    "promptEn": "For you, what does \"reliable\" look like in this relationship—concretely?",
+    "choicesEn": null,
+    "followupEn": "When did they show it?"
+  },
+  "HI-Q-227": {
+    "promptEn": "Which fairness matters more to you?",
+    "choicesEn": [
+      "Roughly equal time given",
+      "Whoever has capacity carries more",
+      "What matters is both feeling seen"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-228": {
+    "promptEn": "On money, what do you most want them to understand first?",
+    "choicesEn": null,
+    "followupEn": null
+  },
+  "HI-Q-229": {
+    "promptEn": "More important: grow together, or allow each other a comfort zone?",
+    "choicesEn": [
+      "Grow together",
+      "Allow comfort zones"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-230": {
+    "promptEn": "What's the smallest daily act that counts as respect for you?",
+    "choicesEn": null,
+    "followupEn": null
+  },
+  "HI-Q-231": {
+    "promptEn": "Facing differences in families of origin, you tend to…",
+    "choicesEn": [
+      "Build our own rules first",
+      "Try to care for both sides",
+      "Case by case, no preset stance"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-232": {
+    "promptEn": "In friendship, what boundary crossing is hardest for you to accept? (No need to name anyone.)",
+    "choicesEn": null,
+    "followupEn": null
+  },
+  "HI-Q-233": {
+    "promptEn": "On future city or job choices, which layer of your meaning do you fear they'll misread?",
+    "choicesEn": null,
+    "followupEn": null
+  },
+  "HI-Q-234": {
+    "promptEn": "Honesty for you is closer to…",
+    "choicesEn": [
+      "Say it straight",
+      "Choose wording they can hold",
+      "Align on what matters before speaking"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-235": {
+    "promptEn": "Between \"we\" and \"I\", what was the last boundary you drew on purpose—and why?",
+    "choicesEn": null,
+    "followupEn": "Did they understand?"
+  },
+  "HI-Q-236": {
+    "promptEn": "If you could leave one principle for the two of you ten years from now, what sentence would you write?",
+    "choicesEn": null,
+    "followupEn": null
+  },
+  "HI-Q-237": {
+    "promptEn": "Value more: do what you said, or stay trusted while adapting?",
+    "choicesEn": [
+      "Do what you said",
+      "Adapt and stay trusted"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-238": {
+    "promptEn": "On social-app boundaries, what default rule would you want?",
+    "choicesEn": null,
+    "followupEn": null
+  },
+  "HI-Q-239": {
+    "promptEn": "Among close friends, which loyalty do you treasure more?",
+    "choicesEn": [
+      "Speak up for you in the room",
+      "Advise you honestly in private",
+      "No judgment—just stay"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-240": {
+    "promptEn": "For you, is \"safety\" certainty, freedom, or permission to be fragile?",
+    "choicesEn": null,
+    "followupEn": "A small recent example?"
+  },
+  "HI-Q-241": {
+    "promptEn": "Long-distance: which kind of sync still makes you feel they're on the island?",
+    "choicesEn": null,
+    "followupEn": null
+  },
+  "HI-Q-242": {
+    "promptEn": "With time zones or late nights, you'd rather…",
+    "choicesEn": [
+      "Wake to one message",
+      "Overlap a short voice call",
+      "Agreed quiet windows, no anxiety"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-243": {
+    "promptEn": "Apart: daily itinerary check-ins, or only peaks and valleys?",
+    "choicesEn": [
+      "Daily itinerary",
+      "Only peaks and valleys"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-244": {
+    "promptEn": "When was the last moment that still felt together across a screen?",
+    "choicesEn": null,
+    "followupEn": null
+  },
+  "HI-Q-245": {
+    "promptEn": "Who is more likely to pin the reunion countdown in Notes?",
+    "choicesEn": [
+      "I",
+      "the other person"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-246": {
+    "promptEn": "On reunion day, what's the first unromantic-but-necessary thing you want to do?",
+    "choicesEn": null,
+    "followupEn": null
+  },
+  "HI-Q-247": {
+    "promptEn": "Apart, which misunderstanding do you fear more?",
+    "choicesEn": [
+      "Thinking I don't care",
+      "Thinking I have endless free time",
+      "Reading silence as anger"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-248": {
+    "promptEn": "On who flies next time—what sentence still isn't fully said?",
+    "choicesEn": null,
+    "followupEn": null
+  },
+  "HI-Q-249": {
+    "promptEn": "Video: leave the camera on while doing your own things, or sit and talk then hang up?",
+    "choicesEn": [
+      "Camera on, each doing your thing",
+      "Talk, then hang up"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-250": {
+    "promptEn": "Is there a song or commute that automatically conjures them?",
+    "choicesEn": null,
+    "followupEn": "Have you told them?"
+  },
+  "HI-Q-251": {
+    "promptEn": "Name a weather for a day of wanting to see each other and not being able to.",
+    "choicesEn": null,
+    "followupEn": null
+  },
+  "HI-Q-252": {
+    "promptEn": "What's more wearing than the distance itself—which kind of uncertainty?",
+    "choicesEn": null,
+    "followupEn": "What would ease it a little?"
+  },
+  "HI-Q-253": {
+    "promptEn": "In a cold war, what small first step do you need from them?",
+    "choicesEn": null,
+    "followupEn": "Would you take a matching first step?"
+  },
+  "HI-Q-254": {
+    "promptEn": "When angry, what space helps you most?",
+    "choicesEn": [
+      "Alone for half an hour, then talk",
+      "Nearby but don't probe",
+      "Clear it now—waiting hurts more"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-255": {
+    "promptEn": "After a misunderstanding: facts first, or feelings first?",
+    "choicesEn": [
+      "Facts first",
+      "Feelings first"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-256": {
+    "promptEn": "Is there a line you said that later felt too sharp—how would you amend it?",
+    "choicesEn": null,
+    "followupEn": null
+  },
+  "HI-Q-257": {
+    "promptEn": "Who is more likely to use \"let me think\" as a pause—not an escape?",
+    "choicesEn": [
+      "I",
+      "the other person"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-258": {
+    "promptEn": "After friction in friendship, what makeup style is most like you two?",
+    "choicesEn": null,
+    "followupEn": null
+  },
+  "HI-Q-259": {
+    "promptEn": "When you feel unheard, what's the most useful opening line to restart?",
+    "choicesEn": null,
+    "followupEn": null
+  },
+  "HI-Q-260": {
+    "promptEn": "After a fight, what counts as truly turning the page—not just not mentioning it?",
+    "choicesEn": null,
+    "followupEn": null
+  },
+  "HI-Q-261": {
+    "promptEn": "After an apology, what helps you believe repair happened?",
+    "choicesEn": [
+      "A small concrete change",
+      "A clear explanation",
+      "Time and steady ordinary days"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-262": {
+    "promptEn": "If you could redo the last small friction, at which second would you change your wording?",
+    "choicesEn": null,
+    "followupEn": null
+  },
+  "HI-Q-263": {
+    "promptEn": "Last time they made you think \"glad you're here\"—how?",
+    "choicesEn": null,
+    "followupEn": null
+  },
+  "HI-Q-264": {
+    "promptEn": "Rather do one small thing together, or do nothing together on purpose?",
+    "choicesEn": [
+      "Do one small thing",
+      "Do nothing on purpose"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-265": {
+    "promptEn": "Which friend mode fits today?",
+    "choicesEn": [
+      "Intel swap (vent about work)",
+      "Joint mission (finish one thing)",
+      "Silent co-presence (busy but online)"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-266": {
+    "promptEn": "Is there an in-joke only your circle gets that you want to use again today?",
+    "choicesEn": null,
+    "followupEn": "Where did it come from?"
+  },
+  "HI-Q-267": {
+    "promptEn": "Who is more likely to say \"my treat\" firmly—then haggle at the bill?",
+    "choicesEn": [
+      "I",
+      "the other person"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-268": {
+    "promptEn": "Describe them today as a snack (funny allowed).",
+    "choicesEn": null,
+    "followupEn": "Why?"
+  },
+  "HI-Q-269": {
+    "promptEn": "When they vanish into busyness, you'd rather…",
+    "choicesEn": [
+      "A \"crazy week—weekend?\" note",
+      "No explanation—pick up later",
+      "Occasional sticker proving alive"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-270": {
+    "promptEn": "If you had one free hour tonight just to chat, where would the topic land?",
+    "choicesEn": null,
+    "followupEn": null
+  },
+  "HI-Q-271": {
+    "promptEn": "Rather get a checklist from them, or \"I'll go with you\"?",
+    "choicesEn": [
+      "A checklist",
+      "I'll go with you"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-272": {
+    "promptEn": "What's the best part of your friendship that wouldn't fit on Moments?",
+    "choicesEn": null,
+    "followupEn": null
+  },
+  "HI-Q-273": {
+    "promptEn": "Who is more likely to send the wrong meetup pin and insist \"it's nearby\"?",
+    "choicesEn": [
+      "I",
+      "the other person"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-274": {
+    "promptEn": "After reveal, you'd rather…",
+    "choicesEn": [
+      "End with a sticker",
+      "Ask one detail",
+      "Plan to continue in person"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-275": {
+    "promptEn": "When did them only listening—no solutions—actually help a lot?",
+    "choicesEn": null,
+    "followupEn": null
+  },
+  "HI-Q-276": {
+    "promptEn": "Ordering food: rather decide, or hold veto power?",
+    "choicesEn": [
+      "Decide",
+      "Hold veto"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-277": {
+    "promptEn": "If your recent contact frequency were a rush-hour train, which one?",
+    "choicesEn": null,
+    "followupEn": null
+  },
+  "HI-Q-278": {
+    "promptEn": "When friendship steps into a next stage, what's the one thing you most want to confirm?",
+    "choicesEn": null,
+    "followupEn": null
+  },
+  "HI-Q-279": {
+    "promptEn": "Today you need them more as…",
+    "choicesEn": [
+      "A listening hole in the tree",
+      "A strategist",
+      "A playmate"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-280": {
+    "promptEn": "Write them an island sticky note (fifteen characters or fewer in Chinese; keep it short in English).",
+    "choicesEn": null,
+    "followupEn": null
+  },
+  "HI-Q-281": {
+    "promptEn": "If you could share only one small thing tonight, what would it be?",
+    "choicesEn": null,
+    "followupEn": "Why that one?"
+  },
+  "HI-Q-282": {
+    "promptEn": "On Qixi night: a walk outside, or stay in and talk?",
+    "choicesEn": [
+      "Go for a walk",
+      "Stay in and talk"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-283": {
+    "promptEn": "Is there something you want to say that gets lost in the holiday noise?",
+    "choicesEn": null,
+    "followupEn": "If they spoke first, how would you answer?"
+  },
+  "HI-Q-284": {
+    "promptEn": "How do you want to spend this enclave night?",
+    "choicesEn": [
+      "A quiet ritual only you two get",
+      "A small setup on the table or sill",
+      "Like any day—plus one honest sentence"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-285": {
+    "promptEn": "Who is more likely to make Qixi an ordinary day—done with care?",
+    "choicesEn": [
+      "I",
+      "the other person"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-286": {
+    "promptEn": "If the magpie bridge were your connection, which plank most needs fixing?",
+    "choicesEn": null,
+    "followupEn": null
+  },
+  "HI-Q-287": {
+    "promptEn": "Rather receive a short note of thanks or apology, or one concrete small action?",
+    "choicesEn": [
+      "A short note",
+      "A concrete small action"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-288": {
+    "promptEn": "When holiday marketing gets loud, how do you two keep your own pace?",
+    "choicesEn": null,
+    "followupEn": null
+  },
+  "HI-Q-289": {
+    "promptEn": "Tonight you most want to emphasize…",
+    "choicesEn": [
+      "We're still on the same island",
+      "Thank you for staying",
+      "Please keep teaching me tomorrow too"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-290": {
+    "promptEn": "Describe you-two right now as a traditional sweet or seasonal fruit.",
+    "choicesEn": null,
+    "followupEn": null
+  },
+  "HI-Q-291": {
+    "promptEn": "Rather stay up for stars (or city lights), or sleep early and leave the night to tomorrow?",
+    "choicesEn": [
+      "Stay up for stars or lights",
+      "Sleep early for tomorrow"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-292": {
+    "promptEn": "Which day of the year is secretly your real Qixi—and why?",
+    "choicesEn": null,
+    "followupEn": null
+  },
+  "HI-Q-293": {
+    "promptEn": "Who is more likely to leave the gift to the last day—and still choose well?",
+    "choicesEn": [
+      "I",
+      "the other person"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-294": {
+    "promptEn": "If celebrating without buying anything still counts—what's your way?",
+    "choicesEn": null,
+    "followupEn": null
+  },
+  "HI-Q-295": {
+    "promptEn": "Write one island rule that only applies tonight.",
+    "choicesEn": null,
+    "followupEn": null
+  },
+  "HI-Q-296": {
+    "promptEn": "How do you want to keep tonight?",
+    "choicesEn": [
+      "A photo of side-by-side shadows or sky",
+      "One voice memo",
+      "Keep nothing but the feeling"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-297": {
+    "promptEn": "What holiday pressure do you most want to dodge—and how can they help block a bit?",
+    "choicesEn": null,
+    "followupEn": null
+  },
+  "HI-Q-298": {
+    "promptEn": "If the Weaver Girl and Cowherd also did answer-then-reveal, what might they ask tonight?",
+    "choicesEn": null,
+    "followupEn": null
+  },
+  "HI-Q-299": {
+    "promptEn": "Rather take the holiday seriously once, or save seriousness for tomorrow's ordinary day?",
+    "choicesEn": [
+      "Take the holiday seriously",
+      "Save seriousness for ordinary days"
+    ],
+    "followupEn": null
+  },
+  "HI-Q-300": {
+    "promptEn": "Before tonight ends, what line do you want to leave on this island?",
+    "choicesEn": null,
+    "followupEn": "Are you willing to let them hear it too?"
   }
 }

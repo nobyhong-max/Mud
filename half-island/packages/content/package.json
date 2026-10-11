@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "半个岛题库机读导出（源自 half-island-question-bank-v1.md）",
+  "description": "半个岛题库机读导出（源自 half-island-question-bank-v1.1.md，≥300）",
   "exports": {
     "./decks/v1.json": "./decks/v1.json"
   },

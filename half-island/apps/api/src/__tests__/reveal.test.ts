@@ -234,13 +234,16 @@ test("friends pair never picks couple-only prompts", () => {
   });
 });
 
-test("deck v1 has 145 bilingual prompts and no L4", () => {
+test("deck v1 has ≥300 bilingual prompts, festival_qixi, and no L4", () => {
   const deck = loadDeckV1();
-  assert.equal(deck.count, 145);
-  assert.equal(deck.prompts.length, 145);
+  assert.ok(deck.count >= 300, `count ${deck.count}`);
+  assert.equal(deck.prompts.length, deck.count);
   assert.ok(deck.prompts.every((p) => p.intimacyLevel <= 3 && !p.nsfwFlag));
   assert.ok(deck.prompts.some((p) => p.relationMode === "friend"));
   assert.ok(deck.prompts.some((p) => p.relationMode === "couple"));
+  const qixi = deck.prompts.filter((p) => p.deck === "festival_qixi");
+  assert.ok(qixi.length >= 20, `festival_qixi ${qixi.length}`);
+  assert.ok(qixi.every((p) => !p.dailyEligible), "festival_qixi not daily");
   assert.ok(
     deck.prompts.every((p) => typeof p.promptEn === "string" && p.promptEn.length > 0),
     "every prompt needs promptEn",

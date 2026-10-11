@@ -42,6 +42,12 @@
               {{ item.followupEn }}
             </span>
           </p>
+          <ul v-if="item.comments?.length" class="c-list">
+            <li v-for="c in item.comments" :key="c.id">
+              <span v-if="c.reaction">{{ c.reaction }} </span>
+              <BilingualAnswer :text="c.bilingual" :fallback="c.body" />
+            </li>
+          </ul>
         </li>
       </ul>
     </div>
@@ -145,5 +151,15 @@ watch(() => [session.userId, session.pairId], load);
   display: block;
   margin-top: 0.2rem;
   font-style: italic;
+}
+.c-list {
+  list-style: none;
+  padding: 0.5rem 0 0;
+  margin: 0.35rem 0 0;
+  border-top: 1px dashed rgba(201, 166, 107, 0.25);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.9rem;
 }
 </style>

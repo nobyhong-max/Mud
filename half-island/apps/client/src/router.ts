@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import InvitePage from "./pages/invite/index.vue";
+import OnboardingPage from "./pages/onboarding/index.vue";
 import TodayPage from "./pages/today/index.vue";
 import AnswerPage from "./pages/answer/index.vue";
 import WaitingPage from "./pages/waiting/index.vue";
@@ -11,6 +12,7 @@ export const router = createRouter({
   history: createWebHistory(),
   routes: [
     { path: "/", redirect: "/today" },
+    { path: "/onboarding", component: OnboardingPage, meta: { title: "建岛引导" } },
     { path: "/invite", component: InvitePage, meta: { title: "邀请上岛" } },
     { path: "/today", component: TodayPage, meta: { title: "今日" } },
     { path: "/answer", component: AnswerPage, meta: { title: "作答" } },

@@ -1,7 +1,7 @@
-# 半个岛 · Phase 2 软付费与留存打磨
+# 半个岛 · Phase 2 + P0 揭晓互动 / 留存打桩
 
 > **品牌**：半个岛 · **Slogan**：你来了，岛才完整。  
-> 覆盖 Phase 0 脚手架 → Phase 1 核心环 → **Phase 2 / C2** 软付费、催一催、牌组、埋点、UI 打磨。
+> 覆盖 Phase 0→2 核心环，以及 **P0**：揭晓短评、留存事件 stub、Onboarding / 邀请卡、题库扩容管线。
 
 ---
 
@@ -43,15 +43,33 @@ pnpm dev    # API :8787 · Client :5173
 - `POST /nudge`：每人每天对同一岛 ≤ **3** 次；情侣/密友文案分流。
 
 ### 埋点 events
-`pair_success` · `prompt_answered` · `revealed` · `streak_increment` · `paywall_view` · `nudge_sent` · `deck_locked_tap`  
+`pair_success` · `prompt_answered` · `revealed` · `streak_increment` · `paywall_view` · `nudge_sent` · `deck_locked_tap` · `comment_posted` · `notify_enqueued` · `notify_ack`  
 查看：`GET /admin/events`（Header `x-admin-token: dev-admin`）
+
+### P0 — 揭晓短评
+- `POST /assignments/:id/comment`：揭晓后每人 1 条短评/表情；未揭晓 → **403**
+- 情侣/密友 placeholder 分流；揭晓页与回忆墙双语展示
+
+### P0 — 留存触达打桩
+- 事件：`daily_ready` / `partner_answered` / `streak_risk`（入库 `notifications`）
+- 文案模板：`GET /admin/notify-templates`；微信订阅模板 ID 见 `.env.example` 占位
+- H5：`NotifyBanner` + `Notification` API stub；**无真实微信推送**
+- 与 `nudge` 计数分离（每 kind 日限 2）
+
+### P0 — Onboarding + 邀请卡
+- 路由 `/onboarding`：关系类型 → 昵称 → 阶段 → 可选纪念日 → 分享卡
+- `GET /invite/share`：品牌 + Slogan + 邀请码，**answersHidden: true**
+- 深链：`/invite?code=`
+
+### 题库扩容管线
+- 核心仍 145；目标 ≥300 见 `packages/content/decks/packs/`（`festival_qixi` stub，勿未审批量入库）
 
 ### 简易 Admin
 - `GET/PATCH /admin/prompts`（上下架；默认 token `dev-admin`）
 
 ---
 
-## API 增补（C2）
+## API 增补（C2 + P0）
 
 | 方法 | 路径 | 说明 |
 |------|------|------|
@@ -60,9 +78,16 @@ pnpm dev    # API :8787 · Client :5173
 | GET | `/decks` | 牌组列表 + locked |
 | POST | `/decks/start` | 加练（会员校验） |
 | POST | `/nudge` | 催一催（429 触顶） |
+| POST | `/assignments/:id/comment` | 揭晓后短评 |
+| GET | `/assignments/:id/comments` | 短评列表 |
+| GET | `/notifications` | 留存事件列表 |
+| POST | `/notifications/ack` | H5 本地已读 |
+| POST | `/pairs/profile` | Onboarding 档案 |
+| GET | `/invite/share` | 邀请分享卡 meta |
 | GET | `/admin/prompts` | 题库 |
 | PATCH | `/admin/prompts/:id` | 上下架 |
 | GET | `/admin/events` | 最近埋点 |
+| GET | `/admin/notify-templates` | 触达文案预览 |
 
 ---
 

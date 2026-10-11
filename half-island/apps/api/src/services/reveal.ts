@@ -11,6 +11,7 @@ import type {
   RevealPhase,
 } from "@half-island/shared";
 import type { DatabaseSync } from "node:sqlite";
+import { listComments } from "./comments.js";
 import { translateToBilingualSync } from "./translate.js";
 
 export function mapPrompt(row: Record<string, unknown>): DailyPrompt {
@@ -136,14 +137,20 @@ export function buildReveal(opts: {
       ? mapAnswer(opts.partnerRow, { db: opts.db, prompt: opts.prompt })
       : null;
 
+  const phase = computePhase(
+    Boolean(opts.selfRow),
+    Boolean(opts.partnerRow),
+    opts.status,
+  );
+  const comments =
+    phase === "revealed" && opts.db
+      ? listComments(opts.assignmentId, opts.db)
+      : [];
+
   return {
     assignmentId: opts.assignmentId,
     prompt: opts.prompt,
-    phase: computePhase(
-      Boolean(opts.selfRow),
-      Boolean(opts.partnerRow),
-      opts.status,
-    ),
+    phase,
     selfAnswer: opts.selfRow
       ? mapAnswer(opts.selfRow, { db: opts.db, prompt: opts.prompt })
       : null,
@@ -152,6 +159,7 @@ export function buildReveal(opts: {
     partnerAnsweredAt:
       both && opts.partnerRow ? String(opts.partnerRow.created_at) : null,
     revealedAt: opts.status === "revealed" ? opts.revealedAt : null,
+    comments,
   };
 }
 

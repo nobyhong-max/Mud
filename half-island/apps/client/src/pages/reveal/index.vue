@@ -7,6 +7,8 @@
       <div class="island-silhouette" aria-hidden="true" />
       <div class="wave" />
 
+      <NotifyBanner :items="notifications" />
+
       <p v-if="error" class="muted">{{ error }}</p>
       <template v-else-if="reveal">
         <p class="prompt-text">{{ reveal.prompt.prompt }}</p>
@@ -79,6 +81,40 @@
         <p v-if="reveal.phase === 'revealed'" class="free">
           已揭晓内容可永久回看，与会员无关。 / Revealed archive stays free forever.
         </p>
+
+        <section v-if="reveal.phase === 'revealed'" class="comments">
+          <h2 class="c-title">{{ dual(UI_COPY.leaveComment.zh, UI_COPY.leaveComment.en) }}</h2>
+          <ul v-if="comments.length" class="c-list">
+            <li v-for="c in comments" :key="c.id">
+              <span v-if="c.reaction" class="react">{{ c.reaction }}</span>
+              <BilingualAnswer :text="c.bilingual" :fallback="c.body" />
+              <span class="who">{{ c.userId === session.userId ? dual(UI_COPY.you.zh, UI_COPY.you.en) : dual(UI_COPY.partner.zh, UI_COPY.partner.en) }}</span>
+            </li>
+          </ul>
+          <div class="react-row">
+            <button
+              v-for="r in COMMENT_REACTIONS"
+              :key="r"
+              type="button"
+              class="react-btn"
+              :class="{ on: reaction === r }"
+              @click="reaction = reaction === r ? null : r"
+            >
+              {{ r }}
+            </button>
+          </div>
+          <label>
+            <input
+              v-model="commentBody"
+              maxlength="120"
+              :placeholder="dual(placeholder.zh, placeholder.en)"
+            />
+          </label>
+          <button :disabled="busy || (!commentBody.trim() && !reaction)" @click="submitComment">
+            {{ dual(UI_COPY.leaveComment.zh, UI_COPY.leaveComment.en) }}
+          </button>
+        </section>
+
         <router-link v-if="reveal.phase === 'revealed'" class="btn ghost" to="/memory">
           {{ dual(UI_COPY.memory.zh, UI_COPY.memory.en) }}
         </router-link>
@@ -89,9 +125,16 @@
 
 <script setup lang="ts">
 import { onMounted, ref, watch } from "vue";
-import type { Reveal } from "@half-island/shared";
+import type {
+  AssignmentComment,
+  CommentReaction,
+  NotifyEvent,
+  Reveal,
+} from "@half-island/shared";
+import { COMMENT_PLACEHOLDER, COMMENT_REACTIONS } from "@half-island/shared";
 import { api } from "../../api/client";
 import BilingualAnswer from "../../components/BilingualAnswer.vue";
+import NotifyBanner from "../../components/NotifyBanner.vue";
 import SessionBar from "../../components/SessionBar.vue";
 import { dual, UI_COPY } from "../../i18n";
 import { session } from "../../session";
@@ -100,6 +143,11 @@ const reveal = ref<Reveal | null>(null);
 const error = ref("");
 const busy = ref(false);
 const streakMsg = ref("");
+const comments = ref<AssignmentComment[]>([]);
+const commentBody = ref("");
+const reaction = ref<CommentReaction | null>(null);
+const placeholder = ref(COMMENT_PLACEHOLDER.couple);
+const notifications = ref<NotifyEvent[]>([]);
 
 function formatTime(iso: string): string {
   try {
@@ -117,6 +165,9 @@ async function load(): Promise<void> {
   try {
     const data = await api.today(session.pairId, session.userId);
     reveal.value = data.reveal;
+    comments.value = data.reveal.comments ?? [];
+    placeholder.value = data.commentPlaceholder ?? COMMENT_PLACEHOLDER.couple;
+    notifications.value = data.notifications ?? [];
     if (data.reveal.phase === "revealed") {
       streakMsg.value = `岛的连线：${data.streak} 天 / Island streak: ${data.streak} days`;
     } else if (data.reveal.phase === "ready_to_reveal") {
@@ -137,9 +188,32 @@ async function doReveal(): Promise<void> {
       userId: session.userId,
     });
     reveal.value = res.reveal;
+    comments.value = res.reveal.comments ?? [];
     streakMsg.value = `岛的连线：${res.streak} 天 / Island streak: ${res.streak} days`;
   } catch (e) {
     error.value = e instanceof Error ? e.message : "揭晓失败 / Reveal failed";
+  } finally {
+    busy.value = false;
+  }
+}
+
+async function submitComment(): Promise<void> {
+  if (!reveal.value) return;
+  busy.value = true;
+  error.value = "";
+  try {
+    const res = await api.postComment(reveal.value.assignmentId, {
+      userId: session.userId,
+      body: commentBody.value,
+      reaction: reaction.value,
+    });
+    comments.value = res.comments;
+    placeholder.value = res.placeholder;
+    commentBody.value = "";
+    reaction.value = null;
+    if (reveal.value) reveal.value = { ...reveal.value, comments: res.comments };
+  } catch (e) {
+    error.value = e instanceof Error ? e.message : "留言失败 / Comment failed";
   } finally {
     busy.value = false;
   }
@@ -198,6 +272,63 @@ watch(() => [session.userId, session.pairId], load);
   font-size: 0.85rem;
   opacity: 0.65;
   margin: 0;
+}
+.comments {
+  width: 100%;
+  margin-top: 0.5rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(201, 166, 107, 0.28);
+  animation: rise 0.5s ease both;
+}
+.c-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 400;
+  margin: 0 0 0.5rem;
+}
+.c-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+.c-list li {
+  position: relative;
+  padding-left: 0.1rem;
+}
+.react {
+  margin-right: 0.35rem;
+}
+.who {
+  display: block;
+  font-size: 0.75rem;
+  opacity: 0.5;
+  margin-top: 0.15rem;
+}
+.react-row {
+  display: flex;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+}
+.react-btn {
+  background: transparent;
+  padding: 0.25rem 0.45rem;
+  font-size: 1.1rem;
+  border: 1px solid transparent;
+}
+.react-btn.on {
+  border-color: rgba(201, 166, 107, 0.7);
+}
+.comments label {
+  display: block;
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+.comments input {
+  width: 100%;
 }
 .ghost {
   display: inline-block;

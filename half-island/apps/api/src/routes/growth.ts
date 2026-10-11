@@ -8,6 +8,11 @@ import { DECK_TITLES, DECK_TITLES_EN } from "@half-island/shared";
 import { getDb } from "../db/client.js";
 import { id, shanghaiDateKey } from "../lib/ids.js";
 import { trackEvent } from "../services/events.js";
+import {
+  ackNotification,
+  listNotifications,
+  notifyTemplatesPreview,
+} from "../services/notify.js";
 import { sendNudge } from "../services/nudge.js";
 import { getActivePair, pairError } from "../services/pair-access.js";
 import {
@@ -253,5 +258,46 @@ export async function growthRoutes(app: FastifyInstance): Promise<void> {
       .prepare(`SELECT * FROM events ORDER BY created_at DESC LIMIT 100`)
       .all();
     return { events: rows };
+  });
+
+  /** 留存触达：列表（H5 stub 用） */
+  app.get<{ Querystring: { pairId: string; userId: string } }>(
+    "/notifications",
+    async (req, reply) => {
+      const { pairId, userId } = req.query;
+      if (!pairId || !userId) {
+        return reply.code(400).send({ error: "pairId_and_userId_required" });
+      }
+      const pair = getActivePair(pairId, userId);
+      if (typeof pair === "string") {
+        const e = pairError(pair);
+        return reply.code(e.code).send({ error: e.error });
+      }
+      return {
+        notifications: listNotifications({ pairId, userId }),
+        delivery: "stub_h5_local_only" as const,
+        wxSubscribeTemplateIds: notifyTemplatesPreview().wxSubscribeTemplateIds,
+      };
+    },
+  );
+
+  /** H5 本地已展示 / 已读确认（无真实推送） */
+  app.post<{
+    Body: { notifyId: string; userId: string; status?: "local_shown" | "acked" };
+  }>("/notifications/ack", async (req, reply) => {
+    const { notifyId, userId, status } = req.body ?? {};
+    if (!notifyId || !userId) return reply.code(400).send({ error: "invalid_body" });
+    const updated = ackNotification(notifyId, userId, status ?? "acked");
+    if (!updated) return reply.code(404).send({ error: "not_found" });
+    return { notification: updated };
+  });
+
+  /** Admin：预览三类触达文案 + 微信模板占位 */
+  app.get("/admin/notify-templates", async (req, reply) => {
+    const token = (req.headers["x-admin-token"] as string) || "";
+    if (token !== (process.env.ADMIN_TOKEN || "dev-admin")) {
+      return reply.code(401).send({ error: "unauthorized" });
+    }
+    return notifyTemplatesPreview();
   });
 }

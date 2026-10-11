@@ -22,8 +22,13 @@ export const api = {
     userId: string;
     relationshipType: "couple" | "friends";
     displayName?: string;
+    relationshipStage?: import("@half-island/shared").RelationshipStage;
+    anniversaryDate?: string | null;
   }) =>
-    request<{ pair: import("@half-island/shared").Pair }>("/pairs/invite", {
+    request<{
+      pair: import("@half-island/shared").Pair;
+      share: import("@half-island/shared").InviteShareCard;
+    }>("/pairs/invite", {
       method: "POST",
       body: JSON.stringify(body),
     }),
@@ -37,6 +42,26 @@ export const api = {
       method: "POST",
       body: JSON.stringify(body),
     }),
+  updateProfile: (body: {
+    pairId: string;
+    userId: string;
+    relationshipStage?: import("@half-island/shared").RelationshipStage;
+    anniversaryDate?: string | null;
+    displayName?: string;
+  }) =>
+    request<{ pair: import("@half-island/shared").Pair }>("/pairs/profile", {
+      method: "POST",
+      body: JSON.stringify(body),
+    }),
+  inviteShare: (opts: { code?: string; pairId?: string }) => {
+    const q = opts.code
+      ? `code=${encodeURIComponent(opts.code)}`
+      : `pairId=${encodeURIComponent(opts.pairId || "")}`;
+    return request<{
+      share: import("@half-island/shared").InviteShareCard;
+      pair: import("@half-island/shared").Pair;
+    }>(`/invite/share?${q}`);
+  },
   today: (pairId: string, userId: string) =>
     request<{
       dateKey: string;
@@ -46,6 +71,8 @@ export const api = {
       assignment: import("@half-island/shared").Assignment;
       reveal: import("@half-island/shared").Reveal;
       paywall: import("@half-island/shared").SoftPaywallInfo;
+      commentPlaceholder: { zh: string; en: string };
+      notifications: import("@half-island/shared").NotifyEvent[];
     }>(`/today?pairId=${encodeURIComponent(pairId)}&userId=${encodeURIComponent(userId)}`),
   answer: (body: {
     assignmentId: string;
@@ -98,6 +125,42 @@ export const api = {
       method: "POST",
       body: JSON.stringify(body),
     }),
+  postComment: (assignmentId: string, body: {
+    userId: string;
+    body?: string;
+    reaction?: import("@half-island/shared").CommentReaction | null;
+  }) =>
+    request<{
+      comment: import("@half-island/shared").AssignmentComment;
+      comments: import("@half-island/shared").AssignmentComment[];
+      placeholder: { zh: string; en: string };
+    }>(`/assignments/${encodeURIComponent(assignmentId)}/comment`, {
+      method: "POST",
+      body: JSON.stringify(body),
+    }),
+  comments: (assignmentId: string, userId: string) =>
+    request<{
+      comments: import("@half-island/shared").AssignmentComment[];
+      placeholder: { zh: string; en: string };
+    }>(
+      `/assignments/${encodeURIComponent(assignmentId)}/comments?userId=${encodeURIComponent(userId)}`,
+    ),
+  notifications: (pairId: string, userId: string) =>
+    request<{
+      notifications: import("@half-island/shared").NotifyEvent[];
+      delivery: "stub_h5_local_only";
+    }>(
+      `/notifications?pairId=${encodeURIComponent(pairId)}&userId=${encodeURIComponent(userId)}`,
+    ),
+  ackNotification: (body: {
+    notifyId: string;
+    userId: string;
+    status?: "local_shown" | "acked";
+  }) =>
+    request<{ notification: import("@half-island/shared").NotifyEvent }>(
+      "/notifications/ack",
+      { method: "POST", body: JSON.stringify(body) },
+    ),
 };
 
 export { API_BASE };

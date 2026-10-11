@@ -100,6 +100,31 @@ export function migrate(db: DatabaseSync): void {
       needs_review INTEGER NOT NULL DEFAULT 1,
       created_at TEXT NOT NULL
     );
+
+    CREATE TABLE IF NOT EXISTS comments (
+      id TEXT PRIMARY KEY,
+      assignment_id TEXT NOT NULL REFERENCES assignments(id),
+      user_id TEXT NOT NULL REFERENCES users(id),
+      body TEXT NOT NULL,
+      reaction TEXT,
+      created_at TEXT NOT NULL,
+      UNIQUE(assignment_id, user_id)
+    );
+
+    CREATE TABLE IF NOT EXISTS notifications (
+      id TEXT PRIMARY KEY,
+      kind TEXT NOT NULL CHECK (kind IN ('daily_ready', 'partner_answered', 'streak_risk')),
+      pair_id TEXT NOT NULL REFERENCES pairs(id),
+      user_id TEXT NOT NULL REFERENCES users(id),
+      title TEXT NOT NULL,
+      title_en TEXT NOT NULL,
+      body TEXT NOT NULL,
+      body_en TEXT NOT NULL,
+      status TEXT NOT NULL CHECK (status IN ('pending', 'local_shown', 'acked')),
+      payload_json TEXT,
+      date_key TEXT NOT NULL,
+      created_at TEXT NOT NULL
+    );
   `);
 
   const cols = (table: string) =>
@@ -116,6 +141,49 @@ export function migrate(db: DatabaseSync): void {
   }
   if (!pairCols.includes("dissolved_at")) {
     db.exec("ALTER TABLE pairs ADD COLUMN dissolved_at TEXT");
+  }
+  if (!pairCols.includes("relationship_stage")) {
+    db.exec(
+      "ALTER TABLE pairs ADD COLUMN relationship_stage TEXT NOT NULL DEFAULT 'unspecified'",
+    );
+  }
+  if (!pairCols.includes("anniversary_date")) {
+    db.exec("ALTER TABLE pairs ADD COLUMN anniversary_date TEXT");
+  }
+
+  db.exec(`
+    CREATE TABLE IF NOT EXISTS comments (
+      id TEXT PRIMARY KEY,
+      assignment_id TEXT NOT NULL REFERENCES assignments(id),
+      user_id TEXT NOT NULL REFERENCES users(id),
+      body TEXT NOT NULL,
+      reaction TEXT,
+      created_at TEXT NOT NULL,
+      UNIQUE(assignment_id, user_id)
+    );
+    CREATE INDEX IF NOT EXISTS idx_comments_assignment ON comments(assignment_id);
+
+    CREATE TABLE IF NOT EXISTS notifications (
+      id TEXT PRIMARY KEY,
+      kind TEXT NOT NULL CHECK (kind IN ('daily_ready', 'partner_answered', 'streak_risk')),
+      pair_id TEXT NOT NULL REFERENCES pairs(id),
+      user_id TEXT NOT NULL REFERENCES users(id),
+      title TEXT NOT NULL,
+      title_en TEXT NOT NULL,
+      body TEXT NOT NULL,
+      body_en TEXT NOT NULL,
+      status TEXT NOT NULL CHECK (status IN ('pending', 'local_shown', 'acked')),
+      payload_json TEXT,
+      date_key TEXT NOT NULL DEFAULT '',
+      created_at TEXT NOT NULL
+    );
+    CREATE INDEX IF NOT EXISTS idx_notifications_user
+      ON notifications(user_id, created_at DESC);
+  `);
+
+  const ntfCols = cols("notifications");
+  if (ntfCols.length && !ntfCols.includes("date_key")) {
+    db.exec(`ALTER TABLE notifications ADD COLUMN date_key TEXT NOT NULL DEFAULT ''`);
   }
 
   const promptCols = cols("prompts");

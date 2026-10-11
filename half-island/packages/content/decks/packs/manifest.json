@@ -1,0 +1,19 @@
+{
+  "brand": "半个岛",
+  "coreDeck": "v1",
+  "coreCount": 145,
+  "targetTotal": 300,
+  "packs": [
+    {
+      "id": "festival_qixi",
+      "file": "festival_qixi.stub.json",
+      "title": "七夕飞地",
+      "titleEn": "Qixi enclave",
+      "targetCount": 20,
+      "mergedIntoCore": false,
+      "dailyEligibleDefault": false,
+      "relationModes": ["couple", "both"],
+      "notes": "占位结构；审校后再扩满 20 题并合并"
+    }
+  ]
+}

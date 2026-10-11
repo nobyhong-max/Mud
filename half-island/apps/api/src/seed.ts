@@ -33,6 +33,8 @@ function main(): void {
   const db = getDb();
   db.exec(`
     DELETE FROM events;
+    DELETE FROM notifications;
+    DELETE FROM comments;
     DELETE FROM nudges;
     DELETE FROM pair_prompt_history;
     DELETE FROM answer_translations;

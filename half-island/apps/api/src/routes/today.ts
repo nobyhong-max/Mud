@@ -1,8 +1,23 @@
 import type { FastifyInstance } from "fastify";
-import type { AssignmentStatus, Reveal } from "@half-island/shared";
+import type {
+  AssignmentStatus,
+  CommentReaction,
+  Reveal,
+} from "@half-island/shared";
 import { getDb } from "../db/client.js";
 import { id, shanghaiDateKey } from "../lib/ids.js";
+import {
+  commentPlaceholder,
+  isCommentReaction,
+  listComments,
+  upsertComment,
+} from "../services/comments.js";
 import { trackEvent } from "../services/events.js";
+import {
+  enqueueNotify,
+  listNotifications,
+  maybeEnqueueStreakRisk,
+} from "../services/notify.js";
 import { getActivePair, pairError } from "../services/pair-access.js";
 import { buildPaywallInfo } from "../services/paywall.js";
 import { pickDailyPromptId } from "../services/prompt-picker.js";
@@ -71,6 +86,16 @@ export async function todayRoutes(app: FastifyInstance): Promise<void> {
         string,
         unknown
       >;
+      // 日更就绪：双方各一条（限频内）
+      for (const uid of [pair.user_a_id, pair.user_b_id].filter(Boolean) as string[]) {
+        enqueueNotify({
+          kind: "daily_ready",
+          pairId,
+          userId: uid,
+          relationshipType: pair.relationship_type,
+          payload: { assignmentId: newId, dateKey },
+        });
+      }
     }
 
     const promptRow = db
@@ -105,6 +130,15 @@ export async function todayRoutes(app: FastifyInstance): Promise<void> {
       db,
     });
 
+    maybeEnqueueStreakRisk({
+      pairId,
+      userId,
+      relationshipType: pair.relationship_type,
+      lastStreakDate: pair.last_streak_date,
+      streak: pair.streak,
+      todayRevealed: status === "revealed",
+    });
+
     return {
       dateKey,
       pairId,
@@ -114,6 +148,8 @@ export async function todayRoutes(app: FastifyInstance): Promise<void> {
       assignment: mapAssignment(asg),
       reveal,
       paywall: buildPaywallInfo(pair),
+      commentPlaceholder: commentPlaceholder(pair.relationship_type),
+      notifications: listNotifications({ pairId, userId, limit: 5 }),
     };
   });
 
@@ -242,7 +278,105 @@ export async function todayRoutes(app: FastifyInstance): Promise<void> {
       payload: { assignmentId, status },
     });
 
+    // 对方已答 → 通知等待方（不与 nudge 共用计数）
+    const partner = partnerId(pair, userId);
+    if (partner && count === 1) {
+      enqueueNotify({
+        kind: "partner_answered",
+        pairId: String(asg.pair_id),
+        userId: partner,
+        relationshipType: pair.relationship_type,
+        payload: { assignmentId },
+      });
+    }
+
     return { ok: true, assignmentStatus: status };
+  });
+
+  /** 揭晓后短评 / 表情（每人一条；未揭晓 403） */
+  app.post<{
+    Params: { id: string };
+    Body: {
+      userId: string;
+      body?: string;
+      reaction?: CommentReaction | null;
+    };
+  }>("/assignments/:id/comment", async (req, reply) => {
+    const assignmentId = req.params.id;
+    const { userId, body, reaction } = req.body ?? {};
+    if (!userId) return reply.code(400).send({ error: "invalid_body" });
+    if (reaction != null && !isCommentReaction(reaction)) {
+      return reply.code(400).send({ error: "bad_reaction" });
+    }
+
+    const db = getDb();
+    const asg = db
+      .prepare("SELECT * FROM assignments WHERE id = ?")
+      .get(assignmentId) as Record<string, unknown> | undefined;
+    if (!asg) return reply.code(404).send({ error: "assignment_not_found" });
+
+    const pair = getActivePair(String(asg.pair_id), userId);
+    if (typeof pair === "string") {
+      const e = pairError(pair);
+      return reply.code(e.code).send({ error: e.error });
+    }
+    if (asg.status !== "revealed") {
+      return reply.code(403).send({
+        error: "reveal_required",
+        message: "揭晓后才能留言。 / Comment after reveal.",
+      });
+    }
+
+    const result = await upsertComment({
+      assignmentId,
+      userId,
+      body: typeof body === "string" ? body : "",
+      reaction: reaction ?? null,
+    });
+    if ("error" in result) {
+      return reply.code(400).send({ error: result.error });
+    }
+
+    trackEvent("comment_posted", {
+      pairId: String(asg.pair_id),
+      userId,
+      payload: { assignmentId, reaction: reaction ?? null },
+    });
+
+    return {
+      comment: result.comment,
+      comments: listComments(assignmentId),
+      placeholder: commentPlaceholder(pair.relationship_type),
+    };
+  });
+
+  app.get<{
+    Params: { id: string };
+    Querystring: { userId: string };
+  }>("/assignments/:id/comments", async (req, reply) => {
+    const assignmentId = req.params.id;
+    const { userId } = req.query;
+    if (!userId) return reply.code(400).send({ error: "userId_required" });
+
+    const db = getDb();
+    const asg = db
+      .prepare("SELECT * FROM assignments WHERE id = ?")
+      .get(assignmentId) as Record<string, unknown> | undefined;
+    if (!asg) return reply.code(404).send({ error: "assignment_not_found" });
+
+    const pair = getActivePair(String(asg.pair_id), userId);
+    if (typeof pair === "string") {
+      const e = pairError(pair);
+      return reply.code(e.code).send({ error: e.error });
+    }
+    if (asg.status !== "revealed") {
+      return reply.code(403).send({ error: "reveal_required" });
+    }
+
+    return {
+      comments: listComments(assignmentId),
+      placeholder: commentPlaceholder(pair.relationship_type),
+    };
   });
 
   app.post<{ Body: { assignmentId: string; userId: string } }>(
@@ -409,6 +543,7 @@ export async function todayRoutes(app: FastifyInstance): Promise<void> {
             followup: r.followup ? String(r.followup) : null,
             followupEn: r.followup_en ? String(r.followup_en) : null,
             kind: String(r.kind ?? "daily"),
+            comments: listComments(String(r.assignment_id), db),
           };
         }),
       };

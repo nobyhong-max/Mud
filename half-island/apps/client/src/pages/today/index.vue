@@ -8,6 +8,8 @@
       <div class="island-silhouette" aria-hidden="true" />
       <div class="wave" />
 
+      <NotifyBanner :items="notifications" />
+
       <p v-if="error" class="muted">{{ error }}</p>
       <template v-else-if="reveal">
         <p class="meta">
@@ -58,8 +60,9 @@
 
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from "vue";
-import type { Reveal } from "@half-island/shared";
+import type { NotifyEvent, Reveal } from "@half-island/shared";
 import { api } from "../../api/client";
+import NotifyBanner from "../../components/NotifyBanner.vue";
 import SessionBar from "../../components/SessionBar.vue";
 import { dual, UI_COPY } from "../../i18n";
 import { session } from "../../session";
@@ -70,6 +73,7 @@ const streak = ref(0);
 const relationshipType = ref("");
 const error = ref("");
 const softNote = ref("每日一题揭晓永久免费。 / Daily reveal stays free.");
+const notifications = ref<NotifyEvent[]>([]);
 
 const relationshipLabel = computed(() =>
   relationshipType.value === "friends"
@@ -102,6 +106,7 @@ async function load(): Promise<void> {
     streak.value = data.streak;
     relationshipType.value = data.relationshipType;
     softNote.value = data.paywall?.message ?? softNote.value;
+    notifications.value = data.notifications ?? [];
   } catch (e) {
     error.value = e instanceof Error ? e.message : "加载失败 / Failed to load";
   }

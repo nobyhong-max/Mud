@@ -7,6 +7,7 @@
       </select>
     </label>
     <nav class="nav-row">
+      <router-link to="/onboarding">建岛 / Onboard</router-link>
       <router-link to="/invite">邀请 / Invite</router-link>
       <router-link to="/today">今日 / Today</router-link>
       <router-link to="/answer">作答 / Answer</router-link>
